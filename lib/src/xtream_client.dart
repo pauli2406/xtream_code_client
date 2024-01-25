@@ -55,22 +55,6 @@ class XtreamCodeClient {
     const action = 'get_series_categories';
     return _categories(action);
   }
-  /// Common method for retrieving categories based on the given action.
-  Future<Categories> _categories(String action) async {
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
-
-    if (response.statusCode == 200) {
-      final parsed = json.decode(response.body) as Map<String, dynamic>;
-      return Categories.fromJson(parsed);
-    } else {
-      throw XTreamCodeClientException(
-        '''
-        Failed to retrieve Categories from action $action.
-        Server responded with the error code ${response.statusCode}.
-        ''',
-      );
-    }
-  }
   /// Retrieves live stream items based on the optional category parameter.
   Future<LiveStreamItems> livestreamItems(Category? category) async {
     var action = 'get_live_streams';
@@ -197,6 +181,22 @@ class XtreamCodeClient {
       throw XTreamCodeClientException(
         '''
         Failed to retrieve EPG Table from action $action for channel_id ${item.stream_id}
+        Server responded with the error code ${response.statusCode}.
+        ''',
+      );
+    }
+  }
+  /// Common method for retrieving categories based on the given action.
+  Future<Categories> _categories(String action) async {
+    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body) as Map<String, dynamic>;
+      return Categories.fromJson(parsed);
+    } else {
+      throw XTreamCodeClientException(
+        '''
+        Failed to retrieve Categories from action $action.
         Server responded with the error code ${response.statusCode}.
         ''',
       );
