@@ -4,15 +4,15 @@ part 'category.g.dart';
 
 @JsonSerializable()
 class Category {
-  
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
 
   Category({
     required this.categoryId,
     required this.categoryName,
     required this.parentId,
   });
+  
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
   String? categoryId;
   String? categoryName;
   int? parentId;

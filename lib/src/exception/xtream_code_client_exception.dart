@@ -1,4 +1,4 @@
 class XTreamCodeClientException implements Exception {
-  String cause;
   XTreamCodeClientException(this.cause);
+  String cause;
 }

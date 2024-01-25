@@ -5,45 +5,19 @@ part 'vod_info.g.dart';
 
 @JsonSerializable()
 class VodInfo {
-  final Info info;
-  final MovieData movie_data;
 
   VodInfo({required this.info, required this.movie_data});
 
   factory VodInfo.fromJson(Map<String, dynamic> json) =>
       _$VodInfoFromJson(json);
+  final Info info;
+  final MovieData movie_data;
 
   Map<String, dynamic> toJson() => _$VodInfoToJson(this);
 }
 
 @JsonSerializable()
 class Info {
-  final String kinopoisk_url;
-  final int tmdb_id;
-  final String name;
-  final String o_name;
-  final String cover_big;
-  final String movie_image;
-  final DateTime release_date;
-  final int episode_run_time;
-  final String youtube_trailer;
-  final String director;
-  final String actors;
-  final String cast;
-  final String description;
-  final String plot;
-  final String age;
-  final String mpaa_rating;
-  final int rating_count_kinopoisk;
-  final String country;
-  final String genre;
-  final List<String> backdrop_path;
-  final int duration_secs;
-  final String duration;
-  final int bitrate;
-  final int rating;
-  final DateTime releasedate;
-  final List<dynamic> subtitles;
 
   Info({
     required this.kinopoisk_url,
@@ -75,23 +49,38 @@ class Info {
   });
 
   factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
+  final String kinopoisk_url;
+  final int tmdb_id;
+  final String name;
+  final String o_name;
+  final String cover_big;
+  final String movie_image;
+  final DateTime release_date;
+  final int episode_run_time;
+  final String youtube_trailer;
+  final String director;
+  final String actors;
+  final String cast;
+  final String description;
+  final String plot;
+  final String age;
+  final String mpaa_rating;
+  final int rating_count_kinopoisk;
+  final String country;
+  final String genre;
+  final List<String> backdrop_path;
+  final int duration_secs;
+  final String duration;
+  final int bitrate;
+  final int rating;
+  final DateTime releasedate;
+  final List<dynamic> subtitles;
 
   Map<String, dynamic> toJson() => _$InfoToJson(this);
 }
 
 @JsonSerializable()
 class MovieData {
-  final int stream_id;
-  final String name;
-  final String title;
-  final String year;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime added;
-  final String category_id;
-  final List<int> category_ids;
-  final String container_extension;
-  final String custom_sid;
-  final String direct_source;
 
   MovieData({
     required this.stream_id,
@@ -108,6 +97,17 @@ class MovieData {
 
   factory MovieData.fromJson(Map<String, dynamic> json) =>
       _$MovieDataFromJson(json);
+  final int stream_id;
+  final String name;
+  final String title;
+  final String year;
+  @JsonKey(fromJson: dateTimeFromEpochSeconds)
+  final DateTime added;
+  final String category_id;
+  final List<int> category_ids;
+  final String container_extension;
+  final String custom_sid;
+  final String direct_source;
 
   Map<String, dynamic> toJson() => _$MovieDataToJson(this);
 }

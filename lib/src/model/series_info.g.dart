@@ -16,7 +16,7 @@ SeriesInfo _$SeriesInfoFromJson(Map<String, dynamic> json) => SeriesInfo(
             k,
             (e as List<dynamic>)
                 .map((e) => Episode.fromJson(e as Map<String, dynamic>))
-                .toList()),
+                .toList(),),
       ),
     );
 
