@@ -16,17 +16,23 @@ import 'package:xtream_code_client/src/model/vod_items.dart';
 class XtreamCodeClient {
   /// Constructs an instance of [XtreamCodeClient].
   XtreamCodeClient(
-    this.baseUrl,
-    this.http,
+    this._baseUrl,
+    this._http,
   );
+
   /// The base URL of the Xtream Code server.
-  final String baseUrl;
-  /// The HTTP client for making requests to the server.
-  final Client http;
+  final String _baseUrl;
+  /// The base URL getterof the Xtream Code server.
+  String get baseUrl => _baseUrl;
+
+  /// The _http client for making requests to the server.
+  final Client _http;
 
   /// Authenticates the user and retrieves login information.
   Future<LoginInfo> login() async {
-    final response = await http.get(Uri.parse(baseUrl));
+    final response = await _http.get(Uri.parse(
+      _baseUrl,
+    ));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -40,28 +46,32 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves live stream categories.
   Future<Categories> liveStreamCategories() async {
     const action = 'get_live_categories';
     return _categories(action);
   }
+
   /// Retrieves VOD categories.
   Future<Categories> vodCategories() async {
     const action = 'get_vod_categories';
     return _categories(action);
   }
+
   /// Retrieves series categories.
   Future<Categories> seriesCategories() async {
     const action = 'get_series_categories';
     return _categories(action);
   }
+
   /// Retrieves live stream items based on the optional category parameter.
   Future<LiveStreamItems> livestreamItems(Category? category) async {
     var action = 'get_live_streams';
     if (category != null) {
       action = '$action&category_id=${category.categoryId}';
     }
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -75,13 +85,14 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves VOD items based on the optional category parameter.
   Future<VodItems> vodItems(Category? category) async {
     var action = 'get_vod_streams';
     if (category != null) {
       action = '$action&category_id=${category.categoryId}';
     }
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -95,10 +106,11 @@ class XtreamCodeClient {
       );
     }
   }
-  /// Retrieves information about a specific VOD item.  
+
+  /// Retrieves information about a specific VOD item.
   Future<SeriesInfo> vodInfo(VodItem series) async {
     final action = 'get_vod_info&vod_id=${series.stream_id}';
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -112,13 +124,14 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves series items based on the optional category parameter.
   Future<SeriesItems> seriesItems(Category? category) async {
     var action = 'get_series';
     if (category != null) {
       action = '$action&category_id=${category.categoryId}';
     }
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -132,10 +145,11 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves information about a specific series item.
   Future<SeriesInfo> seriesInfo(SeriesItem series) async {
     final action = 'get_series_info&series_id=${series.series_id}';
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -149,13 +163,14 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves EPG information for a specific live stream item.
   Future<ChannelEpg> channelEpg(LiveStreamItem item, int? limit) async {
     var action = 'get_short_epg&stream_id=${item.stream_id}';
     if (limit != null) {
       action = '$action&limit=$limit';
     }
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -169,10 +184,11 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Retrieves EPG table for a specific live stream item.
   Future<ChannelEpgTable> channelEpgTable(LiveStreamItem item) async {
     final action = 'get_simple_data_table&stream_id=${item.stream_id}';
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
@@ -186,9 +202,10 @@ class XtreamCodeClient {
       );
     }
   }
+
   /// Common method for retrieving categories based on the given action.
   Future<Categories> _categories(String action) async {
-    final response = await http.get(Uri.parse('$baseUrl&action=$action'));
+    final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body) as Map<String, dynamic>;
