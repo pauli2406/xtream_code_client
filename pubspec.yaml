@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  intl: ^0.18.1
+  intl: ">=0.18.1 <0.20.0"
   json_annotation: ^4.8.1
 
 dev_dependencies:
