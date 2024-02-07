@@ -78,28 +78,28 @@ Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
     };
 
 MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
-      stream_id: json['stream_id'] as int,
+      streamId: json['stream_id'] as int,
       name: json['name'] as String,
       title: json['title'] as String,
       year: json['year'] as String,
       added: dateTimeFromEpochSeconds(json['added'] as int),
-      category_id: json['category_id'] as String,
-      category_ids:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
-      container_extension: json['container_extension'] as String,
-      custom_sid: json['custom_sid'] as String,
-      direct_source: json['direct_source'] as String,
+      categoryId: json['categoryId'] as String,
+      categoryIds:
+          (json['categoryIds'] as List<dynamic>).map((e) => e as int).toList(),
+      containerExtension: json['containerExtension'] as String,
+      customSid: json['custom_sid'] as String,
+      directSource: json['direct_source'] as String,
     );
 
 Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
-      'stream_id': instance.stream_id,
+      'stream_id': instance.streamId,
       'name': instance.name,
       'title': instance.title,
       'year': instance.year,
       'added': instance.added.toIso8601String(),
-      'category_id': instance.category_id,
-      'category_ids': instance.category_ids,
-      'container_extension': instance.container_extension,
-      'custom_sid': instance.custom_sid,
-      'direct_source': instance.direct_source,
+      'categoryId': instance.categoryId,
+      'categoryIds': instance.categoryIds,
+      'containerExtension': instance.containerExtension,
+      'custom_sid': instance.customSid,
+      'direct_source': instance.directSource,
     };

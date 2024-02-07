@@ -23,23 +23,22 @@ class SeriesItem {
     required this.name,
     required this.title,
     required this.year,
-    required this.stream_type,
-    required this.series_id,
+    required this.streamType,
+    required this.seriesId,
     required this.cover,
     required this.plot,
     required this.cast,
     required this.director,
     required this.genre,
-    required this.release_date,
     required this.releaseDate,
-    required this.last_modified,
+    required this.lastModified,
     required this.rating,
-    required this.rating_5based,
-    required this.backdrop_path,
-    required this.youtube_trailer,
-    required this.episode_run_time,
-    required this.category_id,
-    required this.category_ids,
+    required this.rating5based,
+    required this.backdropPath,
+    required this.youtubeTrailer,
+    required this.episodeRunTime,
+    required this.categoryId,
+    required this.categoryIds,
   });
 
   factory SeriesItem.fromJson(Map<String, dynamic> json) =>
@@ -48,24 +47,32 @@ class SeriesItem {
   final String name;
   final String title;
   final String year;
-  final String stream_type;
-  final int series_id;
+  @JsonKey(name: 'stream_type')
+  final String streamType;
+  @JsonKey(name: 'series_id')
+  final int seriesId;
   final String cover;
   final String plot;
   final String cast;
   final String director;
   final String genre;
-  DateTime release_date;
   DateTime releaseDate;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime last_modified;
+  @JsonKey(name: 'last_modified')
+  final DateTime lastModified;
   final String rating;
-  final double rating_5based;
-  final List<String> backdrop_path;
-  final String youtube_trailer;
-  final String episode_run_time;
-  final String category_id;
-  final List<int> category_ids;
+  @JsonKey(name: 'rating_5based')
+  final double rating5based;
+  @JsonKey(name: 'backdrop_path')
+  final List<String> backdropPath;
+  @JsonKey(name: 'youtube_trailer')
+  final String youtubeTrailer;
+  @JsonKey(name: 'episode_run_time')
+  final String episodeRunTime;
+  @JsonKey(name: 'category_id')
+  final String categoryId;
+  @JsonKey(name: 'category_ids')
+  final List<int> categoryIds;
 
   Map<String, dynamic> toJson() => _$SeriesItemToJson(this);
 }

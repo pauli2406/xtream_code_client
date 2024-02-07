@@ -21,17 +21,17 @@ class LiveStreamItem {
   LiveStreamItem({
     required this.num,
     required this.name,
-    required this.stream_type,
-    required this.stream_id,
-    required this.stream_icon,
-    required this.epg_channel_id,
+    required this.streamType,
+    required this.streamId,
+    required this.streamIcon,
+    required this.epgChannelId,
     required this.added,
-    required this.custom_sid,
-    required this.tv_archive,
-    required this.direct_source,
-    required this.tv_archive_duration,
-    required this.category_id,
-    required this.category_ids,
+    required this.customSid,
+    required this.tvArchive,
+    required this.directSource,
+    required this.tvArchiveDuration,
+    required this.categoryId,
+    required this.categoryIds,
     required this.thumbnail,
   });
 
@@ -39,18 +39,28 @@ class LiveStreamItem {
       _$LiveStreamItemFromJson(json);
   final int num;
   final String name;
-  final String stream_type;
-  final int stream_id;
-  final String stream_icon;
-  final String epg_channel_id;
+  @JsonKey(name: 'stream_type')
+  final String streamType;
+  @JsonKey(name: 'stream_id')
+  final int streamId;
+  @JsonKey(name: 'stream_icon')
+  final String streamIcon;
+  @JsonKey(name: 'epg_channel_id')
+  final String epgChannelId;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime added;
-  final String custom_sid;
-  final int tv_archive;
-  final String direct_source;
-  final int tv_archive_duration;
-  final String category_id;
-  final List<int> category_ids;
+  @JsonKey(name: 'custom_sid')
+  final String customSid;
+  @JsonKey(name: 'tv_archive')
+  final int tvArchive;
+  @JsonKey(name: 'direct_source')
+  final String directSource;
+  @JsonKey(name: 'tv_archive_duration')
+  final int tvArchiveDuration;
+  @JsonKey(name: 'category_id')
+  final String categoryId;
+  @JsonKey(name: 'category_ids')
+  final List<int> categoryIds;
   final String thumbnail;
 
   Map<String, dynamic> toJson() => _$LiveStreamItemToJson(this);

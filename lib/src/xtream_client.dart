@@ -22,6 +22,7 @@ class XtreamCodeClient {
 
   /// The base URL of the Xtream Code server.
   final String _baseUrl;
+
   /// The base URL getterof the Xtream Code server.
   String get baseUrl => _baseUrl;
 
@@ -109,7 +110,7 @@ class XtreamCodeClient {
 
   /// Retrieves information about a specific VOD item.
   Future<SeriesInfo> vodInfo(VodItem series) async {
-    final action = 'get_vod_info&vod_id=${series.stream_id}';
+    final action = 'get_vod_info&vod_id=${series.streamId}';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
@@ -148,7 +149,7 @@ class XtreamCodeClient {
 
   /// Retrieves information about a specific series item.
   Future<SeriesInfo> seriesInfo(SeriesItem series) async {
-    final action = 'get_series_info&series_id=${series.series_id}';
+    final action = 'get_series_info&series_id=${series.seriesId}';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
@@ -166,7 +167,7 @@ class XtreamCodeClient {
 
   /// Retrieves EPG information for a specific live stream item.
   Future<ChannelEpg> channelEpg(LiveStreamItem item, int? limit) async {
-    var action = 'get_short_epg&stream_id=${item.stream_id}';
+    var action = 'get_short_epg&stream_id=${item.streamId}';
     if (limit != null) {
       action = '$action&limit=$limit';
     }
@@ -178,7 +179,7 @@ class XtreamCodeClient {
     } else {
       throw XTreamCodeClientException(
         '''
-        Failed to retrieve EPG from action $action for channel_id ${item.stream_id}
+        Failed to retrieve EPG from action $action for channel_id ${item.streamId}
         Server responded with the error code ${response.statusCode}.
         ''',
       );
@@ -187,7 +188,7 @@ class XtreamCodeClient {
 
   /// Retrieves EPG table for a specific live stream item.
   Future<ChannelEpgTable> channelEpgTable(LiveStreamItem item) async {
-    final action = 'get_simple_data_table&stream_id=${item.stream_id}';
+    final action = 'get_simple_data_table&stream_id=${item.streamId}';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
@@ -196,7 +197,7 @@ class XtreamCodeClient {
     } else {
       throw XTreamCodeClientException(
         '''
-        Failed to retrieve EPG Table from action $action for channel_id ${item.stream_id}
+        Failed to retrieve EPG Table from action $action for channel_id ${item.streamId}
         Server responded with the error code ${response.statusCode}.
         ''',
       );

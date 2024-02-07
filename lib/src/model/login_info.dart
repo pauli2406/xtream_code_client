@@ -13,7 +13,9 @@ class LoginInfo {
 
   factory LoginInfo.fromJson(Map<String, dynamic> json) =>
       _$LoginInfoFromJson(json);
+  @JsonKey(name: 'user_info')
   UserInfo? userInfo;
+  @JsonKey(name: 'server_info')
   ServerInfo? serverInfo;
 
   Map<String, dynamic> toJson() => _$LoginInfoToJson(this);

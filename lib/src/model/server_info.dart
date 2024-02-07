@@ -26,12 +26,15 @@ class ServerInfo {
   int? revision;
   String? url;
   String? port;
+  @JsonKey(name: 'https_port')
   String? httpsPort;
+  @JsonKey(name: 'server_protocol')
   String? serverProtocol;
+  @JsonKey(name: 'rtmp_port')
   String? rtmpPort;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
+  @JsonKey(name: 'timestamp_now', fromJson: dateTimeFromEpochSeconds)
   DateTime timestampNow;
-  @JsonKey(fromJson: dateTimeFromString)
+  @JsonKey(name: 'time_now', fromJson: dateTimeFromString)
   DateTime timeNow;
   String? timezone;
 

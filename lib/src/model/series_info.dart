@@ -25,28 +25,33 @@ class SeriesInfo {
 class Season {
 
   Season({
-    required this.air_date,
-    required this.episode_count,
+    required this.airDate,
+    required this.episodeCount,
     required this.id,
     required this.name,
     required this.overview,
-    required this.season_number,
-    required this.vote_average,
+    required this.seasonNumber,
+    required this.voteAverage,
     required this.cover,
-    required this.cover_big,
+    required this.coverBig,
   });
 
   factory Season.fromJson(Map<String, dynamic> json) =>
       _$SeasonFromJson(json);
-  final String air_date;
-  final int episode_count;
+  @JsonKey(name: 'air_date')
+  final String airDate;
+  @JsonKey(name: 'episode_count')
+  final int episodeCount;
   final int id;
   final String name;
   final String overview;
-  final int season_number;
-  final int vote_average;
+  @JsonKey(name: 'season_number')
+  final int seasonNumber;
+  @JsonKey(name: 'vote_average')
+  final int voteAverage;
   final String cover;
-  final String cover_big;
+  @JsonKey(name: 'cover_big')
+  final String coverBig;
 
   Map<String, dynamic> toJson() => _$SeasonToJson(this);
 }
@@ -63,16 +68,15 @@ class Info {
     required this.cast,
     required this.director,
     required this.genre,
-    required this.release_date,
     required this.releaseDate,
-    required this.last_modified,
+    required this.lastModified,
     required this.rating,
-    required this.rating_5based,
-    required this.backdrop_path,
-    required this.youtube_trailer,
-    required this.episode_run_time,
-    required this.category_id,
-    required this.category_ids,
+    required this.rating5based,
+    required this.backdropPath,
+    required this.youtubeTrailer,
+    required this.episodeRunTime,
+    required this.categoryId,
+    required this.categoryIds,
   });
 
   factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
@@ -84,17 +88,22 @@ class Info {
   final String cast;
   final String director;
   final String genre;
-  final DateTime release_date;
   final DateTime releaseDate;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime last_modified;
+  @JsonKey(name: 'last_modified', fromJson: dateTimeFromEpochSeconds)
+  final DateTime lastModified;
   final String rating;
-  final double rating_5based;
-  final List<String> backdrop_path;
-  final String youtube_trailer;
-  final String episode_run_time;
-  final String category_id;
-  final List<int> category_ids;
+  @JsonKey(name: 'rating_5based')
+  final double rating5based;
+  @JsonKey(name: 'backdrop_path')
+  final List<String> backdropPath;
+  @JsonKey(name: 'youtube_trailer')
+  final String youtubeTrailer;
+  @JsonKey(name: 'episode_run_time')
+  final String episodeRunTime;
+  @JsonKey(name: 'category_id')
+  final String categoryId;
+  @JsonKey(name: 'categoryIds')
+  final List<int> categoryIds;
 
   Map<String, dynamic> toJson() => _$InfoToJson(this);
 }
@@ -104,30 +113,34 @@ class Episode {
 
   Episode({
     required this.id,
-    required this.episode_num,
+    required this.episodeNum,
     required this.title,
-    required this.container_extension,
+    required this.containerExtension,
     required this.info,
     required this.subtitles,
-    required this.custom_sid,
+    required this.customSid,
     required this.added,
     required this.season,
-    required this.direct_source,
+    required this.directSource,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) =>
       _$EpisodeFromJson(json);
   final String id;
-  final String episode_num;
+  @JsonKey(name: 'episode_num')
+  final String episodeNum;
   final String title;
-  final String container_extension;
+  @JsonKey(name: 'container_extension')
+  final String containerExtension;
   final EpisodeInfo info;
   final List<String> subtitles;
-  final String custom_sid;
+  @JsonKey(name: 'custom_sid')
+  final String customSid;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime added;
   final int season;
-  final String direct_source;
+  @JsonKey(name: 'direct_source')
+  final String directSource;
 
   Map<String, dynamic> toJson() => _$EpisodeToJson(this);
 }
@@ -136,30 +149,35 @@ class Episode {
 class EpisodeInfo {
 
   EpisodeInfo({
-    required this.tmdb_id,
-    required this.release_date,
+    required this.tmdbId,
+    required this.releaseDate,
     required this.plot,
-    required this.duration_secs,
+    required this.durationSecs,
     required this.duration,
-    required this.movie_image,
+    required this.movieImage,
     required this.bitrate,
     required this.rating,
     required this.season,
-    required this.cover_big,
+    required this.coverBig,
   });
 
   factory EpisodeInfo.fromJson(Map<String, dynamic> json) =>
       _$EpisodeInfoFromJson(json);
-  final int tmdb_id;
-  final DateTime release_date;
+  @JsonKey(name: 'tmdb_id')
+  final int tmdbId;
+  @JsonKey(name: 'release_date')
+  final DateTime releaseDate;
   final String plot;
-  final int duration_secs;
+  @JsonKey(name: 'duration_secs')
+  final int durationSecs;
   final String duration;
-  final String movie_image;
+  @JsonKey(name: 'movie_image')
+  final String movieImage;
   final int bitrate;
   final double rating;
   final int season;
-  final String cover_big;
+  @JsonKey(name: 'cover_big')
+  final String coverBig;
 
   Map<String, dynamic> toJson() => _$EpisodeInfoToJson(this);
 

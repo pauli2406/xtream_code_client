@@ -12,12 +12,12 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       message: json['message'] as String?,
       auth: json['auth'] as int?,
       status: json['status'] as String?,
-      expDate: dateTimeFromEpochSeconds(json['expDate'] as int),
-      isTrial: json['isTrial'] as String?,
-      activeCons: json['activeCons'] as String?,
-      createdAt: dateTimeFromEpochSeconds(json['createdAt'] as int),
-      maxConnections: json['maxConnections'] as String?,
-      allowedOutputFormats: (json['allowedOutputFormats'] as List<dynamic>?)
+      expDate: dateTimeFromEpochSeconds(json['exp_date'] as int),
+      isTrial: json['is_trial'] as String?,
+      activeCons: json['active_cons'] as String?,
+      createdAt: dateTimeFromEpochSeconds(json['created_at'] as int),
+      maxConnections: json['max_connections'] as String?,
+      allowedOutputFormats: (json['allowed_output_formats'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
     );
@@ -28,10 +28,10 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'message': instance.message,
       'auth': instance.auth,
       'status': instance.status,
-      'expDate': instance.expDate.toIso8601String(),
-      'isTrial': instance.isTrial,
-      'activeCons': instance.activeCons,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'maxConnections': instance.maxConnections,
-      'allowedOutputFormats': instance.allowedOutputFormats,
+      'exp_date': instance.expDate.toIso8601String(),
+      'is_trial': instance.isTrial,
+      'active_cons': instance.activeCons,
+      'created_at': instance.createdAt.toIso8601String(),
+      'max_connections': instance.maxConnections,
+      'allowed_output_formats': instance.allowedOutputFormats,
     };

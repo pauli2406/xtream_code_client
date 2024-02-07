@@ -20,33 +20,35 @@ class EpgListing {
 
   EpgListing({
     required this.id,
-    required this.epg_id,
+    required this.epgId,
     required this.title,
     required this.lang,
     required this.start,
     required this.end,
     required this.description,
-    required this.channel_id,
-    required this.start_timestamp,
-    required this.stop_timestamp,
+    required this.channelId,
+    required this.startTimestamp,
+    required this.stopTimestamp,
     required this.stop,
   });
 
   factory EpgListing.fromJson(Map<String, dynamic> json) =>
       _$EpgListingFromJson(json);
   final String id;
-  final String epg_id;
+  @JsonKey(name: 'epg_id')
+  final String epgId;
   final String title;
   final String lang;
   final DateTime start;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime end;
   final String description;
-  final String channel_id;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime start_timestamp;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime stop_timestamp;
+  @JsonKey(name: 'channel_id')
+  final String channelId;
+  @JsonKey(name: 'start_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime startTimestamp;
+  @JsonKey(name: 'stop_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime stopTimestamp;
   final DateTime stop;
 
   Map<String, dynamic> toJson() => _$EpgListingToJson(this);

@@ -26,13 +26,17 @@ class UserInfo {
   String? message;
   int? auth;
   String? status;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
+  @JsonKey(name: 'exp_date', fromJson: dateTimeFromEpochSeconds)
   final DateTime expDate;
+  @JsonKey(name: 'is_trial')
   String? isTrial;
+  @JsonKey(name: 'active_cons')
   String? activeCons;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
+  @JsonKey(name: 'created_at', fromJson: dateTimeFromEpochSeconds)
   final DateTime createdAt;
+  @JsonKey(name: 'max_connections')
   String? maxConnections;
+  @JsonKey(name: 'allowed_output_formats')
   List<String>? allowedOutputFormats;
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);

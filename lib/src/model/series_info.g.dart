@@ -16,7 +16,7 @@ SeriesInfo _$SeriesInfoFromJson(Map<String, dynamic> json) => SeriesInfo(
             k,
             (e as List<dynamic>)
                 .map((e) => Episode.fromJson(e as Map<String, dynamic>))
-                .toList(),),
+                .toList()),
       ),
     );
 
@@ -28,27 +28,27 @@ Map<String, dynamic> _$SeriesInfoToJson(SeriesInfo instance) =>
     };
 
 Season _$SeasonFromJson(Map<String, dynamic> json) => Season(
-      air_date: json['air_date'] as String,
-      episode_count: json['episode_count'] as int,
+      airDate: json['air_date'] as String,
+      episodeCount: json['episode_count'] as int,
       id: json['id'] as int,
       name: json['name'] as String,
       overview: json['overview'] as String,
-      season_number: json['season_number'] as int,
-      vote_average: json['vote_average'] as int,
+      seasonNumber: json['season_number'] as int,
+      voteAverage: json['vote_average'] as int,
       cover: json['cover'] as String,
-      cover_big: json['cover_big'] as String,
+      coverBig: json['cover_big'] as String,
     );
 
 Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
-      'air_date': instance.air_date,
-      'episode_count': instance.episode_count,
+      'air_date': instance.airDate,
+      'episode_count': instance.episodeCount,
       'id': instance.id,
       'name': instance.name,
       'overview': instance.overview,
-      'season_number': instance.season_number,
-      'vote_average': instance.vote_average,
+      'season_number': instance.seasonNumber,
+      'vote_average': instance.voteAverage,
       'cover': instance.cover,
-      'cover_big': instance.cover_big,
+      'cover_big': instance.coverBig,
     };
 
 Info _$InfoFromJson(Map<String, dynamic> json) => Info(
@@ -60,19 +60,18 @@ Info _$InfoFromJson(Map<String, dynamic> json) => Info(
       cast: json['cast'] as String,
       director: json['director'] as String,
       genre: json['genre'] as String,
-      release_date: DateTime.parse(json['release_date'] as String),
       releaseDate: DateTime.parse(json['releaseDate'] as String),
-      last_modified: dateTimeFromEpochSeconds(json['last_modified'] as int),
+      lastModified: dateTimeFromEpochSeconds(json['last_modified'] as int),
       rating: json['rating'] as String,
-      rating_5based: (json['rating_5based'] as num).toDouble(),
-      backdrop_path: (json['backdrop_path'] as List<dynamic>)
+      rating5based: (json['rating_5based'] as num).toDouble(),
+      backdropPath: (json['backdrop_path'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      youtube_trailer: json['youtube_trailer'] as String,
-      episode_run_time: json['episode_run_time'] as String,
-      category_id: json['category_id'] as String,
-      category_ids:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
+      youtubeTrailer: json['youtube_trailer'] as String,
+      episodeRunTime: json['episode_run_time'] as String,
+      categoryId: json['category_id'] as String,
+      categoryIds:
+          (json['categoryIds'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
@@ -84,68 +83,67 @@ Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
       'cast': instance.cast,
       'director': instance.director,
       'genre': instance.genre,
-      'release_date': instance.release_date.toIso8601String(),
       'releaseDate': instance.releaseDate.toIso8601String(),
-      'last_modified': instance.last_modified.toIso8601String(),
+      'last_modified': instance.lastModified.toIso8601String(),
       'rating': instance.rating,
-      'rating_5based': instance.rating_5based,
-      'backdrop_path': instance.backdrop_path,
-      'youtube_trailer': instance.youtube_trailer,
-      'episode_run_time': instance.episode_run_time,
-      'category_id': instance.category_id,
-      'category_ids': instance.category_ids,
+      'rating_5based': instance.rating5based,
+      'backdrop_path': instance.backdropPath,
+      'youtube_trailer': instance.youtubeTrailer,
+      'episode_run_time': instance.episodeRunTime,
+      'category_id': instance.categoryId,
+      'categoryIds': instance.categoryIds,
     };
 
 Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
       id: json['id'] as String,
-      episode_num: json['episode_num'] as String,
+      episodeNum: json['episode_num'] as String,
       title: json['title'] as String,
-      container_extension: json['container_extension'] as String,
+      containerExtension: json['container_extension'] as String,
       info: EpisodeInfo.fromJson(json['info'] as Map<String, dynamic>),
       subtitles:
           (json['subtitles'] as List<dynamic>).map((e) => e as String).toList(),
-      custom_sid: json['custom_sid'] as String,
+      customSid: json['custom_sid'] as String,
       added: dateTimeFromEpochSeconds(json['added'] as int),
       season: json['season'] as int,
-      direct_source: json['direct_source'] as String,
+      directSource: json['direct_source'] as String,
     );
 
 Map<String, dynamic> _$EpisodeToJson(Episode instance) => <String, dynamic>{
       'id': instance.id,
-      'episode_num': instance.episode_num,
+      'episode_num': instance.episodeNum,
       'title': instance.title,
-      'container_extension': instance.container_extension,
+      'container_extension': instance.containerExtension,
       'info': instance.info,
       'subtitles': instance.subtitles,
-      'custom_sid': instance.custom_sid,
+      'custom_sid': instance.customSid,
       'added': instance.added.toIso8601String(),
       'season': instance.season,
-      'direct_source': instance.direct_source,
+      'direct_source': instance.directSource,
     };
 
 EpisodeInfo _$EpisodeInfoFromJson(Map<String, dynamic> json) => EpisodeInfo(
-      tmdb_id: json['tmdb_id'] as int,
-      release_date: DateTime.parse(json['release_date'] as String),
+      tmdbId: json['tmdb_id'] as int,
+      releaseDate: DateTime.parse(json['release_date'] as String),
       plot: json['plot'] as String,
-      duration_secs: json['duration_secs'] as int,
+      durationSecs: json['duration_secs'] as int,
       duration: json['duration'] as String,
-      movie_image: json['movie_image'] as String,
+      movieImage: json['movie_image'] as String,
       bitrate: json['bitrate'] as int,
       rating: (json['rating'] as num).toDouble(),
       season: json['season'] as int,
-      cover_big: json['cover_big'] as String,
+      coverBig: json['cover_big'] as String,
     );
 
 Map<String, dynamic> _$EpisodeInfoToJson(EpisodeInfo instance) =>
     <String, dynamic>{
-      'tmdb_id': instance.tmdb_id,
-      'release_date': instance.release_date.toIso8601String(),
+      'tmdb_id': instance.tmdbId,
+      'release_date': instance.releaseDate.toIso8601String(),
       'plot': instance.plot,
-      'duration_secs': instance.duration_secs,
+      'duration_secs': instance.durationSecs,
       'duration': instance.duration,
-      'movie_image': instance.movie_image,
+      'movie_image': instance.movieImage,
       'bitrate': instance.bitrate,
       'rating': instance.rating,
       'season': instance.season,
-      'cover_big': instance.cover_big,
+      'cover_big': instance.coverBig,
     };

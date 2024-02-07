@@ -83,31 +83,37 @@ class Info {
 class MovieData {
 
   MovieData({
-    required this.stream_id,
+    required this.streamId,
     required this.name,
     required this.title,
     required this.year,
     required this.added,
-    required this.category_id,
-    required this.category_ids,
-    required this.container_extension,
-    required this.custom_sid,
-    required this.direct_source,
+    required this.categoryId,
+    required this.categoryIds,
+    required this.containerExtension,
+    required this.customSid,
+    required this.directSource,
   });
 
   factory MovieData.fromJson(Map<String, dynamic> json) =>
       _$MovieDataFromJson(json);
-  final int stream_id;
+  @JsonKey(name: 'stream_id')
+  final int streamId;
   final String name;
   final String title;
   final String year;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime added;
-  final String category_id;
-  final List<int> category_ids;
-  final String container_extension;
-  final String custom_sid;
-  final String direct_source;
+  @JsonKey(name: 'categoryId')
+  final String categoryId;
+  @JsonKey(name: 'categoryIds')
+  final List<int> categoryIds;
+  @JsonKey(name: 'containerExtension')
+  final String containerExtension;
+  @JsonKey(name: 'custom_sid')
+  final String customSid;
+  @JsonKey(name: 'direct_source')
+  final String directSource;
 
   Map<String, dynamic> toJson() => _$MovieDataToJson(this);
 }

@@ -23,17 +23,17 @@ class VodItem {
     required this.name,
     required this.title,
     required this.year,
-    required this.stream_type,
-    required this.stream_id,
-    required this.stream_icon,
+    required this.streamType,
+    required this.streamId,
+    required this.streamIcon,
     required this.rating,
-    required this.rating_5based,
+    required this.rating5based,
     required this.added,
-    required this.category_id,
-    required this.category_ids,
-    required this.container_extension,
-    required this.custom_sid,
-    required this.direct_source,
+    required this.categoryId,
+    required this.categoryIds,
+    required this.containerExtension,
+    required this.customSid,
+    required this.directSource,
   });
 
   factory VodItem.fromJson(Map<String, dynamic> json) =>
@@ -42,18 +42,27 @@ class VodItem {
   final String name;
   final String title;
   final String year;
-  final String stream_type;
-  final int stream_id;
-  final String stream_icon;
+  @JsonKey(name: 'stream_type')
+  final String streamType;
+  @JsonKey(name: 'stream_id')
+  final int streamId;
+  @JsonKey(name: 'stream_icon')
+  final String streamIcon;
   final int rating;
-  final int rating_5based;
+  @JsonKey(name: 'rating_5based')
+  final int rating5based;
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime added;
-  final String category_id;
-  final List<int> category_ids;
-  final String container_extension;
-  final String custom_sid;
-  final String direct_source;
+  @JsonKey(name: 'categoryId')
+  final String categoryId;
+  @JsonKey(name: 'category_ids')
+  final List<int> categoryIds;
+  @JsonKey(name: 'container_extension')
+  final String containerExtension;
+  @JsonKey(name: 'customSid')
+  final String customSid;
+  @JsonKey(name: 'direct_source')
+  final String directSource;
 
   Map<String, dynamic> toJson() => _$VodItemToJson(this);
 }

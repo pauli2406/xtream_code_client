@@ -20,37 +20,39 @@ class EpgListing {
 
   EpgListing({
     required this.id,
-    required this.epg_id,
+    required this.epgId,
     required this.title,
     required this.lang,
     required this.start,
     required this.end,
     required this.description,
-    required this.channel_id,
-    required this.start_timestamp,
-    required this.stop_timestamp,
-    required this.now_playing,
-    required this.has_archive,
+    required this.channelId,
+    required this.startTimestamp,
+    required this.stopTimestamp,
+    required this.nowPlaying,
+    required this.hasArchive,
   });
 
   factory EpgListing.fromJson(Map<String, dynamic> json) =>
       _$EpgListingFromJson(json);
   final String id;
-  final String epg_id;
+  @JsonKey(name: 'epg_id')
+  final String epgId;
   final String title;
   final String lang;
   final DateTime start;
   final DateTime end;
   final String description;
-  final String channel_id;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime start_timestamp;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime stop_timestamp;
-  @JsonKey(fromJson: intToBool)
-  final bool now_playing;
-  @JsonKey(fromJson: intToBool)
-  final bool has_archive;
+  @JsonKey(name: 'channel_id')
+  final String channelId;
+  @JsonKey(name: 'start_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime startTimestamp;
+  @JsonKey(name: 'stop_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime stopTimestamp;
+  @JsonKey(name: 'now_playing', fromJson: intToBool)
+  final bool nowPlaying;
+  @JsonKey(name: 'has_archive', fromJson: intToBool)
+  final bool hasArchive;
 
   Map<String, dynamic> toJson() => _$EpgListingToJson(this);
 }
