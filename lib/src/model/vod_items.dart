@@ -3,28 +3,17 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'vod_items.g.dart';
 
+/// Represents a VOD (Video On Demand) item in Xtream Code.
 @JsonSerializable()
-class VodItems {
-
-  VodItems({required this.vodItems});
-
-  factory VodItems.fromJson(Map<String, dynamic> json) =>
-      _$VodItemsFromJson(json);
-  final List<VodItem> vodItems;
-
-  Map<String, dynamic> toJson() => _$VodItemsToJson(this);
-}
-
-@JsonSerializable()
-class VodItem {
-
-  VodItem({
+class XTremeCodeVodItem {
+  /// Creates a new instance of [XTremeCodeVodItem].
+  XTremeCodeVodItem({
+    required this.streamId,
     required this.num,
     required this.name,
     required this.title,
     required this.year,
     required this.streamType,
-    required this.streamId,
     required this.streamIcon,
     required this.rating,
     required this.rating5based,
@@ -36,33 +25,65 @@ class VodItem {
     required this.directSource,
   });
 
-  factory VodItem.fromJson(Map<String, dynamic> json) =>
-      _$VodItemFromJson(json);
-  final int num;
-  final String name;
-  final String title;
-  final String year;
+  /// Creates a new instance of [XTremeCodeVodItem] from a JSON object.
+  factory XTremeCodeVodItem.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeVodItemFromJson(json);
+
+  /// The number of the VOD item.
+  final int? num;
+
+  /// The name of the VOD item.
+  final String? name;
+
+  /// The title of the VOD item.
+  final String? title;
+
+  /// The year the VOD item was released.
+  final String? year;
+
+  /// The type of the stream of the VOD item.
   @JsonKey(name: 'stream_type')
-  final String streamType;
+  final String? streamType;
+
+  /// The ID of the stream of the VOD item.
   @JsonKey(name: 'stream_id')
   final int streamId;
+
+  /// The icon of the stream of the VOD item.
   @JsonKey(name: 'stream_icon')
-  final String streamIcon;
-  final int rating;
+  final String? streamIcon;
+
+  /// The rating of the VOD item.
+  final double? rating;
+
+  /// The rating of the VOD item based on a scale of 5.
   @JsonKey(name: 'rating_5based')
-  final int rating5based;
+  final double? rating5based;
+
+  /// The date the VOD item was added.
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime added;
-  @JsonKey(name: 'categoryId')
-  final String categoryId;
+  final DateTime? added;
+
+  /// The ID of the category the VOD item belongs to.
+  @JsonKey(name: 'category_id')
+  final String? categoryId;
+
+  /// The IDs of the categories the VOD item belongs to.
   @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
-  @JsonKey(name: 'container_extension')
-  final String containerExtension;
-  @JsonKey(name: 'customSid')
-  final String customSid;
-  @JsonKey(name: 'direct_source')
-  final String directSource;
 
-  Map<String, dynamic> toJson() => _$VodItemToJson(this);
+  /// The container extension of the VOD item.
+  @JsonKey(name: 'container_extension')
+  final String? containerExtension;
+
+  /// The custom SID of the VOD item.
+  @JsonKey(name: 'custom_sid')
+  final String? customSid;
+
+  /// The direct source of the VOD item.
+  @JsonKey(name: 'direct_source')
+  final String? directSource;
+
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeVodItemToJson(this);
 }

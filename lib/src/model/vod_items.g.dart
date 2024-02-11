@@ -6,36 +6,28 @@ part of 'vod_items.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VodItems _$VodItemsFromJson(Map<String, dynamic> json) => VodItems(
-      vodItems: (json['vodItems'] as List<dynamic>)
-          .map((e) => VodItem.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$VodItemsToJson(VodItems instance) => <String, dynamic>{
-      'vodItems': instance.vodItems,
-    };
-
-VodItem _$VodItemFromJson(Map<String, dynamic> json) => VodItem(
-      num: json['num'] as int,
-      name: json['name'] as String,
-      title: json['title'] as String,
-      year: json['year'] as String,
-      streamType: json['stream_type'] as String,
+XTremeCodeVodItem _$XTremeCodeVodItemFromJson(Map<String, dynamic> json) =>
+    XTremeCodeVodItem(
       streamId: json['stream_id'] as int,
-      streamIcon: json['stream_icon'] as String,
-      rating: json['rating'] as int,
-      rating5based: json['rating_5based'] as int,
-      added: dateTimeFromEpochSeconds(json['added'] as int),
-      categoryId: json['categoryId'] as String,
+      num: json['num'] as int?,
+      name: json['name'] as String?,
+      title: json['title'] as String?,
+      year: json['year'] as String?,
+      streamType: json['stream_type'] as String?,
+      streamIcon: json['stream_icon'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      rating5based: (json['rating_5based'] as num?)?.toDouble(),
+      added: dateTimeFromEpochSeconds(json['added'] as String?),
+      categoryId: json['category_id'] as String?,
       categoryIds:
           (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
-      containerExtension: json['container_extension'] as String,
-      customSid: json['customSid'] as String,
-      directSource: json['direct_source'] as String,
+      containerExtension: json['container_extension'] as String?,
+      customSid: json['custom_sid'] as String?,
+      directSource: json['direct_source'] as String?,
     );
 
-Map<String, dynamic> _$VodItemToJson(VodItem instance) => <String, dynamic>{
+Map<String, dynamic> _$XTremeCodeVodItemToJson(XTremeCodeVodItem instance) =>
+    <String, dynamic>{
       'num': instance.num,
       'name': instance.name,
       'title': instance.title,
@@ -45,10 +37,10 @@ Map<String, dynamic> _$VodItemToJson(VodItem instance) => <String, dynamic>{
       'stream_icon': instance.streamIcon,
       'rating': instance.rating,
       'rating_5based': instance.rating5based,
-      'added': instance.added.toIso8601String(),
-      'categoryId': instance.categoryId,
+      'added': instance.added?.toIso8601String(),
+      'category_id': instance.categoryId,
       'category_ids': instance.categoryIds,
       'container_extension': instance.containerExtension,
-      'customSid': instance.customSid,
+      'custom_sid': instance.customSid,
       'direct_source': instance.directSource,
     };

@@ -33,7 +33,10 @@ class XtreamCode {
   static XtreamCode get instance {
     assert(
       _instance._initialized,
-      'You must initialize the supabase instance before calling Supabase.instance',
+      '''
+      You must initialize the supabase instance before calling 
+      Supabase.instance
+      ''',
     );
     return _instance;
   }
@@ -107,6 +110,7 @@ class XtreamCode {
     _httpClient = httpClient ?? http_factory.httpClient();
     client = XtreamCodeClient(
       _createBaseUrl(url, port, username, password),
+      _createStreamUrl(url, port, username, password),
       _httpClient,
     );
     _initialized = true;
@@ -129,6 +133,23 @@ class XtreamCode {
   ) {
     final uri =
         '$url:$port/player_api.php?username=$username&password=$password';
+    assert(
+      Uri.parse(uri).isAbsolute,
+      '''
+      The provided combination of url, port, username and password is not a 
+      valid uri
+      ''',
+    );
+    return uri;
+  }
+
+  String _createStreamUrl(
+    String url,
+    String port,
+    String username,
+    String password,
+  ) {
+    final uri = '$url:$port/$username/$password';
     assert(
       Uri.parse(uri).isAbsolute,
       '''

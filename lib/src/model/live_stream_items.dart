@@ -3,22 +3,11 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'live_stream_items.g.dart';
 
+/// Represents a live stream item in Xtream Code.
 @JsonSerializable()
-class LiveStreamItems {
-
-  LiveStreamItems({required this.liveStreamItems});
-
-  factory LiveStreamItems.fromJson(Map<String, dynamic> json) =>
-      _$LiveStreamItemsFromJson(json);
-  final List<LiveStreamItem> liveStreamItems;
-
-  Map<String, dynamic> toJson() => _$LiveStreamItemsToJson(this);
-}
-
-@JsonSerializable()
-class LiveStreamItem {
-
-  LiveStreamItem({
+class XTremeCodeLiveStreamItem {
+  /// Creates a new instance of [XTremeCodeLiveStreamItem].
+  XTremeCodeLiveStreamItem({
     required this.num,
     required this.name,
     required this.streamType,
@@ -35,33 +24,63 @@ class LiveStreamItem {
     required this.thumbnail,
   });
 
-  factory LiveStreamItem.fromJson(Map<String, dynamic> json) =>
-      _$LiveStreamItemFromJson(json);
-  final int num;
-  final String name;
+  /// Creates a new instance of [XTremeCodeLiveStreamItem] from a JSON object.
+  factory XTremeCodeLiveStreamItem.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeLiveStreamItemFromJson(json);
+
+  /// The number of the live stream item.
+  final int? num;
+
+  /// The name of the live stream item.
+  final String? name;
+
+  /// The type of the stream.
   @JsonKey(name: 'stream_type')
-  final String streamType;
+  final String? streamType;
+
+  /// The ID of the stream.
   @JsonKey(name: 'stream_id')
   final int streamId;
+
+  /// The icon of the stream.
   @JsonKey(name: 'stream_icon')
-  final String streamIcon;
+  final String? streamIcon;
+
+  /// The ID of the EPG channel.
   @JsonKey(name: 'epg_channel_id')
-  final String epgChannelId;
+  final String? epgChannelId;
+
+  /// The date when the live stream item was added.
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime added;
+  final DateTime? added;
+
+  /// The custom SID of the live stream item.
   @JsonKey(name: 'custom_sid')
-  final String customSid;
+  final String? customSid;
+
+  /// The TV archive of the live stream item.
   @JsonKey(name: 'tv_archive')
-  final int tvArchive;
+  final int? tvArchive;
+
+  /// The direct source of the live stream item.
   @JsonKey(name: 'direct_source')
-  final String directSource;
+  final String? directSource;
+
+  /// The duration of the TV archive.
   @JsonKey(name: 'tv_archive_duration')
-  final int tvArchiveDuration;
+  final int? tvArchiveDuration;
+
+  /// The ID of the category.
   @JsonKey(name: 'category_id')
-  final String categoryId;
+  final String? categoryId;
+
+  /// The IDs of the categories.
   @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
-  final String thumbnail;
 
-  Map<String, dynamic> toJson() => _$LiveStreamItemToJson(this);
+  /// The thumbnail of the live stream item.
+  final String? thumbnail;
+
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeLiveStreamItemToJson(this);
 }

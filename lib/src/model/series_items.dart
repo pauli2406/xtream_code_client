@@ -3,22 +3,21 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'series_items.g.dart';
 
+  /// Represents a series item in XTremeCode.
+  /// 
+  /// This class provides information about a series item, such as its 
+  /// properties and methods.
+  /// 
+  /// Example usage:
+  /// 
+  /// ```dart
+  /// XTremeCodeSeriesItem seriesItem = XTremeCodeSeriesItem();
+  /// // Use the seriesItem object to access and manipulate series item data.
+  /// ```
 @JsonSerializable()
-class SeriesItems {
-
-  SeriesItems({required this.seriesItems});
-
-  factory SeriesItems.fromJson(Map<String, dynamic> json) =>
-      _$SeriesItemsFromJson(json);
-  final List<SeriesItem> seriesItems;
-
-  Map<String, dynamic> toJson() => _$SeriesItemsToJson(this);
-}
-
-@JsonSerializable()
-class SeriesItem {
-
-  SeriesItem({
+class XTremeCodeSeriesItem {
+  /// Creates a [XTremeCodeSeriesItem] instance
+  XTremeCodeSeriesItem({
     required this.num,
     required this.name,
     required this.title,
@@ -41,38 +40,79 @@ class SeriesItem {
     required this.categoryIds,
   });
 
-  factory SeriesItem.fromJson(Map<String, dynamic> json) =>
-      _$SeriesItemFromJson(json);
-  final int num;
-  final String name;
-  final String title;
-  final String year;
+  /// Creates a [XTremeCodeSeriesItem] instance from a JSON map.
+  factory XTremeCodeSeriesItem.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeSeriesItemFromJson(json);
+
+  /// The number of the series item.
+  final int? num;
+
+  /// The name of the series item.
+  final String? name;
+
+  /// The title of the series item.
+  final String? title;
+
+  /// The year of the series item.
+  final String? year;
+
+  /// The stream type of the series item.
   @JsonKey(name: 'stream_type')
-  final String streamType;
+  final String? streamType;
+
+  /// The ID of the series.
   @JsonKey(name: 'series_id')
   final int seriesId;
-  final String cover;
-  final String plot;
-  final String cast;
-  final String director;
-  final String genre;
-  DateTime releaseDate;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  @JsonKey(name: 'last_modified')
-  final DateTime lastModified;
-  final String rating;
+
+  /// The cover image URL of the series item.
+  final String? cover;
+
+  /// The plot of the series item.
+  final String? plot;
+
+  /// The cast of the series item.
+  final String? cast;
+
+  /// The director of the series item.
+  final String? director;
+
+  /// The genre of the series item.
+  final String? genre;
+
+  /// The release date of the series item.
+  final String? releaseDate;
+
+  /// The last modified date of the series item.
+  @JsonKey(name: 'last_modified', fromJson: dateTimeFromEpochSeconds)
+  final DateTime? lastModified;
+
+  /// The rating of the series item.
+  final String? rating;
+
+  /// The 5-based rating of the series item.
   @JsonKey(name: 'rating_5based')
-  final double rating5based;
+  final double? rating5based;
+
+  /// The backdrop image paths of the series item.
   @JsonKey(name: 'backdrop_path')
   final List<String> backdropPath;
+
+  /// The YouTube trailer URL of the series item.
   @JsonKey(name: 'youtube_trailer')
-  final String youtubeTrailer;
+  final String? youtubeTrailer;
+
+  /// The episode run time of the series item.
   @JsonKey(name: 'episode_run_time')
-  final String episodeRunTime;
+  final String? episodeRunTime;
+
+  /// The category ID of the series item.
   @JsonKey(name: 'category_id')
-  final String categoryId;
+  final String? categoryId;
+
+  /// The category IDs of the series item.
   @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
 
-  Map<String, dynamic> toJson() => _$SeriesItemToJson(this);
+  /// Converts this [XTremeCodeSeriesItem] instance to a JSON map.
+  Map<String, dynamic> toJson() => _$XTremeCodeSeriesItemToJson(this);
 }

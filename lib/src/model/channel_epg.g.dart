@@ -6,42 +6,51 @@ part of 'channel_epg.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChannelEpg _$ChannelEpgFromJson(Map<String, dynamic> json) => ChannelEpg(
-      epg_listings: (json['epg_listings'] as List<dynamic>)
-          .map((e) => EpgListing.fromJson(e as Map<String, dynamic>))
+XTremeCodeChannelEpg _$XTremeCodeChannelEpgFromJson(
+        Map<String, dynamic> json) =>
+    XTremeCodeChannelEpg(
+      epgListings: (json['epgListings'] as List<dynamic>)
+          .map((e) => XTremeCodeEpgListing.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ChannelEpgToJson(ChannelEpg instance) =>
+Map<String, dynamic> _$XTremeCodeChannelEpgToJson(
+        XTremeCodeChannelEpg instance) =>
     <String, dynamic>{
-      'epg_listings': instance.epg_listings,
+      'epgListings': instance.epgListings,
     };
 
-EpgListing _$EpgListingFromJson(Map<String, dynamic> json) => EpgListing(
-      id: json['id'] as String,
-      epgId: json['epg_id'] as String,
-      title: json['title'] as String,
-      lang: json['lang'] as String,
-      start: DateTime.parse(json['start'] as String),
-      end: dateTimeFromEpochSeconds(json['end'] as int),
-      description: json['description'] as String,
-      channelId: json['channel_id'] as String,
-      startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp'] as int),
-      stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp'] as int),
-      stop: DateTime.parse(json['stop'] as String),
+XTremeCodeEpgListing _$XTremeCodeEpgListingFromJson(
+        Map<String, dynamic> json) =>
+    XTremeCodeEpgListing(
+      id: json['id'] as String?,
+      epgId: json['epg_id'] as String?,
+      title: json['title'] as String?,
+      lang: json['lang'] as String?,
+      start: dateTimeFromString(json['start'] as String?),
+      end: dateTimeFromEpochSeconds(json['end'] as String?),
+      description: json['description'] as String?,
+      channelId: json['channel_id'] as String?,
+      startTimestamp:
+          dateTimeFromEpochSeconds(json['start_timestamp'] as String?),
+      stopTimestamp:
+          dateTimeFromEpochSeconds(json['stop_timestamp'] as String?),
+      stop:
+          json['stop'] == null ? null : DateTime.parse(json['stop'] as String),
     );
 
-Map<String, dynamic> _$EpgListingToJson(EpgListing instance) =>
+Map<String, dynamic> _$XTremeCodeEpgListingToJson(
+        XTremeCodeEpgListing instance) =>
     <String, dynamic>{
       'id': instance.id,
       'epg_id': instance.epgId,
       'title': instance.title,
       'lang': instance.lang,
-      'start': instance.start.toIso8601String(),
-      'end': instance.end.toIso8601String(),
+      'start': instance.start?.toIso8601String(),
+      'end': instance.end?.toIso8601String(),
       'description': instance.description,
       'channel_id': instance.channelId,
-      'start_timestamp': instance.startTimestamp.toIso8601String(),
-      'stop_timestamp': instance.stopTimestamp.toIso8601String(),
-      'stop': instance.stop.toIso8601String(),
+      'start_timestamp': instance.startTimestamp?.toIso8601String(),
+      'stop_timestamp': instance.stopTimestamp?.toIso8601String(),
+      'stop': instance.stop?.toIso8601String(),
     };
