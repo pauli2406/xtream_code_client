@@ -3,22 +3,28 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'channel_epg.g.dart';
 
+/// Represents a channel's EPG (Electronic Program Guide).
 @JsonSerializable()
-class ChannelEpg {
+class XTremeCodeChannelEpg {
+  /// Creates a new instance of [XTremeCodeChannelEpg].
+  XTremeCodeChannelEpg({required this.epgListings});
 
-  ChannelEpg({required this.epg_listings});
+  /// Creates a new instance of [XTremeCodeChannelEpg] from a JSON object.
+  factory XTremeCodeChannelEpg.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeChannelEpgFromJson(json);
 
-  factory ChannelEpg.fromJson(Map<String, dynamic> json) =>
-      _$ChannelEpgFromJson(json);
-  final List<EpgListing> epg_listings;
+  /// A list of EPG listings for this channel.
+  final List<XTremeCodeEpgListing> epgListings;
 
-  Map<String, dynamic> toJson() => _$ChannelEpgToJson(this);
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeChannelEpgToJson(this);
 }
 
+/// Represents a single EPG (Electronic Program Guide) listing.
 @JsonSerializable()
-class EpgListing {
-
-  EpgListing({
+class XTremeCodeEpgListing {
+  /// Creates a new instance of [XTremeCodeEpgListing].
+  XTremeCodeEpgListing({
     required this.id,
     required this.epgId,
     required this.title,
@@ -32,24 +38,49 @@ class EpgListing {
     required this.stop,
   });
 
-  factory EpgListing.fromJson(Map<String, dynamic> json) =>
-      _$EpgListingFromJson(json);
-  final String id;
-  @JsonKey(name: 'epg_id')
-  final String epgId;
-  final String title;
-  final String lang;
-  final DateTime start;
-  @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime end;
-  final String description;
-  @JsonKey(name: 'channel_id')
-  final String channelId;
-  @JsonKey(name: 'start_timestamp', fromJson: dateTimeFromEpochSeconds)
-  final DateTime startTimestamp;
-  @JsonKey(name: 'stop_timestamp', fromJson: dateTimeFromEpochSeconds)
-  final DateTime stopTimestamp;
-  final DateTime stop;
+  /// Creates a new instance of [XTremeCodeEpgListing] from a JSON object.
+  factory XTremeCodeEpgListing.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeEpgListingFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EpgListingToJson(this);
+  /// The ID of the EPG listing.
+  final String? id;
+
+  /// The ID of the EPG.
+  @JsonKey(name: 'epg_id')
+  final String? epgId;
+
+  /// The title of the EPG listing.
+  final String? title;
+
+  /// The language of the EPG listing.
+  final String? lang;
+
+  /// The start time of the EPG listing.
+  @JsonKey(fromJson: dateTimeFromString)
+  final DateTime? start;
+
+  /// The end time of the EPG listing.
+  @JsonKey(fromJson: dateTimeFromEpochSeconds)
+  final DateTime? end;
+
+  /// The description of the EPG listing.
+  final String? description;
+
+  /// The ID of the channel.
+  @JsonKey(name: 'channel_id')
+  final String? channelId;
+
+  /// The start timestamp of the EPG listing.
+  @JsonKey(name: 'start_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime? startTimestamp;
+
+  /// The stop timestamp of the EPG listing.
+  @JsonKey(name: 'stop_timestamp', fromJson: dateTimeFromEpochSeconds)
+  final DateTime? stopTimestamp;
+
+  /// The stop time of the EPG listing.
+  final DateTime? stop;
+
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeEpgListingToJson(this);
 }

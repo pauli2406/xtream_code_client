@@ -3,44 +3,55 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'vod_info.g.dart';
 
+/// Represents the VOD (Video On Demand) information in Xtream Code.
 @JsonSerializable()
-class VodInfo {
+class XTremeCodeVodInfo {
+  /// Creates a new instance of [XTremeCodeVodInfo].
+  XTremeCodeVodInfo({
+    required this.info,
+    required this.movieData,
+  });
 
-  VodInfo({required this.info, required this.movie_data});
+  /// Creates a new instance of [XTremeCodeVodInfo] from a JSON object.
+  factory XTremeCodeVodInfo.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeVodInfoFromJson(json);
 
-  factory VodInfo.fromJson(Map<String, dynamic> json) =>
-      _$VodInfoFromJson(json);
-  final Info info;
-  final MovieData movie_data;
+  /// The information about the VOD.
+  final XTremeCodeInfoVod info;
 
-  Map<String, dynamic> toJson() => _$VodInfoToJson(this);
+  /// The data about the movie in the VOD.
+  final XTremeCodeMovieData movieData;
+
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeVodInfoToJson(this);
 }
 
+/// Represents the VOD (Video On Demand) information in Xtream Code.
 @JsonSerializable()
-class Info {
-
-  Info({
-    required this.kinopoisk_url,
-    required this.tmdb_id,
+class XTremeCodeInfoVod {
+  /// Creates a new instance of [XTremeCodeInfoVod].
+  XTremeCodeInfoVod({
+    required this.kinopoiskUrl,
+    required this.tmdbId,
     required this.name,
-    required this.o_name,
-    required this.cover_big,
-    required this.movie_image,
-    required this.release_date,
-    required this.episode_run_time,
-    required this.youtube_trailer,
+    required this.oName,
+    required this.coverBig,
+    required this.movieImage,
+    required this.releaseDate,
+    required this.episodeRunTime,
+    required this.youtubeTrailer,
     required this.director,
     required this.actors,
     required this.cast,
     required this.description,
     required this.plot,
     required this.age,
-    required this.mpaa_rating,
-    required this.rating_count_kinopoisk,
+    required this.mpaaRating,
+    required this.ratingCountKinopoisk,
     required this.country,
     required this.genre,
-    required this.backdrop_path,
-    required this.duration_secs,
+    required this.backdropPath,
+    required this.durationSecs,
     required this.duration,
     required this.bitrate,
     required this.rating,
@@ -48,41 +59,109 @@ class Info {
     required this.subtitles,
   });
 
-  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
-  final String kinopoisk_url;
-  final int tmdb_id;
-  final String name;
-  final String o_name;
-  final String cover_big;
-  final String movie_image;
-  final DateTime release_date;
-  final int episode_run_time;
-  final String youtube_trailer;
-  final String director;
-  final String actors;
-  final String cast;
-  final String description;
-  final String plot;
-  final String age;
-  final String mpaa_rating;
-  final int rating_count_kinopoisk;
-  final String country;
-  final String genre;
-  final List<String> backdrop_path;
-  final int duration_secs;
-  final String duration;
-  final int bitrate;
-  final int rating;
-  final DateTime releasedate;
+  /// Creates a new instance of [XTremeCodeInfoVod] from a JSON object.
+  factory XTremeCodeInfoVod.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeInfoVodFromJson(json);
+
+  /// The URL of the movie on Kinopoisk.
+  @JsonKey(name: 'kinopoisk_url')
+  final String? kinopoiskUrl;
+
+  /// The ID of the movie in The Movie Database (TMDb).
+  @JsonKey(name: 'tmdb_id')
+  final int? tmdbId;
+
+  /// The name of the movie.
+  final String? name;
+
+  /// The original name of the movie.
+  @JsonKey(name: 'o_name')
+  final String? oName;
+
+  /// The big cover image of the movie.
+  @JsonKey(name: 'cover_big')
+  final String? coverBig;
+
+  /// The image of the movie.
+  @JsonKey(name: 'movie_image')
+  final String? movieImage;
+
+  /// The release date of the movie.
+  @JsonKey(name: 'release_date')
+  final String? releaseDate;
+
+  /// The runtime of the episode in minutes.
+  @JsonKey(name: 'episode_run_time')
+  final int? episodeRunTime;
+
+  /// The URL of the movie's trailer on YouTube.
+  @JsonKey(name: 'youtube_trailer')
+  final String? youtubeTrailer;
+
+  /// The director of the movie.
+  final String? director;
+
+  /// The actors in the movie.
+  final String? actors;
+
+  /// The cast of the movie.
+  final String? cast;
+
+  /// The description of the movie.
+  final String? description;
+
+  /// The plot of the movie.
+  final String? plot;
+
+  /// The age rating of the movie.
+  final String? age;
+
+  /// The MPAA rating of the movie.
+  @JsonKey(name: 'mpaa_rating')
+  final String? mpaaRating;
+
+  /// The rating count of the movie on Kinopoisk.
+  @JsonKey(name: 'rating_count_kinopoisk')
+  final int? ratingCountKinopoisk;
+
+  /// The country where the movie was made.
+  final String? country;
+
+  /// The genre of the movie.
+  final String? genre;
+
+  /// The backdrop images of the movie.
+  @JsonKey(name: 'backdrop_path')
+  final List<String>? backdropPath;
+
+  /// The duration of the movie in seconds.
+  @JsonKey(name: 'duration_secs')
+  final int? durationSecs;
+
+  /// The duration of the movie.
+  final String? duration;
+
+  /// The bitrate of the movie.
+  final int? bitrate;
+
+  /// The rating of the movie.
+  final int? rating;
+
+  /// The release date of the movie.
+  final String? releasedate;
+
+  /// The subtitles of the movie.
   final List<dynamic> subtitles;
 
-  Map<String, dynamic> toJson() => _$InfoToJson(this);
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeInfoVodToJson(this);
 }
 
+/// Represents the movie data in Xtream Code.
 @JsonSerializable()
-class MovieData {
-
-  MovieData({
+class XTremeCodeMovieData {
+  /// Creates a new instance of [XTremeCodeMovieData].
+  XTremeCodeMovieData({
     required this.streamId,
     required this.name,
     required this.title,
@@ -95,25 +174,47 @@ class MovieData {
     required this.directSource,
   });
 
-  factory MovieData.fromJson(Map<String, dynamic> json) =>
-      _$MovieDataFromJson(json);
+  /// Creates a new instance of [XTremeCodeMovieData] from a JSON object.
+  factory XTremeCodeMovieData.fromJson(Map<String, dynamic> json) =>
+      _$XTremeCodeMovieDataFromJson(json);
+
+  /// The stream ID of the movie.
   @JsonKey(name: 'stream_id')
   final int streamId;
+
+  /// The name of the movie.
   final String name;
+
+  /// The title of the movie.
   final String title;
+
+  /// The year the movie was released.
   final String year;
+
+  /// The date the movie was added.
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
-  final DateTime added;
+  final DateTime? added;
+
+  /// The ID of the category the movie belongs to.
   @JsonKey(name: 'categoryId')
   final String categoryId;
+
+  /// The IDs of the categories the movie belongs to.
   @JsonKey(name: 'categoryIds')
   final List<int> categoryIds;
+
+  /// The container extension of the movie.
   @JsonKey(name: 'containerExtension')
   final String containerExtension;
+
+  /// The custom SID of the movie.
   @JsonKey(name: 'custom_sid')
   final String customSid;
+
+  /// The direct source of the movie.
   @JsonKey(name: 'direct_source')
   final String directSource;
 
-  Map<String, dynamic> toJson() => _$MovieDataToJson(this);
+  /// Converts this instance into a JSON object.
+  Map<String, dynamic> toJson() => _$XTremeCodeMovieDataToJson(this);
 }

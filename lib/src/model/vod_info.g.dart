@@ -6,83 +6,88 @@ part of 'vod_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VodInfo _$VodInfoFromJson(Map<String, dynamic> json) => VodInfo(
-      info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      movie_data:
-          MovieData.fromJson(json['movie_data'] as Map<String, dynamic>),
+XTremeCodeVodInfo _$XTremeCodeVodInfoFromJson(Map<String, dynamic> json) =>
+    XTremeCodeVodInfo(
+      info: XTremeCodeInfoVod.fromJson(json['info'] as Map<String, dynamic>),
+      movieData: XTremeCodeMovieData.fromJson(
+          json['movieData'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$VodInfoToJson(VodInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$XTremeCodeVodInfoToJson(XTremeCodeVodInfo instance) =>
+    <String, dynamic>{
       'info': instance.info,
-      'movie_data': instance.movie_data,
+      'movieData': instance.movieData,
     };
 
-Info _$InfoFromJson(Map<String, dynamic> json) => Info(
-      kinopoisk_url: json['kinopoisk_url'] as String,
-      tmdb_id: json['tmdb_id'] as int,
-      name: json['name'] as String,
-      o_name: json['o_name'] as String,
-      cover_big: json['cover_big'] as String,
-      movie_image: json['movie_image'] as String,
-      release_date: DateTime.parse(json['release_date'] as String),
-      episode_run_time: json['episode_run_time'] as int,
-      youtube_trailer: json['youtube_trailer'] as String,
-      director: json['director'] as String,
-      actors: json['actors'] as String,
-      cast: json['cast'] as String,
-      description: json['description'] as String,
-      plot: json['plot'] as String,
-      age: json['age'] as String,
-      mpaa_rating: json['mpaa_rating'] as String,
-      rating_count_kinopoisk: json['rating_count_kinopoisk'] as int,
-      country: json['country'] as String,
-      genre: json['genre'] as String,
-      backdrop_path: (json['backdrop_path'] as List<dynamic>)
-          .map((e) => e as String)
+XTremeCodeInfoVod _$XTremeCodeInfoVodFromJson(Map<String, dynamic> json) =>
+    XTremeCodeInfoVod(
+      kinopoiskUrl: json['kinopoisk_url'] as String?,
+      tmdbId: json['tmdb_id'] as int?,
+      name: json['name'] as String?,
+      oName: json['o_name'] as String?,
+      coverBig: json['cover_big'] as String?,
+      movieImage: json['movie_image'] as String?,
+      releaseDate: json['release_date'] as String?,
+      episodeRunTime: json['episode_run_time'] as int?,
+      youtubeTrailer: json['youtube_trailer'] as String?,
+      director: json['director'] as String?,
+      actors: json['actors'] as String?,
+      cast: json['cast'] as String?,
+      description: json['description'] as String?,
+      plot: json['plot'] as String?,
+      age: json['age'] as String?,
+      mpaaRating: json['mpaa_rating'] as String?,
+      ratingCountKinopoisk: json['rating_count_kinopoisk'] as int?,
+      country: json['country'] as String?,
+      genre: json['genre'] as String?,
+      backdropPath: (json['backdrop_path'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
-      duration_secs: json['duration_secs'] as int,
-      duration: json['duration'] as String,
-      bitrate: json['bitrate'] as int,
-      rating: json['rating'] as int,
-      releasedate: DateTime.parse(json['releasedate'] as String),
+      durationSecs: json['duration_secs'] as int?,
+      duration: json['duration'] as String?,
+      bitrate: json['bitrate'] as int?,
+      rating: json['rating'] as int?,
+      releasedate: json['releasedate'] as String?,
       subtitles: json['subtitles'] as List<dynamic>,
     );
 
-Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
-      'kinopoisk_url': instance.kinopoisk_url,
-      'tmdb_id': instance.tmdb_id,
+Map<String, dynamic> _$XTremeCodeInfoVodToJson(XTremeCodeInfoVod instance) =>
+    <String, dynamic>{
+      'kinopoisk_url': instance.kinopoiskUrl,
+      'tmdb_id': instance.tmdbId,
       'name': instance.name,
-      'o_name': instance.o_name,
-      'cover_big': instance.cover_big,
-      'movie_image': instance.movie_image,
-      'release_date': instance.release_date.toIso8601String(),
-      'episode_run_time': instance.episode_run_time,
-      'youtube_trailer': instance.youtube_trailer,
+      'o_name': instance.oName,
+      'cover_big': instance.coverBig,
+      'movie_image': instance.movieImage,
+      'release_date': instance.releaseDate,
+      'episode_run_time': instance.episodeRunTime,
+      'youtube_trailer': instance.youtubeTrailer,
       'director': instance.director,
       'actors': instance.actors,
       'cast': instance.cast,
       'description': instance.description,
       'plot': instance.plot,
       'age': instance.age,
-      'mpaa_rating': instance.mpaa_rating,
-      'rating_count_kinopoisk': instance.rating_count_kinopoisk,
+      'mpaa_rating': instance.mpaaRating,
+      'rating_count_kinopoisk': instance.ratingCountKinopoisk,
       'country': instance.country,
       'genre': instance.genre,
-      'backdrop_path': instance.backdrop_path,
-      'duration_secs': instance.duration_secs,
+      'backdrop_path': instance.backdropPath,
+      'duration_secs': instance.durationSecs,
       'duration': instance.duration,
       'bitrate': instance.bitrate,
       'rating': instance.rating,
-      'releasedate': instance.releasedate.toIso8601String(),
+      'releasedate': instance.releasedate,
       'subtitles': instance.subtitles,
     };
 
-MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
+XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
+    XTremeCodeMovieData(
       streamId: json['stream_id'] as int,
       name: json['name'] as String,
       title: json['title'] as String,
       year: json['year'] as String,
-      added: dateTimeFromEpochSeconds(json['added'] as int),
+      added: dateTimeFromEpochSeconds(json['added'] as String?),
       categoryId: json['categoryId'] as String,
       categoryIds:
           (json['categoryIds'] as List<dynamic>).map((e) => e as int).toList(),
@@ -91,12 +96,14 @@ MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
       directSource: json['direct_source'] as String,
     );
 
-Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
+Map<String, dynamic> _$XTremeCodeMovieDataToJson(
+        XTremeCodeMovieData instance) =>
+    <String, dynamic>{
       'stream_id': instance.streamId,
       'name': instance.name,
       'title': instance.title,
       'year': instance.year,
-      'added': instance.added.toIso8601String(),
+      'added': instance.added?.toIso8601String(),
       'categoryId': instance.categoryId,
       'categoryIds': instance.categoryIds,
       'containerExtension': instance.containerExtension,

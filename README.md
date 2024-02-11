@@ -1,14 +1,20 @@
-# Xtream Code Client
+# XTream Code Client
 
-[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
-[![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
-[![License: MIT][license_badge]][license_link]
+## Description
 
-A WebClient to access a XTream Code API
+This Dart package, named xtream_code_client, provides a client for interacting with the Xtream Codes API. Xtream Codes is an IPTV panel that allows providers to manage their own IPTV service and its customers. It provides a simple and powerful API for managing users, subscriptions, and billing.
+
+The xtream_code_client package provides easy and efficient access to the Xtream Codes API, with features like automatic retries and error handling. It includes a variety of models for different data structures, such as categories, channel EPGs, general information, live stream items, series info, and more.
+
+This package is designed to work with the Flutter SDK, and it intelligently selects the most suitable HTTP client implementation based on the platform in use, ensuring optimal functionality and performance.
+
+## What are Xtream Codes?
+
+Xtream Codes is an IPTV panel used by providers to manage their IPTV service. It provides a comprehensive API for managing users, subscriptions, and billing. With Xtream Codes, providers can create, manage, and distribute their IPTV channels and VOD content.
 
 ## Installation 💻
 
-**❗ In order to start using Xtream Code Client you must have the [Flutter SDK][flutter_install_link] installed on your machine.**
+**❗ In order to start using Xtream Code Client you must have the Flutter SDK installed on your machine.**
 
 Install via `flutter pub add`:
 
@@ -18,50 +24,73 @@ dart pub add xtream_code_client
 
 ---
 
-## Continuous Integration 🤖
+## Useage
 
-Xtream Code Client comes with a built-in [GitHub Actions workflow][github_actions_link] powered by [Very Good Workflows][very_good_workflows_link] but you can also add your preferred CI/CD solution.
+Instantiate the XtreamCodeClient:
 
-Out of the box, on each pull request and push, the CI `formats`, `lints`, and `tests` the code. This ensures the code remains consistent and behaves correctly as you add functionality or make changes. The project uses [Very Good Analysis][very_good_analysis_link] for a strict set of analysis options used by our team. Code coverage is enforced using the [Very Good Workflows][very_good_coverage_link].
+```dart
+import 'package:xtream_code_client/xtream_code_client.dart';
 
----
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-## Running Tests 🧪
+  await XtreamCode.initialize(
+    baseUrl: 'https://your-xtream-codes-api-url',
+    username: 'your-username',
+    password: 'your-password',
+  );
 
-For first time users, install the [very_good_cli][very_good_cli_link]:
+  runApp(MyApp());
+}
 
-```sh
-dart pub global activate very_good_cli
+// It's handy to then extract the XtreamCode http client in a variable for later uses
+final client = XtreamCode.instance.client;
 ```
 
-To run all unit tests:
+Now you can use the client to interact with the Xtream Codes API.
 
-```sh
-very_good test --coverage
+### Functiality
+
+```dart
+// Instantiate the XtreamCodeClient
+var client = XtreamCodeClient(baseUrl, streamUrl, http);
+
+// Call serverInformation
+var serverInfo = await client.serverInformation();
+
+// Call liveStreamCategories
+var liveStreamCategories = await client.liveStreamCategories();
+
+// Call vodCategories
+var vodCategories = await client.vodCategories();
+
+// Call seriesCategories
+var seriesCategories = await client.seriesCategories();
+
+// Call livestreamItems with a category
+var liveStreamItems = await client.livestreamItems(category: liveStreamCategories.first);
+
+// Call vodItems with a category
+var vodItems = await client.vodItems(category: vodCategories.first);
+
+// Call vodInfo with a VOD item
+var vodInfo = await client.vodInfo(vodItems.first);
+
+// Call seriesItems with a category
+var seriesItems = await client.seriesItems(category: seriesCategories.first);
+
+// Call seriesInfo with a series item
+var seriesInfo = await client.seriesInfo(seriesItems.first);
+
+// Call channelEpg with a live stream item and a limit
+var channelEpg = await client.channelEpg(liveStreamItems.first, 10);
+
+// Call channelEpgTable with a live stream item
+var channelEpgTable = await client.channelEpgTable(liveStreamItems.first);
 ```
 
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
+## Legal Disclaimer
 
-```sh
-# Generate Coverage Report
-genhtml coverage/lcov.info -o coverage/
+This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
 
-# Open Coverage Report
-open coverage/index.html
-```
-
-[flutter_install_link]: https://docs.flutter.dev/get-started/install
-[github_actions_link]: https://docs.github.com/en/actions/learn-github-actions
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[logo_black]: https://raw.githubusercontent.com/VGVentures/very_good_brand/main/styles/README/vgv_logo_black.png#gh-light-mode-only
-[logo_white]: https://raw.githubusercontent.com/VGVentures/very_good_brand/main/styles/README/vgv_logo_white.png#gh-dark-mode-only
-[mason_link]: https://github.com/felangel/mason
-[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
-[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[very_good_cli_link]: https://pub.dev/packages/very_good_cli
-[very_good_coverage_link]: https://github.com/marketplace/actions/very-good-coverage
-[very_good_ventures_link]: https://verygood.ventures
-[very_good_ventures_link_light]: https://verygood.ventures#gh-light-mode-only
-[very_good_ventures_link_dark]: https://verygood.ventures#gh-dark-mode-only
-[very_good_workflows_link]: https://github.com/VeryGoodOpenSource/very_good_workflows
+Please note that this package is intended for legal uses only. It is the user's responsibility to ensure that they have the necessary rights and permissions to use the Xtream Codes API and any data accessed through it. The authors of this package are not responsible for any illegal use.
