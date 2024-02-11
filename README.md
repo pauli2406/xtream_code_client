@@ -24,7 +24,7 @@ dart pub add xtream_code_client
 
 ---
 
-## Useage
+## Usage
 
 Instantiate the XtreamCodeClient:
 
@@ -49,7 +49,7 @@ final client = XtreamCode.instance.client;
 
 Now you can use the client to interact with the Xtream Codes API.
 
-### Functiality
+### Functionality
 
 ```dart
 // Instantiate the XtreamCodeClient
