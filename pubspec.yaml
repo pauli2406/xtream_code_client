@@ -2,7 +2,7 @@ name: xtream_code_client
 description: "A WebClient to access a XTream Code API. 
 It provides easy and efficient access to the API, with features 
 like automatic retries and error handling."
-version: 1.0.0
+version: 1.0.1
 
 homepage: https://github.com/pauli2406/xtream_code_client
 repository: https://github.com/pauli2406/xtream_code_client

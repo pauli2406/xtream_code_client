@@ -34,7 +34,7 @@ class XtreamCodeClient {
 
   /// The base URL getter for streaming an channel.
   String streamUrl(int id, List<String> allowedInputFormat) =>
-      '$_streamUrl/${allowedInputFormat.firstOrNull}.ts';
+      '$_streamUrl/$id.${allowedInputFormat.firstOrNull}';
 
   /// Authenticates the user and retrieves server & user information.
   Future<XTremeCodeGeneralInformation> serverInformation() async {
