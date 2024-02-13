@@ -14,6 +14,7 @@ class XTremeCodeChannelEpgTable {
       _$XTremeCodeChannelEpgTableFromJson(json);
 
   /// A list of EPG listings for this table.
+  @JsonKey(name: 'epg_listings')
   final List<XTremeCodeEpgListingTable> epgListings;
 
   /// Converts this instance into a JSON object.
@@ -44,11 +45,11 @@ class XTremeCodeEpgListingTable {
       _$XTremeCodeEpgListingTableFromJson(json);
 
   /// The ID of the EPG listing.
-  final String? id;
+  final String id;
 
   /// The ID of the EPG.
   @JsonKey(name: 'epg_id')
-  final String? epgId;
+  final String epgId;
 
   /// The title of the EPG listing.
   final String? title;
@@ -69,7 +70,7 @@ class XTremeCodeEpgListingTable {
 
   /// The ID of the channel.
   @JsonKey(name: 'channel_id')
-  final String? channelId;
+  final String channelId;
 
   /// The start timestamp of the EPG listing.
   @JsonKey(name: 'start_timestamp', fromJson: dateTimeFromEpochSeconds)

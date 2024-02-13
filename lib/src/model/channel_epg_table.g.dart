@@ -9,7 +9,7 @@ part of 'channel_epg_table.dart';
 XTremeCodeChannelEpgTable _$XTremeCodeChannelEpgTableFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeChannelEpgTable(
-      epgListings: (json['epgListings'] as List<dynamic>)
+      epgListings: (json['epg_listings'] as List<dynamic>)
           .map((e) =>
               XTremeCodeEpgListingTable.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -18,20 +18,20 @@ XTremeCodeChannelEpgTable _$XTremeCodeChannelEpgTableFromJson(
 Map<String, dynamic> _$XTremeCodeChannelEpgTableToJson(
         XTremeCodeChannelEpgTable instance) =>
     <String, dynamic>{
-      'epgListings': instance.epgListings,
+      'epg_listings': instance.epgListings,
     };
 
 XTremeCodeEpgListingTable _$XTremeCodeEpgListingTableFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeEpgListingTable(
-      id: json['id'] as String?,
-      epgId: json['epg_id'] as String?,
+      id: json['id'] as String,
+      epgId: json['epg_id'] as String,
       title: json['title'] as String?,
       lang: json['lang'] as String?,
       start: dateTimeFromString(json['start'] as String?),
       end: dateTimeFromString(json['end'] as String?),
       description: json['description'] as String?,
-      channelId: json['channel_id'] as String?,
+      channelId: json['channel_id'] as String,
       startTimestamp:
           dateTimeFromEpochSeconds(json['start_timestamp'] as String?),
       stopTimestamp:
