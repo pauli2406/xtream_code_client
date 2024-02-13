@@ -13,7 +13,7 @@ class XTremeCodeGeneralInformation {
     required this.serverInfo,
   });
 
-  /// Creates a new instance of [XTremeCodeGeneralInformation] from a JSON 
+  /// Creates a new instance of [XTremeCodeGeneralInformation] from a JSON
   /// object.
   factory XTremeCodeGeneralInformation.fromJson(Map<String, dynamic> json) =>
       _$XTremeCodeGeneralInformationFromJson(json);

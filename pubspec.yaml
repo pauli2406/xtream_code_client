@@ -1,11 +1,8 @@
 name: xtream_code_client
-description: "A WebClient to access a XTream Code API. 
-It provides easy and efficient access to the API, with features 
-like automatic retries and error handling."
-version: 1.0.1
-
+description: A WebClient to access a XTream Code API. It provides easy and efficient access to the API, with features like automatic retries and error handling.
+version: 1.0.2
 homepage: https://github.com/pauli2406/xtream_code_client
-repository: https://github.com/pauli2406/xtream_code_client
+repository: https://github.com/pauli2406/xtream_code_client.git
 issue_tracker: https://github.com/pauli2406/xtream_code_client/issues
 
 environment:
@@ -19,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  intl: ^0.18.1
+  intl: ^0.19.0
   json_annotation: ^4.8.1
 
 dev_dependencies:
@@ -29,3 +26,12 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mocktail: ^1.0.3
   very_good_analysis: ^5.1.0
+
+platforms:
+  android:
+  ios:
+  macos:
+  web:
+  windows:
+
+flutter:

@@ -3,17 +3,17 @@ import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'series_items.g.dart';
 
-  /// Represents a series item in XTremeCode.
-  /// 
-  /// This class provides information about a series item, such as its 
-  /// properties and methods.
-  /// 
-  /// Example usage:
-  /// 
-  /// ```dart
-  /// XTremeCodeSeriesItem seriesItem = XTremeCodeSeriesItem();
-  /// // Use the seriesItem object to access and manipulate series item data.
-  /// ```
+/// Represents a series item in XTremeCode.
+///
+/// This class provides information about a series item, such as its
+/// properties and methods.
+///
+/// Example usage:
+///
+/// ```dart
+/// XTremeCodeSeriesItem seriesItem = XTremeCodeSeriesItem();
+/// // Use the seriesItem object to access and manipulate series item data.
+/// ```
 @JsonSerializable()
 class XTremeCodeSeriesItem {
   /// Creates a [XTremeCodeSeriesItem] instance

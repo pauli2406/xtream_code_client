@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'user_info.g.dart';
+
 /// Represents the user information in Xtream Code.
 @JsonSerializable()
 class XTremeCodeUserInfo {

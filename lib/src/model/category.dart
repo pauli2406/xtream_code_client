@@ -5,7 +5,6 @@ part 'category.g.dart';
 /// Represents a category in XTremeCode.
 @JsonSerializable()
 class XTremeCodeCategory {
-
   /// Creates a new instance of [XTremeCodeCategory].
   XTremeCodeCategory({
     required this.categoryId,

@@ -10,7 +10,7 @@ const _maxCacheSize = 2 * 1024 * 1024;
 
 /// Creates and returns a new [Client] instance based on the platform.
 ///
-/// On Android, it returns a [CronetClient] with a memory cache of size 
+/// On Android, it returns a [CronetClient] with a memory cache of size
 /// [_maxCacheSize].
 /// On iOS and macOS, it returns a [CupertinoClient] with a memory cache of size
 /// [_maxCacheSize].
