@@ -17,6 +17,8 @@ class XtreamCodeClient {
   XtreamCodeClient(
     this._baseUrl,
     this._streamUrl,
+    this._movieUrl,
+    this._seriesUrl,
     this._http,
   );
 
@@ -26,6 +28,12 @@ class XtreamCodeClient {
   /// The base URL for streaming an channel.
   final String _streamUrl;
 
+  /// The base URL for streaming an channel.
+  final String _movieUrl;
+
+  /// The base URL for streaming an channel.
+  final String _seriesUrl;
+
   /// The base URL getterof the Xtream Code server.
   String get baseUrl => _baseUrl;
 
@@ -34,7 +42,15 @@ class XtreamCodeClient {
 
   /// The base URL getter for streaming an channel.
   String streamUrl(int id, List<String> allowedInputFormat) =>
-      '$_streamUrl/$id.${allowedInputFormat.firstOrNull}';
+      '$_streamUrl/$id.${allowedInputFormat.firstWhere((format) => format == 'ts', orElse: () => allowedInputFormat.first)}';
+
+  /// The base URL getter for streaming a movie.
+  String movieUrl(int id, String containerExtension) =>
+      '$_movieUrl/$id.$containerExtension';
+
+  /// The base URL getter for streaming a series.
+  String seriesUrl(int id, String containerExtension) =>
+      '$_seriesUrl/$id.$containerExtension';
 
   /// Authenticates the user and retrieves server & user information.
   Future<XTremeCodeGeneralInformation> serverInformation() async {
@@ -194,7 +210,15 @@ class XtreamCodeClient {
     XTremeCodeLiveStreamItem item,
     int? limit,
   ) async {
-    var action = 'get_short_epg&stream_id=${item.streamId}';
+    return channelEpgViaStreamId(item.streamId, limit);
+  }
+
+  /// Retrieves EPG information for a specific live stream item.
+  Future<XTremeCodeChannelEpg> channelEpgViaStreamId(
+    int streamId,
+    int? limit,
+  ) async {
+    var action = 'get_short_epg&stream_id=$streamId';
     if (limit != null) {
       action = '$action&limit=$limit';
     }
@@ -206,7 +230,7 @@ class XtreamCodeClient {
     } else {
       throw XTreamCodeClientException(
         '''
-        Failed to retrieve EPG from action $action for channel_id ${item.streamId}
+        Failed to retrieve EPG from action $action for channel_id $streamId
         Server responded with the error code ${response.statusCode}.
         ''',
       );
