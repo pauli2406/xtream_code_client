@@ -25,6 +25,15 @@ class XtreamCodeClient {
   /// The base URL of the Xtream Code server.
   final String _baseUrl;
 
+  /// The _http client for making requests to the server.
+  final Client _http;
+
+  /// The base URL for streaming an channel.
+  final String _movieUrl;
+
+  /// The base URL for streaming an channel.
+  final String _seriesUrl;
+
   /// The base URL for streaming an channel.
   final String _streamUrl;
 
@@ -36,9 +45,6 @@ class XtreamCodeClient {
 
   /// The base URL getterof the Xtream Code server.
   String get baseUrl => _baseUrl;
-
-  /// The _http client for making requests to the server.
-  final Client _http;
 
   /// The base URL getter for streaming an channel.
   String streamUrl(int id, List<String> allowedInputFormat) =>
