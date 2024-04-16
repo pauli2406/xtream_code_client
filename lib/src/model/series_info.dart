@@ -24,7 +24,7 @@ class XTremeCodeSeriesInfo {
   final XTremeCodeInfo info;
 
   /// The episodes of the series, grouped by season.
-  final Map<String, List<XTremeCodeEpisode>> episodes;
+  final Map<String, List<XTremeCodeEpisode>>? episodes;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeSeriesInfoToJson(this);
@@ -35,15 +35,15 @@ class XTremeCodeSeriesInfo {
 class XTremeCodeSeason {
   /// Creates a new instance of [XTremeCodeSeason].
   XTremeCodeSeason({
-    required this.airDate,
-    required this.episodeCount,
+    this.airDate,
+    this.episodeCount,
     required this.id,
-    required this.name,
-    required this.overview,
-    required this.seasonNumber,
-    required this.voteAverage,
-    required this.cover,
-    required this.coverBig,
+    this.name,
+    this.overview,
+    this.seasonNumber,
+    this.voteAverage,
+    this.cover,
+    this.coverBig,
   });
 
   /// Creates a new instance of [XTremeCodeSeason] from a JSON object.
@@ -52,35 +52,35 @@ class XTremeCodeSeason {
 
   /// The air date of the season.
   @JsonKey(name: 'air_date')
-  final String airDate;
+  final String? airDate;
 
   /// The count of episodes in the season.
   @JsonKey(name: 'episode_count')
-  final int episodeCount;
+  final int? episodeCount;
 
   /// The ID of the season.
   final int id;
 
   /// The name of the season.
-  final String name;
+  final String? name;
 
   /// The overview of the season.
-  final String overview;
+  final String? overview;
 
   /// The number of the season.
   @JsonKey(name: 'season_number')
-  final int seasonNumber;
+  final int? seasonNumber;
 
   /// The average vote of the season.
   @JsonKey(name: 'vote_average')
-  final int voteAverage;
+  final double? voteAverage;
 
   /// The cover image of the season.
-  final String cover;
+  final String? cover;
 
   /// The big cover image of the season.
   @JsonKey(name: 'cover_big')
-  final String coverBig;
+  final String? coverBig;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeSeasonToJson(this);
@@ -91,23 +91,23 @@ class XTremeCodeSeason {
 class XTremeCodeInfo {
   /// Creates a new instance of [XTremeCodeInfo].
   XTremeCodeInfo({
-    required this.name,
-    required this.title,
-    required this.year,
-    required this.cover,
-    required this.plot,
-    required this.cast,
-    required this.director,
-    required this.genre,
-    required this.releaseDate,
-    required this.lastModified,
-    required this.rating,
-    required this.rating5based,
-    required this.backdropPath,
-    required this.youtubeTrailer,
-    required this.episodeRunTime,
-    required this.categoryId,
-    required this.categoryIds,
+    this.name,
+    this.title,
+    this.year,
+    this.cover,
+    this.plot,
+    this.cast,
+    this.director,
+    this.genre,
+    this.releaseDate,
+    this.lastModified,
+    this.rating,
+    this.rating5based,
+    this.backdropPath = const [],
+    this.youtubeTrailer,
+    this.episodeRunTime,
+    this.categoryId,
+    this.categoryIds = const [],
   });
 
   /// Creates a new instance of [XTremeCodeInfo] from a JSON object.
@@ -115,28 +115,28 @@ class XTremeCodeInfo {
       _$XTremeCodeInfoFromJson(json);
 
   /// The name of the series.
-  final String name;
+  final String? name;
 
   /// The title of the series.
-  final String title;
+  final String? title;
 
   /// The year of the series.
-  final String year;
+  final String? year;
 
   /// The cover image of the series.
-  final String cover;
+  final String? cover;
 
   /// The plot of the series.
-  final String plot;
+  final String? plot;
 
   /// The cast of the series.
-  final String cast;
+  final String? cast;
 
   /// The director of the series.
-  final String director;
+  final String? director;
 
   /// The genre of the series.
-  final String genre;
+  final String? genre;
 
   /// The release date of the series.
   final String? releaseDate;
@@ -146,11 +146,11 @@ class XTremeCodeInfo {
   final DateTime? lastModified;
 
   /// The rating of the series.
-  final String rating;
+  final String? rating;
 
   /// The rating of the series based on a 5-point scale.
   @JsonKey(name: 'rating_5based')
-  final double rating5based;
+  final double? rating5based;
 
   /// The backdrop path of the series.
   @JsonKey(name: 'backdrop_path')
@@ -158,18 +158,18 @@ class XTremeCodeInfo {
 
   /// The YouTube trailer of the series.
   @JsonKey(name: 'youtube_trailer')
-  final String youtubeTrailer;
+  final String? youtubeTrailer;
 
   /// The runtime of each episode in the series.
   @JsonKey(name: 'episode_run_time')
-  final String episodeRunTime;
+  final String? episodeRunTime;
 
   /// The ID of the category of the series.
   @JsonKey(name: 'category_id')
-  final String categoryId;
+  final String? categoryId;
 
   /// The IDs of the categories of the series.
-  @JsonKey(name: 'categoryIds')
+  @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
 
   /// Converts this instance into a JSON object.
@@ -258,8 +258,8 @@ class XTremeCodeEpisodeInfo {
       _$XTremeCodeEpisodeInfoFromJson(json);
 
   /// The ID of the episode in The Movie Database (TMDb).
-  @JsonKey(name: 'tmdb_id')
-  final int? tmdbId;
+  @JsonKey(name: 'tmdb_id', fromJson: sometimesIntToString)
+  final String? tmdbId;
 
   /// The release date of the episode.
   final String? releaseDate;
@@ -282,9 +282,11 @@ class XTremeCodeEpisodeInfo {
   final int? bitrate;
 
   /// The rating of the episode.
+  @JsonKey(fromJson: doubleFromJson)
   final double? rating;
 
   /// The season of the episode.
+  @JsonKey(fromJson: intFromJson)
   final int? season;
 
   /// The big cover image of the episode.
