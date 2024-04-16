@@ -91,23 +91,23 @@ class XTremeCodeSeason {
 class XTremeCodeInfo {
   /// Creates a new instance of [XTremeCodeInfo].
   XTremeCodeInfo({
-    required this.name,
-    required this.title,
-    required this.year,
-    required this.cover,
-    required this.plot,
-    required this.cast,
-    required this.director,
-    required this.genre,
-    required this.releaseDate,
-    required this.lastModified,
-    required this.rating,
-    required this.rating5based,
-    required this.backdropPath,
-    required this.youtubeTrailer,
-    required this.episodeRunTime,
-    required this.categoryId,
-    required this.categoryIds,
+    this.name,
+    this.title,
+    this.year,
+    this.cover,
+    this.plot,
+    this.cast,
+    this.director,
+    this.genre,
+    this.releaseDate,
+    this.lastModified,
+    this.rating,
+    this.rating5based,
+    this.backdropPath = const [],
+    this.youtubeTrailer,
+    this.episodeRunTime,
+    this.categoryId,
+    this.categoryIds = const [],
   });
 
   /// Creates a new instance of [XTremeCodeInfo] from a JSON object.
@@ -146,11 +146,12 @@ class XTremeCodeInfo {
   final DateTime? lastModified;
 
   /// The rating of the series.
-  final String rating;
+  @JsonKey(fromJson: dynamicToDoubleConverter)
+  final double? rating;
 
   /// The rating of the series based on a 5-point scale.
-  @JsonKey(name: 'rating_5based')
-  final double rating5based;
+  @JsonKey(name: 'rating_5based', fromJson: dynamicToDoubleConverter)
+  final double? rating5based;
 
   /// The backdrop path of the series.
   @JsonKey(name: 'backdrop_path')
