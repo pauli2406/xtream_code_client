@@ -21,3 +21,29 @@ DateTime? dateTimeFromString(String? dateTime) =>
 /// Converts an integer to a boolean.
 /// Returns true if [value] is 1, otherwise returns false.
 bool intToBool(int value) => value == 1;
+
+int? dynamicToIntConverter(dynamic json) {
+  if (json == null) {
+    return null;
+  }
+  if (json is num) {
+    return json.toInt();
+  }
+  if (json is String) {
+    return int.tryParse(json);
+  }
+  return null;
+}
+
+double? dynamicToDoubleConverter(dynamic json) {
+  if (json == null) {
+    return null;
+  }
+  if (json is num) {
+    return json.toDouble();
+  }
+  if (json is String) {
+    return double.tryParse(json);
+  }
+  return null;
+}
