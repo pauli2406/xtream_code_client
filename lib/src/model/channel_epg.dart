@@ -44,11 +44,12 @@ class XTremeCodeEpgListing {
       _$XTremeCodeEpgListingFromJson(json);
 
   /// The ID of the EPG listing.
-  final String? id;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  final int? id;
 
   /// The ID of the EPG.
-  @JsonKey(name: 'epg_id')
-  final String? epgId;
+  @JsonKey(name: 'epg_id', fromJson: dynamicToIntConverter)
+  final int? epgId;
 
   /// The title of the EPG listing.
   final String? title;

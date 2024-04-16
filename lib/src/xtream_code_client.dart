@@ -111,8 +111,6 @@ class XtreamCode {
     client = XtreamCodeClient(
       _createBaseUrl(url, port, username, password),
       _createStreamUrl(url, port, username, password),
-      _createMovieUrl(url, port, username, password),
-      _createSeriesUrl(url, port, username, password),
       _httpClient,
     );
     _initialized = true;
@@ -152,40 +150,6 @@ class XtreamCode {
     String password,
   ) {
     final uri = '$url:$port/$username/$password';
-    assert(
-      Uri.parse(uri).isAbsolute,
-      '''
-      The provided combination of url, port, username and password is not a 
-      valid uri
-      ''',
-    );
-    return uri;
-  }
-
-  String _createMovieUrl(
-    String url,
-    String port,
-    String username,
-    String password,
-  ) {
-    final uri = '$url:$port/movie/$username/$password';
-    assert(
-      Uri.parse(uri).isAbsolute,
-      '''
-      The provided combination of url, port, username and password is not a 
-      valid uri
-      ''',
-    );
-    return uri;
-  }
-
-  String _createSeriesUrl(
-    String url,
-    String port,
-    String username,
-    String password,
-  ) {
-    final uri = '$url:$port/series/$username/$password';
     assert(
       Uri.parse(uri).isAbsolute,
       '''

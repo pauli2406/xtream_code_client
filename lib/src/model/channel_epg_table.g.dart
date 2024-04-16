@@ -24,8 +24,8 @@ Map<String, dynamic> _$XTremeCodeChannelEpgTableToJson(
 XTremeCodeEpgListingTable _$XTremeCodeEpgListingTableFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeEpgListingTable(
-      id: json['id'] as String,
-      epgId: json['epg_id'] as String,
+      id: dynamicToIntConverter(json['id']),
+      epgId: dynamicToIntConverter(json['epg_id']),
       title: json['title'] as String?,
       lang: json['lang'] as String?,
       start: dateTimeFromString(json['start'] as String?),

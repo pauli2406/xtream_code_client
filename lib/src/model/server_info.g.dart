@@ -11,7 +11,7 @@ XTremeCodeServerInfo _$XTremeCodeServerInfoFromJson(
     XTremeCodeServerInfo(
       xui: json['xui'] as bool?,
       version: json['version'] as String?,
-      revision: json['revision'] as int?,
+      revision: dynamicToIntConverter(json['revision']),
       url: json['url'] as String?,
       port: json['port'] as String?,
       httpsPort: json['https_port'] as String?,

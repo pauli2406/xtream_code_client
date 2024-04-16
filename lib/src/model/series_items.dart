@@ -45,6 +45,7 @@ class XTremeCodeSeriesItem {
       _$XTremeCodeSeriesItemFromJson(json);
 
   /// The number of the series item.
+  @JsonKey(fromJson: dynamicToIntConverter)
   final int? num;
 
   /// The name of the series item.
@@ -61,8 +62,8 @@ class XTremeCodeSeriesItem {
   final String? streamType;
 
   /// The ID of the series.
-  @JsonKey(name: 'series_id')
-  final int seriesId;
+  @JsonKey(name: 'series_id', fromJson: dynamicToIntConverter)
+  final int? seriesId;
 
   /// The cover image URL of the series item.
   final String? cover;
@@ -87,10 +88,11 @@ class XTremeCodeSeriesItem {
   final DateTime? lastModified;
 
   /// The rating of the series item.
-  final String? rating;
+  @JsonKey(fromJson: dynamicToDoubleConverter)
+  final double? rating;
 
   /// The 5-based rating of the series item.
-  @JsonKey(name: 'rating_5based')
+  @JsonKey(name: 'rating_5based', fromJson: dynamicToDoubleConverter)
   final double? rating5based;
 
   /// The backdrop image paths of the series item.
@@ -102,12 +104,12 @@ class XTremeCodeSeriesItem {
   final String? youtubeTrailer;
 
   /// The episode run time of the series item.
-  @JsonKey(name: 'episode_run_time')
-  final String? episodeRunTime;
+  @JsonKey(name: 'episode_run_time', fromJson: dynamicToIntConverter)
+  final int? episodeRunTime;
 
   /// The category ID of the series item.
-  @JsonKey(name: 'category_id')
-  final String? categoryId;
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
+  final int? categoryId;
 
   /// The category IDs of the series item.
   @JsonKey(name: 'category_ids')

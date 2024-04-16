@@ -9,12 +9,12 @@ part of 'series_items.dart';
 XTremeCodeSeriesItem _$XTremeCodeSeriesItemFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeSeriesItem(
-      num: json['num'] as int?,
+      num: dynamicToIntConverter(json['num']),
       name: json['name'] as String?,
       title: json['title'] as String?,
       year: json['year'] as String?,
       streamType: json['stream_type'] as String?,
-      seriesId: json['series_id'] as int,
+      seriesId: dynamicToIntConverter(json['series_id']),
       cover: json['cover'] as String?,
       plot: json['plot'] as String?,
       cast: json['cast'] as String?,
@@ -22,14 +22,14 @@ XTremeCodeSeriesItem _$XTremeCodeSeriesItemFromJson(
       genre: json['genre'] as String?,
       releaseDate: json['releaseDate'] as String?,
       lastModified: dateTimeFromEpochSeconds(json['last_modified'] as String?),
-      rating: json['rating'] as String?,
-      rating5based: (json['rating_5based'] as num?)?.toDouble(),
+      rating: dynamicToDoubleConverter(json['rating']),
+      rating5based: dynamicToDoubleConverter(json['rating_5based']),
       backdropPath: (json['backdrop_path'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       youtubeTrailer: json['youtube_trailer'] as String?,
-      episodeRunTime: json['episode_run_time'] as String?,
-      categoryId: json['category_id'] as String?,
+      episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
+      categoryId: dynamicToIntConverter(json['category_id']),
       categoryIds:
           (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
     );

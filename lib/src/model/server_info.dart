@@ -32,6 +32,7 @@ class XTremeCodeServerInfo {
   String? version;
 
   /// The revision of the server.
+  @JsonKey(fromJson: dynamicToIntConverter)
   int? revision;
 
   /// The URL of the server.
