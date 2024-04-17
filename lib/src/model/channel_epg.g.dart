@@ -28,13 +28,11 @@ XTremeCodeEpgListing _$XTremeCodeEpgListingFromJson(
       title: json['title'] as String?,
       lang: json['lang'] as String?,
       start: dateTimeFromString(json['start'] as String?),
-      end: dateTimeFromEpochSeconds(json['end'] as String?),
+      end: dateTimeFromEpochSeconds(json['end']),
       description: json['description'] as String?,
       channelId: json['channel_id'] as String?,
-      startTimestamp:
-          dateTimeFromEpochSeconds(json['start_timestamp'] as String?),
-      stopTimestamp:
-          dateTimeFromEpochSeconds(json['stop_timestamp'] as String?),
+      startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
+      stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
       stop:
           json['stop'] == null ? null : DateTime.parse(json['stop'] as String),
     );

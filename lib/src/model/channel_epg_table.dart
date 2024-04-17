@@ -82,11 +82,11 @@ class XTremeCodeEpgListingTable {
   final DateTime? stopTimestamp;
 
   /// Whether the EPG listing is currently playing.
-  @JsonKey(name: 'now_playing', fromJson: intToBool)
+  @JsonKey(name: 'now_playing', fromJson: dynamicToBool)
   final bool nowPlaying;
 
   /// Whether the EPG listing has an archive.
-  @JsonKey(name: 'has_archive', fromJson: intToBool)
+  @JsonKey(name: 'has_archive', fromJson: dynamicToBool)
   final bool hasArchive;
 
   /// Converts this instance into a JSON object.

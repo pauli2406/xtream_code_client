@@ -88,7 +88,7 @@ XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       title: json['title'] as String,
       year: json['year'] as String,
-      added: dateTimeFromEpochSeconds(json['added'] as String?),
+      added: dateTimeFromEpochSeconds(json['added']),
       categoryId: dynamicToIntConverter(json['categoryId']),
       categoryIds:
           (json['categoryIds'] as List<dynamic>).map((e) => e as int).toList(),

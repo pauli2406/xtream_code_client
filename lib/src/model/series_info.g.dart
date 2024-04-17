@@ -68,7 +68,7 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       director: json['director'] as String?,
       genre: json['genre'] as String?,
       releaseDate: json['releaseDate'] as String?,
-      lastModified: dateTimeFromEpochSeconds(json['last_modified'] as String?),
+      lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
       backdropPath: (json['backdrop_path'] as List<dynamic>?)
@@ -116,7 +116,7 @@ XTremeCodeEpisode _$XTremeCodeEpisodeFromJson(Map<String, dynamic> json) =>
       subtitles:
           (json['subtitles'] as List<dynamic>).map((e) => e as String).toList(),
       customSid: dynamicToIntConverter(json['custom_sid']),
-      added: dateTimeFromEpochSeconds(json['added'] as String?),
+      added: dateTimeFromEpochSeconds(json['added']),
       season: dynamicToIntConverter(json['season']),
       directSource: json['direct_source'] as String,
     );
