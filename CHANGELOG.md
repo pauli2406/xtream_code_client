@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+Fixing a crucial issue with the API
+
 ## 1.1.0
 
 ### Breaking Stabilize Parsers

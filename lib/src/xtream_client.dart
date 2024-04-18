@@ -37,12 +37,6 @@ class XtreamCodeClient {
   /// The base URL for streaming an channel.
   final String _streamUrl;
 
-  /// The base URL for streaming an channel.
-  final String _movieUrl;
-
-  /// The base URL for streaming an channel.
-  final String _seriesUrl;
-
   /// The base URL getterof the Xtream Code server.
   String get baseUrl => _baseUrl;
 
@@ -216,7 +210,7 @@ class XtreamCodeClient {
     XTremeCodeLiveStreamItem item,
     int? limit,
   ) async {
-    return channelEpgViaStreamId(item.streamId, limit);
+    return channelEpgViaStreamId(item.streamId!, limit);
   }
 
   /// Retrieves EPG information for a specific live stream item.

@@ -102,9 +102,9 @@ void main() {
       expect(item.info.categoryId, 26);
       expect(item.info.categoryIds, [26]);
       expect(item.episodes, isNotNull);
-      expect(item.episodes['1'], isNotNull);
-      expect(item.episodes.length, 1);
-      final episode = item.episodes['1']![0];
+      expect(item.episodes?['1'], isNotNull);
+      expect(item.episodes!.length, 1);
+      final episode = item.episodes!['1']![0];
       expect(episode.id, 225870);
       expect(episode.episodeNum, 1);
       expect(episode.title, 'Some Title');
@@ -181,9 +181,9 @@ void main() {
       expect(item.info.categoryId, 26);
       expect(item.info.categoryIds, <String>[]);
       expect(item.episodes, isNotNull);
-      expect(item.episodes['1'], isNotNull);
-      expect(item.episodes.length, 1);
-      final episode = item.episodes['1']![0];
+      expect(item.episodes?['1'], isNotNull);
+      expect(item.episodes!.length, 1);
+      final episode = item.episodes!['1']![0];
       expect(episode.id, 225870);
       expect(episode.episodeNum, 1);
       expect(episode.info, isNotNull);
