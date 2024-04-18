@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:xtream_code_client/src/utils/json_helper.dart';
 
 part 'category.g.dart';
 
@@ -17,15 +18,15 @@ class XTremeCodeCategory {
       _$XTremeCodeCategoryFromJson(json);
 
   /// The ID of the category.
-  @JsonKey(name: 'category_id')
-  String categoryId;
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
+  int? categoryId;
 
   /// The name of the category.
   @JsonKey(name: 'category_name')
   String? categoryName;
 
   /// The ID of the parent category.
-  @JsonKey(name: 'parent_id')
+  @JsonKey(name: 'parent_id', fromJson: dynamicToIntConverter)
   int? parentId;
 
   /// Converts this [XTremeCodeCategory] instance to a JSON map.

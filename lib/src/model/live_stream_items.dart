@@ -29,6 +29,7 @@ class XTremeCodeLiveStreamItem {
       _$XTremeCodeLiveStreamItemFromJson(json);
 
   /// The number of the live stream item.
+  @JsonKey(fromJson: dynamicToIntConverter)
   final int? num;
 
   /// The name of the live stream item.
@@ -39,8 +40,8 @@ class XTremeCodeLiveStreamItem {
   final String? streamType;
 
   /// The ID of the stream.
-  @JsonKey(name: 'stream_id')
-  final int streamId;
+  @JsonKey(name: 'stream_id', fromJson: dynamicToIntConverter)
+  final int? streamId;
 
   /// The icon of the stream.
   @JsonKey(name: 'stream_icon')
@@ -55,11 +56,11 @@ class XTremeCodeLiveStreamItem {
   final DateTime? added;
 
   /// The custom SID of the live stream item.
-  @JsonKey(name: 'custom_sid')
-  final String? customSid;
+  @JsonKey(name: 'custom_sid', fromJson: dynamicToIntConverter)
+  final int? customSid;
 
   /// The TV archive of the live stream item.
-  @JsonKey(name: 'tv_archive')
+  @JsonKey(name: 'tv_archive', fromJson: dynamicToIntConverter)
   final int? tvArchive;
 
   /// The direct source of the live stream item.
@@ -67,12 +68,12 @@ class XTremeCodeLiveStreamItem {
   final String? directSource;
 
   /// The duration of the TV archive.
-  @JsonKey(name: 'tv_archive_duration')
+  @JsonKey(name: 'tv_archive_duration', fromJson: dynamicToIntConverter)
   final int? tvArchiveDuration;
 
   /// The ID of the category.
-  @JsonKey(name: 'category_id')
-  final String? categoryId;
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
+  final int? categoryId;
 
   /// The IDs of the categories.
   @JsonKey(name: 'category_ids')

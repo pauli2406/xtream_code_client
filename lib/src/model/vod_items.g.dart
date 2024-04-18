@@ -8,17 +8,17 @@ part of 'vod_items.dart';
 
 XTremeCodeVodItem _$XTremeCodeVodItemFromJson(Map<String, dynamic> json) =>
     XTremeCodeVodItem(
-      streamId: json['stream_id'] as int,
-      num: json['num'] as int?,
+      streamId: dynamicToIntConverter(json['stream_id']),
+      num: dynamicToIntConverter(json['num']),
       name: json['name'] as String?,
       title: json['title'] as String?,
       year: json['year'] as String?,
       streamType: json['stream_type'] as String?,
       streamIcon: json['stream_icon'] as String?,
-      rating: (json['rating'] as num?)?.toDouble(),
-      rating5based: (json['rating_5based'] as num?)?.toDouble(),
-      added: dateTimeFromEpochSeconds(json['added'] as String?),
-      categoryId: json['category_id'] as String?,
+      rating: dynamicToDoubleConverter(json['rating']),
+      rating5based: dynamicToDoubleConverter(json['rating_5based']),
+      added: dateTimeFromEpochSeconds(json['added']),
+      categoryId: dynamicToIntConverter(json['category_id']),
       categoryIds:
           (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
       containerExtension: json['container_extension'] as String?,
@@ -28,12 +28,12 @@ XTremeCodeVodItem _$XTremeCodeVodItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$XTremeCodeVodItemToJson(XTremeCodeVodItem instance) =>
     <String, dynamic>{
+      'stream_id': instance.streamId,
       'num': instance.num,
       'name': instance.name,
       'title': instance.title,
       'year': instance.year,
       'stream_type': instance.streamType,
-      'stream_id': instance.streamId,
       'stream_icon': instance.streamIcon,
       'rating': instance.rating,
       'rating_5based': instance.rating5based,

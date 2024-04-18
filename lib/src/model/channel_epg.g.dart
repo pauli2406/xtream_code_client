@@ -23,18 +23,16 @@ Map<String, dynamic> _$XTremeCodeChannelEpgToJson(
 XTremeCodeEpgListing _$XTremeCodeEpgListingFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeEpgListing(
-      id: json['id'] as String?,
-      epgId: json['epg_id'] as String?,
+      id: dynamicToIntConverter(json['id']),
+      epgId: dynamicToIntConverter(json['epg_id']),
       title: json['title'] as String?,
       lang: json['lang'] as String?,
       start: dateTimeFromString(json['start'] as String?),
-      end: dateTimeFromEpochSeconds(json['end'] as String?),
+      end: dateTimeFromEpochSeconds(json['end']),
       description: json['description'] as String?,
       channelId: json['channel_id'] as String?,
-      startTimestamp:
-          dateTimeFromEpochSeconds(json['start_timestamp'] as String?),
-      stopTimestamp:
-          dateTimeFromEpochSeconds(json['stop_timestamp'] as String?),
+      startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
+      stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
       stop:
           json['stop'] == null ? null : DateTime.parse(json['stop'] as String),
     );
