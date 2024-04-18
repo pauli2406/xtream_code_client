@@ -20,6 +20,7 @@ class XTremeCodeVodInfo {
   final XTremeCodeInfoVod info;
 
   /// The data about the movie in the VOD.
+  @JsonKey(name: 'movie_data')
   final XTremeCodeMovieData movieData;
 
   /// Converts this instance into a JSON object.
@@ -88,7 +89,7 @@ class XTremeCodeInfoVod {
 
   /// The release date of the movie.
   @JsonKey(name: 'release_date')
-  final String? releaseDate;
+  final DateTime? releaseDate;
 
   /// The runtime of the episode in minutes.
   @JsonKey(name: 'episode_run_time', fromJson: dynamicToIntConverter)
@@ -150,7 +151,7 @@ class XTremeCodeInfoVod {
   final double? rating;
 
   /// The release date of the movie.
-  final String? releasedate;
+  final DateTime? releasedate;
 
   /// The subtitles of the movie.
   final List<dynamic> subtitles;
@@ -198,20 +199,20 @@ class XTremeCodeMovieData {
   final DateTime? added;
 
   /// The ID of the category the movie belongs to.
-  @JsonKey(name: 'categoryId', fromJson: dynamicToIntConverter)
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
   final int? categoryId;
 
   /// The IDs of the categories the movie belongs to.
-  @JsonKey(name: 'categoryIds')
+  @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
 
   /// The container extension of the movie.
-  @JsonKey(name: 'containerExtension')
+  @JsonKey(name: 'container_extension')
   final String containerExtension;
 
   /// The custom SID of the movie.
-  @JsonKey(name: 'custom_sid', fromJson: dynamicToIntConverter)
-  final int? customSid;
+  @JsonKey(name: 'custom_sid')
+  final String? customSid;
 
   /// The direct source of the movie.
   @JsonKey(name: 'direct_source')

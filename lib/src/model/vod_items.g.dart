@@ -22,18 +22,18 @@ XTremeCodeVodItem _$XTremeCodeVodItemFromJson(Map<String, dynamic> json) =>
       categoryIds:
           (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
       containerExtension: json['container_extension'] as String?,
-      customSid: dynamicToIntConverter(json['custom_sid']),
+      customSid: json['custom_sid'] as String?,
       directSource: json['direct_source'] as String?,
     );
 
 Map<String, dynamic> _$XTremeCodeVodItemToJson(XTremeCodeVodItem instance) =>
     <String, dynamic>{
+      'stream_id': instance.streamId,
       'num': instance.num,
       'name': instance.name,
       'title': instance.title,
       'year': instance.year,
       'stream_type': instance.streamType,
-      'stream_id': instance.streamId,
       'stream_icon': instance.streamIcon,
       'rating': instance.rating,
       'rating_5based': instance.rating5based,

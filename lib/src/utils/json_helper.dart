@@ -42,7 +42,8 @@ bool dynamicToBool(dynamic value) {
 }
 
 /// Converts a dynamic value to an integer.
-/// Returns the integer value if conversion is successful, otherwise returns null.
+/// Returns the integer value if conversion is successful, otherwise returns
+/// null.
 int? dynamicToIntConverter(dynamic json) {
   if (json == null) {
     return null;
@@ -57,7 +58,8 @@ int? dynamicToIntConverter(dynamic json) {
 }
 
 /// Converts a dynamic value to a double.
-/// Returns the double value if conversion is successful, otherwise returns null.
+/// Returns the double value if conversion is successful, otherwise
+/// returns null.
 double? dynamicToDoubleConverter(dynamic json) {
   if (json == null) {
     return null;

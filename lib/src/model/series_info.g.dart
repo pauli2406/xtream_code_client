@@ -33,20 +33,22 @@ Map<String, dynamic> _$XTremeCodeSeriesInfoToJson(
 
 XTremeCodeSeason _$XTremeCodeSeasonFromJson(Map<String, dynamic> json) =>
     XTremeCodeSeason(
-      airDate: json['air_date'] as String,
-      episodeCount: json['episode_count'] as int,
-      id: json['id'] as int,
-      name: json['name'] as String,
-      overview: json['overview'] as String,
-      seasonNumber: json['season_number'] as int,
-      voteAverage: json['vote_average'] as int,
-      cover: json['cover'] as String,
-      coverBig: json['cover_big'] as String,
+      airDate: json['air_date'] == null
+          ? null
+          : DateTime.parse(json['air_date'] as String),
+      episodeCount: dynamicToIntConverter(json['episode_count']),
+      id: dynamicToIntConverter(json['id']),
+      name: json['name'] as String?,
+      overview: json['overview'] as String?,
+      seasonNumber: dynamicToIntConverter(json['season_number']),
+      voteAverage: dynamicToDoubleConverter(json['vote_average']),
+      cover: json['cover'] as String?,
+      coverBig: json['cover_big'] as String?,
     );
 
 Map<String, dynamic> _$XTremeCodeSeasonToJson(XTremeCodeSeason instance) =>
     <String, dynamic>{
-      'air_date': instance.airDate,
+      'air_date': instance.airDate?.toIso8601String(),
       'episode_count': instance.episodeCount,
       'id': instance.id,
       'name': instance.name,
@@ -67,7 +69,9 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       cast: json['cast'] as String?,
       director: json['director'] as String?,
       genre: json['genre'] as String?,
-      releaseDate: json['releaseDate'] as String?,
+      releaseDate: json['releaseDate'] == null
+          ? null
+          : DateTime.parse(json['releaseDate'] as String),
       lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
@@ -94,7 +98,7 @@ Map<String, dynamic> _$XTremeCodeInfoToJson(XTremeCodeInfo instance) =>
       'cast': instance.cast,
       'director': instance.director,
       'genre': instance.genre,
-      'releaseDate': instance.releaseDate,
+      'releaseDate': instance.releaseDate?.toIso8601String(),
       'last_modified': instance.lastModified?.toIso8601String(),
       'rating': instance.rating,
       'rating_5based': instance.rating5based,
@@ -109,16 +113,16 @@ XTremeCodeEpisode _$XTremeCodeEpisodeFromJson(Map<String, dynamic> json) =>
     XTremeCodeEpisode(
       id: dynamicToIntConverter(json['id']),
       episodeNum: dynamicToIntConverter(json['episode_num']),
-      title: json['title'] as String,
-      containerExtension: json['container_extension'] as String,
+      title: json['title'] as String?,
+      containerExtension: json['container_extension'] as String?,
       info:
           XTremeCodeEpisodeInfo.fromJson(json['info'] as Map<String, dynamic>),
       subtitles:
           (json['subtitles'] as List<dynamic>).map((e) => e as String).toList(),
-      customSid: dynamicToIntConverter(json['custom_sid']),
+      customSid: json['custom_sid'] as String?,
       added: dateTimeFromEpochSeconds(json['added']),
       season: dynamicToIntConverter(json['season']),
-      directSource: json['direct_source'] as String,
+      directSource: json['direct_source'] as String?,
     );
 
 Map<String, dynamic> _$XTremeCodeEpisodeToJson(XTremeCodeEpisode instance) =>
@@ -138,15 +142,17 @@ Map<String, dynamic> _$XTremeCodeEpisodeToJson(XTremeCodeEpisode instance) =>
 XTremeCodeEpisodeInfo _$XTremeCodeEpisodeInfoFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeEpisodeInfo(
-      tmdbId: json['tmdb_id'] as int?,
-      releaseDate: json['releaseDate'] as String?,
+      tmdbId: dynamicToIntConverter(json['tmdb_id']),
+      releaseDate: json['release_date'] == null
+          ? null
+          : DateTime.parse(json['release_date'] as String),
       plot: json['plot'] as String?,
       durationSecs: dynamicToIntConverter(json['duration_secs']),
       duration: json['duration'] as String?,
       movieImage: json['movie_image'] as String?,
-      bitrate: json['bitrate'] as int?,
-      rating: (json['rating'] as num?)?.toDouble(),
-      season: json['season'] as int?,
+      bitrate: dynamicToIntConverter(json['bitrate']),
+      rating: dynamicToDoubleConverter(json['rating']),
+      season: dynamicToIntConverter(json['season']),
       coverBig: json['cover_big'] as String?,
     );
 
@@ -154,7 +160,7 @@ Map<String, dynamic> _$XTremeCodeEpisodeInfoToJson(
         XTremeCodeEpisodeInfo instance) =>
     <String, dynamic>{
       'tmdb_id': instance.tmdbId,
-      'releaseDate': instance.releaseDate,
+      'release_date': instance.releaseDate?.toIso8601String(),
       'plot': instance.plot,
       'duration_secs': instance.durationSecs,
       'duration': instance.duration,

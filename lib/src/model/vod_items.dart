@@ -29,6 +29,10 @@ class XTremeCodeVodItem {
   factory XTremeCodeVodItem.fromJson(Map<String, dynamic> json) =>
       _$XTremeCodeVodItemFromJson(json);
 
+  /// The ID of the stream of the VOD item.
+  @JsonKey(name: 'stream_id', fromJson: dynamicToIntConverter)
+  final int? streamId;
+
   /// The number of the VOD item.
   @JsonKey(fromJson: dynamicToIntConverter)
   final int? num;
@@ -45,10 +49,6 @@ class XTremeCodeVodItem {
   /// The type of the stream of the VOD item.
   @JsonKey(name: 'stream_type')
   final String? streamType;
-
-  /// The ID of the stream of the VOD item.
-  @JsonKey(name: 'stream_id', fromJson: dynamicToIntConverter)
-  final int? streamId;
 
   /// The icon of the stream of the VOD item.
   @JsonKey(name: 'stream_icon')
@@ -79,8 +79,8 @@ class XTremeCodeVodItem {
   final String? containerExtension;
 
   /// The custom SID of the VOD item.
-  @JsonKey(name: 'custom_sid', fromJson: dynamicToIntConverter)
-  final int? customSid;
+  @JsonKey(name: 'custom_sid')
+  final String? customSid;
 
   /// The direct source of the VOD item.
   @JsonKey(name: 'direct_source')

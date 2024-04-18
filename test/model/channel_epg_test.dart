@@ -8,13 +8,12 @@ void main() {
       {
         'id': '69235874',
         'epg_id': '39',
-        'title': 'cGhvZW5peCBkZXIgdGFn',
+        'title': 'Some Title',
         'lang': '',
         'start': '2024-04-16 23:00:00',
         'end': '1713304800',
-        'description':
-            'RGllIFNlbmR1bmcgZmFzc3QgZGllIHdpY2h0aWdlbiBFcmVpZ25pc3NlLCBUaGVtZW4gdW5kIERpc2t1c3Npb25lbiBkZXMgVGFnZXMgenVzYW1tZW4uIE5lYmVuIGRpZXNlciBUaGVtYXRpc2llcnVuZyBiZWxldWNodGV0IGRpZSBTZW5kdW5nIGRpZSBha3R1ZWxsZW4gRGViYXR0ZW4gdW5kIFRoZW1lbiBtaXQgZWluZXIgdW1mYW5ncmVpY2hlcmVuIHVuZCBoaW50ZXJncsO8bmRpZ2VyZW4gQXVzZWluYW5kZXJzZXR6dW5nLg==',
-        'channel_id': 'DE: Phoenix',
+        'description': 'Some Description',
+        'channel_id': 'Some ID',
         'start_timestamp': '1713301200',
         'stop_timestamp': '1713304800',
         'stop': '2024-04-17 00:00:00'
@@ -22,13 +21,12 @@ void main() {
       {
         'id': 69235874,
         'epg_id': 39,
-        'title': 'cGhvZW5peCBkZXIgdGFn',
+        'title': 'Some Title',
         'lang': '',
         'start': '2024-04-16 23:00:00',
         'end': 1713304800,
-        'description':
-            'RGllIFNlbmR1bmcgZmFzc3QgZGllIHdpY2h0aWdlbiBFcmVpZ25pc3NlLCBUaGVtZW4gdW5kIERpc2t1c3Npb25lbiBkZXMgVGFnZXMgenVzYW1tZW4uIE5lYmVuIGRpZXNlciBUaGVtYXRpc2llcnVuZyBiZWxldWNodGV0IGRpZSBTZW5kdW5nIGRpZSBha3R1ZWxsZW4gRGViYXR0ZW4gdW5kIFRoZW1lbiBtaXQgZWluZXIgdW1mYW5ncmVpY2hlcmVuIHVuZCBoaW50ZXJncsO8bmRpZ2VyZW4gQXVzZWluYW5kZXJzZXR6dW5nLg==',
-        'channel_id': 'DE: Phoenix',
+        'description': 'Some Description',
+        'channel_id': 'Some ID',
         'start_timestamp': 1713301200,
         'stop_timestamp': 1713304800,
         'stop': '2024-04-17 00:00:00'
@@ -45,13 +43,12 @@ void main() {
       // Check first listing
       expect(epg.epgListings[0].id, 69235874);
       expect(epg.epgListings[0].epgId, 39);
-      expect(epg.epgListings[0].title, 'cGhvZW5peCBkZXIgdGFn');
+      expect(epg.epgListings[0].title, 'Some Title');
       expect(epg.epgListings[0].lang, '');
       expect(epg.epgListings[0].start, DateTime.parse('2024-04-16 23:00:00'));
       expect(epg.epgListings[0].end, dateTimeFromEpochSeconds('1713304800'));
-      expect(epg.epgListings[0].description,
-          'RGllIFNlbmR1bmcgZmFzc3QgZGllIHdpY2h0aWdlbiBFcmVpZ25pc3NlLCBUaGVtZW4gdW5kIERpc2t1c3Npb25lbiBkZXMgVGFnZXMgenVzYW1tZW4uIE5lYmVuIGRpZXNlciBUaGVtYXRpc2llcnVuZyBiZWxldWNodGV0IGRpZSBTZW5kdW5nIGRpZSBha3R1ZWxsZW4gRGViYXR0ZW4gdW5kIFRoZW1lbiBtaXQgZWluZXIgdW1mYW5ncmVpY2hlcmVuIHVuZCBoaW50ZXJncsO8bmRpZ2VyZW4gQXVzZWluYW5kZXJzZXR6dW5nLg==');
-      expect(epg.epgListings[0].channelId, 'DE: Phoenix');
+      expect(epg.epgListings[0].description, 'Some Description');
+      expect(epg.epgListings[0].channelId, 'Some ID');
       expect(
         epg.epgListings[0].startTimestamp,
         dateTimeFromEpochSeconds('1713301200'),
@@ -71,13 +68,12 @@ void main() {
       // Check second listing
       expect(epg.epgListings[1].id, 69235874);
       expect(epg.epgListings[1].epgId, 39);
-      expect(epg.epgListings[1].title, 'cGhvZW5peCBkZXIgdGFn');
+      expect(epg.epgListings[1].title, 'Some Title');
       expect(epg.epgListings[1].lang, '');
       expect(epg.epgListings[1].start, DateTime.parse('2024-04-16 23:00:00'));
       expect(epg.epgListings[1].end, dateTimeFromEpochSeconds('1713304800'));
-      expect(epg.epgListings[1].description,
-          'RGllIFNlbmR1bmcgZmFzc3QgZGllIHdpY2h0aWdlbiBFcmVpZ25pc3NlLCBUaGVtZW4gdW5kIERpc2t1c3Npb25lbiBkZXMgVGFnZXMgenVzYW1tZW4uIE5lYmVuIGRpZXNlciBUaGVtYXRpc2llcnVuZyBiZWxldWNodGV0IGRpZSBTZW5kdW5nIGRpZSBha3R1ZWxsZW4gRGViYXR0ZW4gdW5kIFRoZW1lbiBtaXQgZWluZXIgdW1mYW5ncmVpY2hlcmVuIHVuZCBoaW50ZXJncsO8bmRpZ2VyZW4gQXVzZWluYW5kZXJzZXR6dW5nLg==');
-      expect(epg.epgListings[1].channelId, 'DE: Phoenix');
+      expect(epg.epgListings[1].description, 'Some Description');
+      expect(epg.epgListings[1].channelId, 'Some ID');
       expect(
         epg.epgListings[1].startTimestamp,
         dateTimeFromEpochSeconds('1713301200'),
