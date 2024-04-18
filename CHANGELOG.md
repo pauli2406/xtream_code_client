@@ -10,6 +10,10 @@ With those changes dynamic parsing is introduced to handle the non standardized 
 
 Also added extensive test coverage
 
+## 1.0.3
+
+- Fix an issues with url
+
 ## 1.0.2
 
 - Improvements to the EPG methods

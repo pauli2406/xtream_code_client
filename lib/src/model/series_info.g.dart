@@ -13,7 +13,7 @@ XTremeCodeSeriesInfo _$XTremeCodeSeriesInfoFromJson(
           .map((e) => XTremeCodeSeason.fromJson(e as Map<String, dynamic>))
           .toList(),
       info: XTremeCodeInfo.fromJson(json['info'] as Map<String, dynamic>),
-      episodes: (json['episodes'] as Map<String, dynamic>).map(
+      episodes: (json['episodes'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             k,
             (e as List<dynamic>)

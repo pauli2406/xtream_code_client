@@ -24,7 +24,7 @@ class XTremeCodeSeriesInfo {
   final XTremeCodeInfo info;
 
   /// The episodes of the series, grouped by season.
-  final Map<String, List<XTremeCodeEpisode>> episodes;
+  final Map<String, List<XTremeCodeEpisode>>? episodes;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeSeriesInfoToJson(this);
@@ -35,15 +35,15 @@ class XTremeCodeSeriesInfo {
 class XTremeCodeSeason {
   /// Creates a new instance of [XTremeCodeSeason].
   XTremeCodeSeason({
-    required this.airDate,
-    required this.episodeCount,
+    this.airDate,
+    this.episodeCount,
     required this.id,
-    required this.name,
-    required this.overview,
-    required this.seasonNumber,
-    required this.voteAverage,
-    required this.cover,
-    required this.coverBig,
+    this.name,
+    this.overview,
+    this.seasonNumber,
+    this.voteAverage,
+    this.cover,
+    this.coverBig,
   });
 
   /// Creates a new instance of [XTremeCodeSeason] from a JSON object.
