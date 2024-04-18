@@ -16,7 +16,7 @@ void main() {
         'channel_id': 'Some ID',
         'start_timestamp': '1713301200',
         'stop_timestamp': '1713304800',
-        'stop': '2024-04-17 00:00:00'
+        'stop': '2024-04-17 00:00:00',
       },
       {
         'id': 69235874,
@@ -29,7 +29,7 @@ void main() {
         'channel_id': 'Some ID',
         'start_timestamp': 1713301200,
         'stop_timestamp': 1713304800,
-        'stop': '2024-04-17 00:00:00'
+        'stop': '2024-04-17 00:00:00',
       },
     ],
   };

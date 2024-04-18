@@ -176,10 +176,10 @@ void main() {
       expect(item.info.lastModified, dateTimeFromEpochSeconds(1678845321));
       expect(item.info.rating, 8);
       expect(item.info.rating5based, 4);
-      expect(item.info.backdropPath, []);
+      expect(item.info.backdropPath, <String>[]);
       expect(item.info.episodeRunTime, 25);
       expect(item.info.categoryId, 26);
-      expect(item.info.categoryIds, []);
+      expect(item.info.categoryIds, <String>[]);
       expect(item.episodes, isNotNull);
       expect(item.episodes['1'], isNotNull);
       expect(item.episodes.length, 1);
@@ -192,7 +192,7 @@ void main() {
       expect(episode.info.bitrate, 2177);
       expect(episode.info.rating, 0);
       expect(episode.info.season, 1);
-      expect(episode.subtitles, []);
+      expect(episode.subtitles, <String>[]);
       expect(episode.added, dateTimeFromEpochSeconds(1678845306));
       expect(episode.season, 1);
     });

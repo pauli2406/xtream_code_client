@@ -10,7 +10,7 @@ XTremeCodeVodInfo _$XTremeCodeVodInfoFromJson(Map<String, dynamic> json) =>
     XTremeCodeVodInfo(
       info: XTremeCodeInfoVod.fromJson(json['info'] as Map<String, dynamic>),
       movieData: XTremeCodeMovieData.fromJson(
-          json['movie_data'] as Map<String, dynamic>),
+          json['movie_data'] as Map<String, dynamic>,),
     );
 
 Map<String, dynamic> _$XTremeCodeVodInfoToJson(XTremeCodeVodInfo instance) =>
@@ -102,7 +102,7 @@ XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$XTremeCodeMovieDataToJson(
-        XTremeCodeMovieData instance) =>
+        XTremeCodeMovieData instance,) =>
     <String, dynamic>{
       'stream_id': instance.streamId,
       'name': instance.name,
