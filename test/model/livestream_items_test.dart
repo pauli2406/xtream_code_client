@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:xtream_code_client/src/utils/json_helper.dart';
 import 'package:xtream_code_client/xtream_code_client.dart';
 
 void main() {
@@ -28,7 +29,7 @@ void main() {
       expect(item.streamId, 2);
       expect(item.streamIcon, 'https://someurl.com/icon.jpg');
       expect(item.epgChannelId, 'Some EPG ID');
-      expect(item.added, DateTime.fromMillisecondsSinceEpoch(1570557158 * 1000));
+      expect(item.added, dateTimeFromEpochSeconds(1570557158));
       expect(item.customSid, null);
       expect(item.tvArchive, 0);
       expect(item.directSource, '');
@@ -51,7 +52,7 @@ void main() {
       final item = XTremeCodeLiveStreamItem.fromJson(mockJsonString2);
       expect(item.num, 6);
       expect(item.streamId, 2);
-      expect(item.added, DateTime.fromMillisecondsSinceEpoch(1570557158 * 1000));
+      expect(item.added, dateTimeFromEpochSeconds(1570557158));
       expect(item.tvArchive, 0);
       expect(item.tvArchiveDuration, 0);
       expect(item.categoryId, 1);

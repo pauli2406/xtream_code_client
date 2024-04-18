@@ -20,7 +20,7 @@ void main() {
       'category_ids': [295, 224],
       'container_extension': 'mkv',
       'custom_sid': '',
-      'direct_source': ''
+      'direct_source': '',
     };
     test('some values are strings', () {
       final item = XTremeCodeVodItem.fromJson(mockJsonString);

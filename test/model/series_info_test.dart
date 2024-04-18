@@ -140,10 +140,10 @@ void main() {
           'last_modified': 1678845321,
           'rating': 8,
           'rating_5based': 4,
-          'backdrop_path': [],
+          'backdrop_path': <String>[],
           'episode_run_time': 25,
           'category_id': 26,
-          'category_ids': [],
+          'category_ids': <int>[],
         },
         'episodes': {
           '1': [
@@ -157,7 +157,7 @@ void main() {
                 'rating': '0',
                 'season': '1',
               },
-              'subtitles': [],
+              'subtitles': <String>[],
               'added': 1678845306,
               'season': 1,
             },
