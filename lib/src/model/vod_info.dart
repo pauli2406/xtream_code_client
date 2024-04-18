@@ -20,6 +20,7 @@ class XTremeCodeVodInfo {
   final XTremeCodeInfoVod info;
 
   /// The data about the movie in the VOD.
+  @JsonKey(name: 'movie_data')
   final XTremeCodeMovieData movieData;
 
   /// Converts this instance into a JSON object.
@@ -68,7 +69,7 @@ class XTremeCodeInfoVod {
   final String? kinopoiskUrl;
 
   /// The ID of the movie in The Movie Database (TMDb).
-  @JsonKey(name: 'tmdb_id')
+  @JsonKey(name: 'tmdb_id', fromJson: dynamicToIntConverter)
   final int? tmdbId;
 
   /// The name of the movie.
@@ -88,10 +89,10 @@ class XTremeCodeInfoVod {
 
   /// The release date of the movie.
   @JsonKey(name: 'release_date')
-  final String? releaseDate;
+  final DateTime? releaseDate;
 
   /// The runtime of the episode in minutes.
-  @JsonKey(name: 'episode_run_time')
+  @JsonKey(name: 'episode_run_time', fromJson: dynamicToIntConverter)
   final int? episodeRunTime;
 
   /// The URL of the movie's trailer on YouTube.
@@ -121,7 +122,7 @@ class XTremeCodeInfoVod {
   final String? mpaaRating;
 
   /// The rating count of the movie on Kinopoisk.
-  @JsonKey(name: 'rating_count_kinopoisk')
+  @JsonKey(name: 'rating_count_kinopoisk', fromJson: dynamicToIntConverter)
   final int? ratingCountKinopoisk;
 
   /// The country where the movie was made.
@@ -135,20 +136,22 @@ class XTremeCodeInfoVod {
   final List<String>? backdropPath;
 
   /// The duration of the movie in seconds.
-  @JsonKey(name: 'duration_secs')
+  @JsonKey(name: 'duration_secs', fromJson: dynamicToIntConverter)
   final int? durationSecs;
 
   /// The duration of the movie.
   final String? duration;
 
   /// The bitrate of the movie.
+  @JsonKey(fromJson: dynamicToIntConverter)
   final int? bitrate;
 
   /// The rating of the movie.
-  final int? rating;
+  @JsonKey(fromJson: dynamicToDoubleConverter)
+  final double? rating;
 
   /// The release date of the movie.
-  final String? releasedate;
+  final DateTime? releasedate;
 
   /// The subtitles of the movie.
   final List<dynamic> subtitles;
@@ -179,8 +182,8 @@ class XTremeCodeMovieData {
       _$XTremeCodeMovieDataFromJson(json);
 
   /// The stream ID of the movie.
-  @JsonKey(name: 'stream_id')
-  final int streamId;
+  @JsonKey(name: 'stream_id', fromJson: dynamicToIntConverter)
+  final int? streamId;
 
   /// The name of the movie.
   final String name;
@@ -196,20 +199,20 @@ class XTremeCodeMovieData {
   final DateTime? added;
 
   /// The ID of the category the movie belongs to.
-  @JsonKey(name: 'categoryId')
-  final String categoryId;
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
+  final int? categoryId;
 
   /// The IDs of the categories the movie belongs to.
-  @JsonKey(name: 'categoryIds')
+  @JsonKey(name: 'category_ids')
   final List<int> categoryIds;
 
   /// The container extension of the movie.
-  @JsonKey(name: 'containerExtension')
+  @JsonKey(name: 'container_extension')
   final String containerExtension;
 
   /// The custom SID of the movie.
   @JsonKey(name: 'custom_sid')
-  final String customSid;
+  final String? customSid;
 
   /// The direct source of the movie.
   @JsonKey(name: 'direct_source')

@@ -35,7 +35,8 @@ class XTremeCodeUserInfo {
   String? message;
 
   /// The authentication status of the user.
-  int? auth;
+  @JsonKey(name: 'auth', fromJson: dynamicToBool)
+  bool? auth;
 
   /// The status of the user.
   String? status;
@@ -45,20 +46,20 @@ class XTremeCodeUserInfo {
   final DateTime? expDate;
 
   /// Whether the user is on a trial subscription.
-  @JsonKey(name: 'is_trial')
-  String? isTrial;
+  @JsonKey(name: 'is_trial', fromJson: dynamicToBool)
+  bool? isTrial;
 
   /// The number of active connections of the user.
-  @JsonKey(name: 'active_cons')
-  String? activeCons;
+  @JsonKey(name: 'active_cons', fromJson: dynamicToIntConverter)
+  int? activeCons;
 
   /// The date when the user was created.
   @JsonKey(name: 'created_at', fromJson: dateTimeFromEpochSeconds)
   final DateTime? createdAt;
 
   /// The maximum number of connections allowed for the user.
-  @JsonKey(name: 'max_connections')
-  String? maxConnections;
+  @JsonKey(name: 'max_connections', fromJson: dynamicToIntConverter)
+  int? maxConnections;
 
   /// The output formats allowed for the user.
   @JsonKey(name: 'allowed_output_formats')

@@ -9,15 +9,15 @@ part of 'server_info.dart';
 XTremeCodeServerInfo _$XTremeCodeServerInfoFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeServerInfo(
-      xui: json['xui'] as bool?,
+      xui: dynamicToBool(json['xui']),
       version: json['version'] as String?,
-      revision: json['revision'] as int?,
+      revision: dynamicToIntConverter(json['revision']),
       url: json['url'] as String?,
-      port: json['port'] as String?,
-      httpsPort: json['https_port'] as String?,
+      port: dynamicToIntConverter(json['port']),
+      httpsPort: dynamicToIntConverter(json['https_port']),
       serverProtocol: json['server_protocol'] as String?,
-      rtmpPort: json['rtmp_port'] as String?,
-      timestampNow: dateTimeFromEpochSecondsInt(json['timestamp_now'] as int?),
+      rtmpPort: dynamicToIntConverter(json['rtmp_port']),
+      timestampNow: dateTimeFromEpochSeconds(json['timestamp_now']),
       timeNow: dateTimeFromString(json['time_now'] as String?),
       timezone: json['timezone'] as String?,
     );

@@ -8,9 +8,9 @@ part of 'category.dart';
 
 XTremeCodeCategory _$XTremeCodeCategoryFromJson(Map<String, dynamic> json) =>
     XTremeCodeCategory(
-      categoryId: json['category_id'] as String,
+      categoryId: dynamicToIntConverter(json['category_id']),
       categoryName: json['category_name'] as String?,
-      parentId: json['parent_id'] as int?,
+      parentId: dynamicToIntConverter(json['parent_id']),
     );
 
 Map<String, dynamic> _$XTremeCodeCategoryToJson(XTremeCodeCategory instance) =>

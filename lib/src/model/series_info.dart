@@ -52,14 +52,15 @@ class XTremeCodeSeason {
 
   /// The air date of the season.
   @JsonKey(name: 'air_date')
-  final String? airDate;
+  final DateTime? airDate;
 
   /// The count of episodes in the season.
-  @JsonKey(name: 'episode_count')
+  @JsonKey(name: 'episode_count', fromJson: dynamicToIntConverter)
   final int? episodeCount;
 
   /// The ID of the season.
-  final int id;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  final int? id;
 
   /// The name of the season.
   final String? name;
@@ -68,11 +69,11 @@ class XTremeCodeSeason {
   final String? overview;
 
   /// The number of the season.
-  @JsonKey(name: 'season_number')
+  @JsonKey(name: 'season_number', fromJson: dynamicToIntConverter)
   final int? seasonNumber;
 
   /// The average vote of the season.
-  @JsonKey(name: 'vote_average')
+  @JsonKey(name: 'vote_average',  fromJson: dynamicToDoubleConverter)
   final double? voteAverage;
 
   /// The cover image of the season.
@@ -139,17 +140,18 @@ class XTremeCodeInfo {
   final String? genre;
 
   /// The release date of the series.
-  final String? releaseDate;
+  final DateTime? releaseDate;
 
   /// The last modified date of the series.
   @JsonKey(name: 'last_modified', fromJson: dateTimeFromEpochSeconds)
   final DateTime? lastModified;
 
   /// The rating of the series.
-  final String? rating;
+  @JsonKey(fromJson: dynamicToDoubleConverter)
+  final double? rating;
 
   /// The rating of the series based on a 5-point scale.
-  @JsonKey(name: 'rating_5based')
+  @JsonKey(name: 'rating_5based', fromJson: dynamicToDoubleConverter)
   final double? rating5based;
 
   /// The backdrop path of the series.
@@ -161,12 +163,12 @@ class XTremeCodeInfo {
   final String? youtubeTrailer;
 
   /// The runtime of each episode in the series.
-  @JsonKey(name: 'episode_run_time')
-  final String? episodeRunTime;
+  @JsonKey(name: 'episode_run_time', fromJson: dynamicToIntConverter)
+  final int? episodeRunTime;
 
   /// The ID of the category of the series.
-  @JsonKey(name: 'category_id')
-  final String? categoryId;
+  @JsonKey(name: 'category_id', fromJson: dynamicToIntConverter)
+  final int? categoryId;
 
   /// The IDs of the categories of the series.
   @JsonKey(name: 'category_ids')
@@ -198,18 +200,19 @@ class XTremeCodeEpisode {
       _$XTremeCodeEpisodeFromJson(json);
 
   /// The ID of the episode.
-  final String id;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  final int? id;
 
   /// The number of the episode.
-  @JsonKey(name: 'episode_num')
-  final String episodeNum;
+  @JsonKey(name: 'episode_num', fromJson: dynamicToIntConverter)
+  final int? episodeNum;
 
   /// The title of the episode.
-  final String title;
+  final String? title;
 
   /// The container extension of the episode.
   @JsonKey(name: 'container_extension')
-  final String containerExtension;
+  final String? containerExtension;
 
   /// The information about the episode.
   final XTremeCodeEpisodeInfo info;
@@ -219,18 +222,19 @@ class XTremeCodeEpisode {
 
   /// The custom SID of the episode.
   @JsonKey(name: 'custom_sid')
-  final String customSid;
+  final String? customSid;
 
   /// The date when the episode was added.
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
   final DateTime? added;
 
   /// The season of the episode.
-  final int season;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  final int? season;
 
   /// The direct source of the episode.
   @JsonKey(name: 'direct_source')
-  final String directSource;
+  final String? directSource;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeEpisodeToJson(this);
@@ -258,17 +262,18 @@ class XTremeCodeEpisodeInfo {
       _$XTremeCodeEpisodeInfoFromJson(json);
 
   /// The ID of the episode in The Movie Database (TMDb).
-  @JsonKey(name: 'tmdb_id', fromJson: sometimesIntToString)
-  final String? tmdbId;
+  @JsonKey(name: 'tmdb_id', fromJson: dynamicToIntConverter)
+  final int? tmdbId;
 
   /// The release date of the episode.
-  final String? releaseDate;
+  @JsonKey(name: 'release_date')
+  final DateTime? releaseDate;
 
   /// The plot of the episode.
   final String? plot;
 
   /// The duration of the episode in seconds.
-  @JsonKey(name: 'duration_secs')
+  @JsonKey(name: 'duration_secs', fromJson: dynamicToIntConverter)
   final int? durationSecs;
 
   /// The duration of the episode.
@@ -279,14 +284,15 @@ class XTremeCodeEpisodeInfo {
   final String? movieImage;
 
   /// The bitrate of the episode.
+  @JsonKey(fromJson: dynamicToIntConverter)
   final int? bitrate;
 
   /// The rating of the episode.
-  @JsonKey(fromJson: doubleFromJson)
+  @JsonKey(fromJson: dynamicToDoubleConverter)
   final double? rating;
 
   /// The season of the episode.
-  @JsonKey(fromJson: intFromJson)
+  @JsonKey(fromJson: dynamicToIntConverter)
   final int? season;
 
   /// The big cover image of the episode.

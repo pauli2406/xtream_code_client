@@ -45,11 +45,12 @@ class XTremeCodeEpgListingTable {
       _$XTremeCodeEpgListingTableFromJson(json);
 
   /// The ID of the EPG listing.
-  final String id;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  final int? id;
 
   /// The ID of the EPG.
-  @JsonKey(name: 'epg_id')
-  final String epgId;
+  @JsonKey(name: 'epg_id', fromJson: dynamicToIntConverter)
+  final int? epgId;
 
   /// The title of the EPG listing.
   final String? title;
@@ -81,11 +82,11 @@ class XTremeCodeEpgListingTable {
   final DateTime? stopTimestamp;
 
   /// Whether the EPG listing is currently playing.
-  @JsonKey(name: 'now_playing', fromJson: intToBool)
+  @JsonKey(name: 'now_playing', fromJson: dynamicToBool)
   final bool nowPlaying;
 
   /// Whether the EPG listing has an archive.
-  @JsonKey(name: 'has_archive', fromJson: intToBool)
+  @JsonKey(name: 'has_archive', fromJson: dynamicToBool)
   final bool hasArchive;
 
   /// Converts this instance into a JSON object.

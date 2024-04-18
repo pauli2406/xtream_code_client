@@ -26,34 +26,37 @@ class XTremeCodeServerInfo {
       _$XTremeCodeServerInfoFromJson(json);
 
   /// The XUI of the server.
+  @JsonKey(fromJson: dynamicToBool)
   bool? xui;
 
   /// The version of the server.
   String? version;
 
   /// The revision of the server.
+  @JsonKey(fromJson: dynamicToIntConverter)
   int? revision;
 
   /// The URL of the server.
   String? url;
 
   /// The port of the server.
-  String? port;
+  @JsonKey(fromJson: dynamicToIntConverter)
+  int? port;
 
   /// The HTTPS port of the server.
-  @JsonKey(name: 'https_port')
-  String? httpsPort;
+  @JsonKey(name: 'https_port', fromJson: dynamicToIntConverter)
+  int? httpsPort;
 
   /// The protocol of the server.
   @JsonKey(name: 'server_protocol')
   String? serverProtocol;
 
   /// The RTMP port of the server.
-  @JsonKey(name: 'rtmp_port')
-  String? rtmpPort;
+  @JsonKey(name: 'rtmp_port', fromJson: dynamicToIntConverter)
+  int? rtmpPort;
 
   /// The current timestamp of the server.
-  @JsonKey(name: 'timestamp_now', fromJson: dateTimeFromEpochSecondsInt)
+  @JsonKey(name: 'timestamp_now', fromJson: dateTimeFromEpochSeconds)
   DateTime? timestampNow;
 
   /// The current time of the server.
