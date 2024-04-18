@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+Export XtreamCodeClient to fix #6
+
 ## 1.2.0
 
 Fixing a crucial issue with the API
