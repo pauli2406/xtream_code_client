@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
+// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars, deprecated_member_use
 
 import 'package:flutter/foundation.dart';
 import 'package:xml/xml.dart';
@@ -35,7 +35,7 @@ class EPG {
   /// [Channel] and [Programme] objects from the corresponding XML elements.
   factory EPG.fromXmlElement(XmlElement element) {
     DateTime? parseDateTime(String? value) {
-      return value != null && value.isNotEmpty ? DateTime.parse(value) : null;
+      return value != null && value.isNotEmpty ? DateTime.tryParse(value) : null;
     }
 
     return EPG(
@@ -45,8 +45,14 @@ class EPG {
       sourceDataUrl: element.getAttribute('source-data-url'),
       generatorInfoName: element.getAttribute('generator-info-name'),
       generatorInfoUrl: element.getAttribute('generator-info-url'),
-      channels: element.findElements('channel').map(Channel.fromXmlElement).toList(),
-      programmes: element.findElements('programme').map(Programme.fromXmlElement).toList(),
+      channels: element.findElements('channel').map((channelElement) {
+        // Check if channelElement is not null before parsing
+        return Channel.fromXmlElement(channelElement);
+      }).toList(),
+      programmes: element.findElements('programme').map((programmeElement) {
+        // Check if programmeElement is not null before parsing
+        return Programme.fromXmlElement(programmeElement);
+      }).toList(),
     );
   }
   final DateTime? date;
@@ -98,7 +104,7 @@ class DisplayName {
 
   factory DisplayName.fromXmlElement(XmlElement element) {
     return DisplayName(
-      value: element.value!,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -136,7 +142,7 @@ class Url {
 
   factory Url.fromXmlElement(XmlElement element) {
     return Url(
-      value: element.value!,
+      value: element.text ,
       system: element.getAttribute('system'),
     );
   }
@@ -205,7 +211,7 @@ class Programme {
       subTitles: element.findElements('sub-title').map(SubTitle.fromXmlElement).toList(),
       descs: element.findElements('desc').map(Desc.fromXmlElement).toList(),
       credits: element.getElement('credits') != null ? Credits.fromXmlElement(element.getElement('credits')!) : null,
-      date: element.getElement('date')?.value,
+      date: element.getElement('date')?.text,
       categories: element.findElements('category').map(Category.fromXmlElement).toList(),
       keywords: element.findElements('keyword').map(Keyword.fromXmlElement).toList(),
       language: element.getElement('language') != null ? Language.fromXmlElement(element.getElement('language')!) : null,
@@ -273,7 +279,7 @@ class Title {
 
   factory Title.fromXmlElement(XmlElement element) {
     return Title(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -291,7 +297,7 @@ class SubTitle {
 
   factory SubTitle.fromXmlElement(XmlElement element) {
     return SubTitle(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -309,7 +315,7 @@ class Desc {
 
   factory Desc.fromXmlElement(XmlElement element) {
     return Desc(
-      value: element.value!,
+      value: element.text  ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -338,16 +344,16 @@ class Credits {
 
   factory Credits.fromXmlElement(XmlElement element) {
     return Credits(
-      directors: element.findElements('director').map((e) => e.value!).toList(),
+      directors: element.findElements('director').map((e) => e.text  ).toList(),
       actors: element.findElements('actor').map(Actor.fromXmlElement).toList(),
-      writers: element.findElements('writer').map((e) => e.value!).toList(),
-      adapters: element.findElements('adapter').map((e) => e.value!).toList(),
-      producers: element.findElements('producer').map((e) => e.value!).toList(),
-      composers: element.findElements('composer').map((e) => e.value!).toList(),
-      editors: element.findElements('editor').map((e) => e.value!).toList(),
-      presenters: element.findElements('presenter').map((e) => e.value!).toList(),
-      commentators: element.findElements('commentator').map((e) => e.value!).toList(),
-      guests: element.findElements('guest').map((e) => e.value!).toList(),
+      writers: element.findElements('writer').map((e) => e.text  ).toList(),
+      adapters: element.findElements('adapter').map((e) => e.text  ).toList(),
+      producers: element.findElements('producer').map((e) => e.text  ).toList(),
+      composers: element.findElements('composer').map((e) => e.text ).toList(),
+      editors: element.findElements('editor').map((e) => e.text ).toList(),
+      presenters: element.findElements('presenter').map((e) => e.text ).toList(),
+      commentators: element.findElements('commentator').map((e) => e.text ).toList(),
+      guests: element.findElements('guest').map((e) => e.text ).toList(),
     );
   }
   final List<String> directors;
@@ -375,7 +381,7 @@ class Actor {
 
   factory Actor.fromXmlElement(XmlElement element) {
     return Actor(
-      name: element.value!,
+      name: element.text  ,
       role: element.getAttribute('role'),
       guest: element.getAttribute('guest') == 'yes',
       images: element.findElements('image').map(Image.fromXmlElement).toList(),
@@ -399,7 +405,7 @@ class Category {
 
   factory Category.fromXmlElement(XmlElement element) {
     return Category(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -417,7 +423,7 @@ class Keyword {
 
   factory Keyword.fromXmlElement(XmlElement element) {
     return Keyword(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -435,7 +441,7 @@ class Language {
 
   factory Language.fromXmlElement(XmlElement element) {
     return Language(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -453,7 +459,7 @@ class OrigLanguage {
 
   factory OrigLanguage.fromXmlElement(XmlElement element) {
     return OrigLanguage(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -471,7 +477,7 @@ class Length {
 
   factory Length.fromXmlElement(XmlElement element) {
     return Length(
-      value: int.parse(element.value!),
+      value: int.parse(element.text ),
       units: element.getAttribute('units') ?? '',
     );
   }
@@ -489,7 +495,7 @@ class Country {
 
   factory Country.fromXmlElement(XmlElement element) {
     return Country(
-      value: element.value!,
+      value: element.text ,
       lang: element.getAttribute('lang'),
     );
   }
@@ -507,7 +513,7 @@ class EpisodeNum {
 
   factory EpisodeNum.fromXmlElement(XmlElement element) {
     return EpisodeNum(
-      value: element.value!,
+      value: element.text ,
       system: element.getAttribute('system') ?? 'onscreen',
     );
   }
@@ -525,10 +531,10 @@ class Video {
 
   factory Video.fromXmlElement(XmlElement element) {
     return Video(
-      present: element.getElement('present')?.value,
-      colour: element.getElement('colour')?.value,
-      aspect: element.getElement('aspect')?.value,
-      quality: element.getElement('quality')?.value,
+      present: element.getElement('present')?.text,
+      colour: element.getElement('colour')?.text,
+      aspect: element.getElement('aspect')?.text,
+      quality: element.getElement('quality')?.text,
     );
   }
   final String? present;
@@ -547,8 +553,8 @@ class Audio {
 
   factory Audio.fromXmlElement(XmlElement element) {
     return Audio(
-      present: element.getElement('present')?.value,
-      stereo: element.getElement('stereo')?.value,
+      present: element.getElement('present')?.text,
+      stereo: element.getElement('stereo')?.text,
     );
   }
   final String? present;
@@ -587,7 +593,7 @@ class Premiere {
 
   factory Premiere.fromXmlElement(XmlElement element) {
     return Premiere(
-      value: element.value,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -605,7 +611,7 @@ class LastChance {
 
   factory LastChance.fromXmlElement(XmlElement element) {
     return LastChance(
-      value: element.value,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -642,7 +648,7 @@ class Rating {
   factory Rating.fromXmlElement(XmlElement element) {
     return Rating(
       system: element.getAttribute('system'),
-      value: element.getElement('value')?.value ?? '',
+      value: element.getElement('value')?.text ?? '',
       icons: element.findElements('icon').map(Icon.fromXmlElement).toList(),
     );
   }
@@ -662,7 +668,7 @@ class StarRating {
   factory StarRating.fromXmlElement(XmlElement element) {
     return StarRating(
       system: element.getAttribute('system'),
-      value: element.getElement('value')?.value ?? '',
+      value: element.getElement('value')?.text ?? '',
       icons: element.findElements('icon').map(Icon.fromXmlElement).toList(),
     );
   }
@@ -685,7 +691,7 @@ class Review {
       source: element.getAttribute('source'),
       reviewer: element.getAttribute('reviewer'),
       lang: element.getAttribute('lang'),
-      value: element.value!,
+      value: element.text ,
     );
   }
   final String type;
@@ -709,7 +715,7 @@ class Image {
       size: element.getAttribute('size'),
       orient: element.getAttribute('orient'),
       system: element.getAttribute('system'),
-      value: element.value!,
+      value: element.text ,
     );
   }
   final String type;
