@@ -9,8 +9,8 @@ part of 'series_info.dart';
 XTremeCodeSeriesInfo _$XTremeCodeSeriesInfoFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeSeriesInfo(
-      seasons: (json['seasons'] as List<dynamic>)
-          .map((e) => XTremeCodeSeason.fromJson(e as Map<String, dynamic>))
+      seasons: (json['seasons'] as List<dynamic>?)
+          ?.map((e) => XTremeCodeSeason.fromJson(e as Map<String, dynamic>))
           .toList(),
       info: XTremeCodeInfo.fromJson(json['info'] as Map<String, dynamic>),
       episodes: (json['episodes'] as Map<String, dynamic>?)?.map(
@@ -33,11 +33,11 @@ Map<String, dynamic> _$XTremeCodeSeriesInfoToJson(
 
 XTremeCodeSeason _$XTremeCodeSeasonFromJson(Map<String, dynamic> json) =>
     XTremeCodeSeason(
+      id: dynamicToIntConverter(json['id']),
       airDate: json['air_date'] == null
           ? null
           : DateTime.parse(json['air_date'] as String),
       episodeCount: dynamicToIntConverter(json['episode_count']),
-      id: dynamicToIntConverter(json['id']),
       name: json['name'] as String?,
       overview: json['overview'] as String?,
       seasonNumber: dynamicToIntConverter(json['season_number']),
@@ -83,7 +83,7 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
       categoryId: dynamicToIntConverter(json['category_id']),
       categoryIds: (json['category_ids'] as List<dynamic>?)
-              ?.map((e) => e as int)
+              ?.map((e) => (e as num).toInt())
               .toList() ??
           const [],
     );
@@ -117,8 +117,9 @@ XTremeCodeEpisode _$XTremeCodeEpisodeFromJson(Map<String, dynamic> json) =>
       containerExtension: json['container_extension'] as String?,
       info:
           XTremeCodeEpisodeInfo.fromJson(json['info'] as Map<String, dynamic>),
-      subtitles:
-          (json['subtitles'] as List<dynamic>).map((e) => e as String).toList(),
+      subtitles: (json['subtitles'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       customSid: json['custom_sid'] as String?,
       added: dateTimeFromEpochSeconds(json['added']),
       season: dynamicToIntConverter(json['season']),

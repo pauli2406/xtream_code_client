@@ -82,6 +82,10 @@ var seriesItems = await client.seriesItems(category: seriesCategories.first);
 // Call seriesInfo with a series item
 var seriesInfo = await client.seriesInfo(seriesItems.first);
 
+// Load the complete EPG table in the format of XMLTV. 
+// This is much faster than the other 2 following options that only load it for a single channel
+var epgTable = await client.epg();
+
 // Call channelEpg with a live stream item and a limit
 var channelEpg = await client.channelEpg(liveStreamItems.first, 10);
 
@@ -93,4 +97,4 @@ var channelEpgTable = await client.channelEpgTable(liveStreamItems.first);
 
 This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
 
-Please note that this package is intended for legal uses only. It is the user's responsibility to ensure that they have the necessary rights and permissions to use the Xtream Codes API and any data accessed through it. The authors of this package are not responsible for any illegal use.
+Please note that this package is intended for legal uses only. It is the user's responsibility to ensure that they have the necessary rights and permissions to use the Xtream Codes API and any data accessed through it. The authors of this package are not responsible for any illegal use

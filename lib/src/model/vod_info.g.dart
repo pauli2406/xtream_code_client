@@ -10,7 +10,7 @@ XTremeCodeVodInfo _$XTremeCodeVodInfoFromJson(Map<String, dynamic> json) =>
     XTremeCodeVodInfo(
       info: XTremeCodeInfoVod.fromJson(json['info'] as Map<String, dynamic>),
       movieData: XTremeCodeMovieData.fromJson(
-          json['movie_data'] as Map<String, dynamic>,),
+          json['movie_data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$XTremeCodeVodInfoToJson(XTremeCodeVodInfo instance) =>
@@ -53,7 +53,7 @@ XTremeCodeInfoVod _$XTremeCodeInfoVodFromJson(Map<String, dynamic> json) =>
       releasedate: json['releasedate'] == null
           ? null
           : DateTime.parse(json['releasedate'] as String),
-      subtitles: json['subtitles'] as List<dynamic>,
+      subtitles: json['subtitles'] as List<dynamic>?,
     );
 
 Map<String, dynamic> _$XTremeCodeInfoVodToJson(XTremeCodeInfoVod instance) =>
@@ -94,15 +94,16 @@ XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
       year: json['year'] as String,
       added: dateTimeFromEpochSeconds(json['added']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
+      categoryIds: (json['category_ids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       containerExtension: json['container_extension'] as String,
       customSid: json['custom_sid'] as String?,
       directSource: json['direct_source'] as String,
     );
 
 Map<String, dynamic> _$XTremeCodeMovieDataToJson(
-        XTremeCodeMovieData instance,) =>
+        XTremeCodeMovieData instance) =>
     <String, dynamic>{
       'stream_id': instance.streamId,
       'name': instance.name,

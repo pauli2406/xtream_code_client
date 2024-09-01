@@ -21,8 +21,9 @@ XTremeCodeLiveStreamItem _$XTremeCodeLiveStreamItemFromJson(
       directSource: json['direct_source'] as String?,
       tvArchiveDuration: dynamicToIntConverter(json['tv_archive_duration']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
+      categoryIds: (json['category_ids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       thumbnail: json['thumbnail'] as String?,
     );
 

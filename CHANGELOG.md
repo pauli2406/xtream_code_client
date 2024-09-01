@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+Integrate the option to download the complete EPG by using the XMLTV endpoint.
+This is much more efficient and faster then iterating thorugh each channel and using the existing endpoints
+
+Also improved the stability in parsing existing endpoints to prevent cast issues if empty lists are returned as null instead of []
+
 ## 1.2.1
 
 Export XtreamCodeClient to fix #6

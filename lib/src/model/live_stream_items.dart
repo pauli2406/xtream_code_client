@@ -77,7 +77,7 @@ class XTremeCodeLiveStreamItem {
 
   /// The IDs of the categories.
   @JsonKey(name: 'category_ids')
-  final List<int> categoryIds;
+  final List<int>? categoryIds;
 
   /// The thumbnail of the live stream item.
   final String? thumbnail;
