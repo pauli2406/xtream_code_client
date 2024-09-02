@@ -19,8 +19,9 @@ XTremeCodeVodItem _$XTremeCodeVodItemFromJson(Map<String, dynamic> json) =>
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
       added: dateTimeFromEpochSeconds(json['added']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
+      categoryIds: (json['category_ids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       containerExtension: json['container_extension'] as String?,
       customSid: json['custom_sid'] as String?,
       directSource: json['direct_source'] as String?,

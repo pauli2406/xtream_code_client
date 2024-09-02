@@ -63,7 +63,7 @@ class XTremeCodeUserInfo {
 
   /// The output formats allowed for the user.
   @JsonKey(name: 'allowed_output_formats')
-  List<String> allowedOutputFormats;
+  List<String>? allowedOutputFormats;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeUserInfoToJson(this);

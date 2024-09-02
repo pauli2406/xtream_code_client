@@ -154,7 +154,7 @@ class XTremeCodeInfoVod {
   final DateTime? releasedate;
 
   /// The subtitles of the movie.
-  final List<dynamic> subtitles;
+  final List<dynamic>? subtitles;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeInfoVodToJson(this);
@@ -204,7 +204,7 @@ class XTremeCodeMovieData {
 
   /// The IDs of the categories the movie belongs to.
   @JsonKey(name: 'category_ids')
-  final List<int> categoryIds;
+  final List<int>? categoryIds;
 
   /// The container extension of the movie.
   @JsonKey(name: 'container_extension')

@@ -1,15 +1,7 @@
 import 'dart:convert';
-
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:xtream_code_client/src/exception/xtream_code_client_exception.dart';
-import 'package:xtream_code_client/src/model/category.dart';
-import 'package:xtream_code_client/src/model/channel_epg.dart';
-import 'package:xtream_code_client/src/model/channel_epg_table.dart';
-import 'package:xtream_code_client/src/model/general_information.dart';
-import 'package:xtream_code_client/src/model/live_stream_items.dart';
-import 'package:xtream_code_client/src/model/series_info.dart';
-import 'package:xtream_code_client/src/model/series_items.dart';
-import 'package:xtream_code_client/src/model/vod_items.dart';
+import 'package:xtream_code_client/xtream_code_client.dart';
 
 /// A client for interacting with Xtream Code server.
 class XtreamCodeClient {
@@ -103,7 +95,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
-      return (parsed as List)
+      return (parsed is List ? parsed : <dynamic>[]).cast<Map<String, dynamic>>()
           .cast<Map<String, dynamic>>()
           .map<XTremeCodeLiveStreamItem>(XTremeCodeLiveStreamItem.fromJson)
           .toList();
@@ -129,7 +121,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
-      return (parsed as List)
+      return (parsed is List ? parsed : <dynamic>[]).cast<Map<String, dynamic>>()
           .cast<Map<String, dynamic>>()
           .map<XTremeCodeVodItem>(XTremeCodeVodItem.fromJson)
           .toList();
@@ -173,8 +165,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
-      return (parsed as List)
-          .cast<Map<String, dynamic>>()
+      return (parsed is List ? parsed : <dynamic>[]).cast<Map<String, dynamic>>()
           .map<XTremeCodeSeriesItem>(XTremeCodeSeriesItem.fromJson)
           .toList();
     } else {
@@ -257,13 +248,39 @@ class XtreamCodeClient {
     }
   }
 
+  /// Retrieves the EPG (Electronic Program Guide) data in XMLTV format.
+  /// If useLocalFile is true, it reads from the local 'iptv.xml' file 
+  /// instead of making an API call.
+  Future<EPG> epg({bool useLocalFile = false}) async {
+    if (useLocalFile) {
+      final xmlString = await rootBundle.loadString('assets/iptv_test_epg.xml');
+      if (xmlString.isNotEmpty) {
+        final parser = EpgParser();
+        return parser.parse(xmlString);
+      }
+    }
+
+    final uri = Uri.parse(_baseUrl.replaceFirst('player_api.php', 'xmltv.php'));
+    final response = await _http.get(uri);
+
+    if (response.statusCode == 200) {
+      final xmlString = response.body;
+      final parser = EpgParser();
+      return parser.parse(xmlString);
+    } else {
+      throw XTreamCodeClientException(
+        'Failed to fetch XMLTV data. Server responded with status code ${response.statusCode}.',
+      );
+    }
+  }
+
   /// Common method for retrieving categories based on the given action.
   Future<List<XTremeCodeCategory>> _categories(String action) async {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
-      return (parsed as List)
+      return (parsed is List ? parsed : <dynamic>[]).cast<Map<String, dynamic>>()
           .cast<Map<String, dynamic>>()
           .map<XTremeCodeCategory>(XTremeCodeCategory.fromJson)
           .toList();

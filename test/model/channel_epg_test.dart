@@ -38,51 +38,52 @@ void main() {
     test('should parse from JSON correctly - Case 1', () {
       final epg = XTremeCodeChannelEpg.fromJson(json);
 
-      expect(epg.epgListings.length, 2);
-
+      expect(epg.epgListings!.length, 2);
+      final item = epg.epgListings![0];
       // Check first listing
-      expect(epg.epgListings[0].id, 69235874);
-      expect(epg.epgListings[0].epgId, 39);
-      expect(epg.epgListings[0].title, 'Some Title');
-      expect(epg.epgListings[0].lang, '');
-      expect(epg.epgListings[0].start, DateTime.parse('2024-04-16 23:00:00'));
-      expect(epg.epgListings[0].end, dateTimeFromEpochSeconds('1713304800'));
-      expect(epg.epgListings[0].description, 'Some Description');
-      expect(epg.epgListings[0].channelId, 'Some ID');
+      expect(item.id, 69235874);
+      expect(item.epgId, 39);
+      expect(item.title, 'Some Title');
+      expect(item.lang, '');
+      expect(item.start, DateTime.parse('2024-04-16 23:00:00'));
+      expect(item.end, dateTimeFromEpochSeconds('1713304800'));
+      expect(item.description, 'Some Description');
+      expect(item.channelId, 'Some ID');
       expect(
-        epg.epgListings[0].startTimestamp,
+        item.startTimestamp,
         dateTimeFromEpochSeconds('1713301200'),
       );
       expect(
-        epg.epgListings[0].stopTimestamp,
+        item.stopTimestamp,
         dateTimeFromEpochSeconds('1713304800'),
       );
-      expect(epg.epgListings[0].stop, DateTime.parse('2024-04-17 00:00:00'));
+      expect(item.stop, DateTime.parse('2024-04-17 00:00:00'));
     });
 
     test('should parse from JSON correctly - Case 2', () {
       final epg = XTremeCodeChannelEpg.fromJson(json);
 
-      expect(epg.epgListings.length, 2);
+      expect(epg.epgListings!.length, 2);
+      final item = epg.epgListings![0];
 
       // Check second listing
-      expect(epg.epgListings[1].id, 69235874);
-      expect(epg.epgListings[1].epgId, 39);
-      expect(epg.epgListings[1].title, 'Some Title');
-      expect(epg.epgListings[1].lang, '');
-      expect(epg.epgListings[1].start, DateTime.parse('2024-04-16 23:00:00'));
-      expect(epg.epgListings[1].end, dateTimeFromEpochSeconds('1713304800'));
-      expect(epg.epgListings[1].description, 'Some Description');
-      expect(epg.epgListings[1].channelId, 'Some ID');
+      expect(item.id, 69235874);
+      expect(item.epgId, 39);
+      expect(item.title, 'Some Title');
+      expect(item.lang, '');
+      expect(item.start, DateTime.parse('2024-04-16 23:00:00'));
+      expect(item.end, dateTimeFromEpochSeconds('1713304800'));
+      expect(item.description, 'Some Description');
+      expect(item.channelId, 'Some ID');
       expect(
-        epg.epgListings[1].startTimestamp,
+        item.startTimestamp,
         dateTimeFromEpochSeconds('1713301200'),
       );
       expect(
-        epg.epgListings[1].stopTimestamp,
+        item.stopTimestamp,
         dateTimeFromEpochSeconds('1713304800'),
       );
-      expect(epg.epgListings[1].stop, DateTime.parse('2024-04-17 00:00:00'));
+      expect(item.stop, DateTime.parse('2024-04-17 00:00:00'));
     });
   });
 }

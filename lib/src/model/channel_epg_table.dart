@@ -15,7 +15,7 @@ class XTremeCodeChannelEpgTable {
 
   /// A list of EPG listings for this table.
   @JsonKey(name: 'epg_listings')
-  final List<XTremeCodeEpgListingTable> epgListings;
+  final List<XTremeCodeEpgListingTable>? epgListings;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeChannelEpgTableToJson(this);

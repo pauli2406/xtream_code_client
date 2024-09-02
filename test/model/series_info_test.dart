@@ -73,8 +73,8 @@ void main() {
       final item = XTremeCodeSeriesInfo.fromJson(mockJsonString);
       expect(item, isNotNull);
       expect(item.seasons, isNotNull);
-      expect(item.seasons.length, 1);
-      final season = item.seasons[0];
+      expect(item.seasons!.length, 1);
+      final season = item.seasons![0];
       expect(season.airDate, DateTime.parse('1980-09-13'));
       expect(season.episodeCount, 4);
       expect(season.id, 14542);
@@ -167,8 +167,8 @@ void main() {
       final item = XTremeCodeSeriesInfo.fromJson(mockJsonString2);
       expect(item, isNotNull);
       expect(item.seasons, isNotNull);
-      expect(item.seasons.length, 1);
-      final season = item.seasons[0];
+      expect(item.seasons!.length, 1);
+      final season = item.seasons![0];
       expect(season.episodeCount, 4);
       expect(season.id, 14542);
       expect(season.seasonNumber, 0);

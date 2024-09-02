@@ -9,8 +9,8 @@ part of 'channel_epg_table.dart';
 XTremeCodeChannelEpgTable _$XTremeCodeChannelEpgTableFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeChannelEpgTable(
-      epgListings: (json['epg_listings'] as List<dynamic>)
-          .map((e) =>
+      epgListings: (json['epg_listings'] as List<dynamic>?)
+          ?.map((e) =>
               XTremeCodeEpgListingTable.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

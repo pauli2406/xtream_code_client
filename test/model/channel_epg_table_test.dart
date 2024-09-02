@@ -25,7 +25,7 @@ void main() {
   group('XTremeCodeChannelEpgTable', () {
     test('fromJson should parse json correctly with string values', () {
       final table = XTremeCodeChannelEpgTable.fromJson(mockJsonString);
-      final listing = table.epgListings[0];
+      final listing = table.epgListings![0];
       expect(listing.id, 67843793);
       expect(listing.epgId, 35);
       expect(listing.title, 'Some Title');
@@ -61,7 +61,7 @@ void main() {
       };
 
       final table = XTremeCodeChannelEpgTable.fromJson(mockJsonInt);
-      final listing = table.epgListings[0];
+      final listing = table.epgListings![0];
       expect(listing.id, 67843793);
       expect(listing.epgId, 35);
       expect(listing.title, 'Some Title');

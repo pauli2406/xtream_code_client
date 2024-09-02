@@ -18,7 +18,7 @@ class XTremeCodeSeriesInfo {
       _$XTremeCodeSeriesInfoFromJson(json);
 
   /// The seasons of the series.
-  final List<XTremeCodeSeason> seasons;
+  final List<XTremeCodeSeason>? seasons;
 
   /// The information about the series.
   final XTremeCodeInfo info;
@@ -35,9 +35,8 @@ class XTremeCodeSeriesInfo {
 class XTremeCodeSeason {
   /// Creates a new instance of [XTremeCodeSeason].
   XTremeCodeSeason({
-    this.airDate,
+    required this.id, this.airDate,
     this.episodeCount,
-    required this.id,
     this.name,
     this.overview,
     this.seasonNumber,
@@ -156,7 +155,7 @@ class XTremeCodeInfo {
 
   /// The backdrop path of the series.
   @JsonKey(name: 'backdrop_path')
-  final List<String> backdropPath;
+  final List<String>? backdropPath;
 
   /// The YouTube trailer of the series.
   @JsonKey(name: 'youtube_trailer')
@@ -172,7 +171,7 @@ class XTremeCodeInfo {
 
   /// The IDs of the categories of the series.
   @JsonKey(name: 'category_ids')
-  final List<int> categoryIds;
+  final List<int>? categoryIds;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeInfoToJson(this);
@@ -218,7 +217,7 @@ class XTremeCodeEpisode {
   final XTremeCodeEpisodeInfo info;
 
   /// The subtitles of the episode.
-  final List<String> subtitles;
+  final List<String>? subtitles;
 
   /// The custom SID of the episode.
   @JsonKey(name: 'custom_sid')

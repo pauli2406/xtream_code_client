@@ -24,14 +24,15 @@ XTremeCodeSeriesItem _$XTremeCodeSeriesItemFromJson(
       lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
-      backdropPath: (json['backdrop_path'] as List<dynamic>)
-          .map((e) => e as String)
+      backdropPath: (json['backdrop_path'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       youtubeTrailer: json['youtube_trailer'] as String?,
       episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds:
-          (json['category_ids'] as List<dynamic>).map((e) => e as int).toList(),
+      categoryIds: (json['category_ids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
     );
 
 Map<String, dynamic> _$XTremeCodeSeriesItemToJson(
