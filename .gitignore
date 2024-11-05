@@ -42,3 +42,4 @@ app.*.map.json
 
 # Test related
 coverage
+assets/iptv_test_epg.xml
