@@ -25,7 +25,7 @@ DateTime? dateTimeFromEpochSeconds(dynamic seconds) {
 /// Converts a string in ISO 8601 format to a [DateTime].
 /// Returns null if [dateTime] is null or empty.
 DateTime? dateTimeFromString(String? dateTime) =>
-    (dateTime == null || dateTime.isEmpty) ? null : DateTime.parse(dateTime);
+    (dateTime == null || dateTime.isEmpty) ? null : DateTime.tryParse(dateTime);
 
 /// Converts a string, integer, or boolean to a boolean.
 /// Returns true if [value] is '1', 1, or true, otherwise returns false.

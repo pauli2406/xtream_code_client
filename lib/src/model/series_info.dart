@@ -50,7 +50,7 @@ class XTremeCodeSeason {
       _$XTremeCodeSeasonFromJson(json);
 
   /// The air date of the season.
-  @JsonKey(name: 'air_date')
+  @JsonKey(name: 'air_date', fromJson: dateTimeFromString)
   final DateTime? airDate;
 
   /// The count of episodes in the season.
@@ -139,6 +139,7 @@ class XTremeCodeInfo {
   final String? genre;
 
   /// The release date of the series.
+  @JsonKey(name: 'releaseDate', fromJson: dateTimeFromString)
   final DateTime? releaseDate;
 
   /// The last modified date of the series.
@@ -265,7 +266,7 @@ class XTremeCodeEpisodeInfo {
   final int? tmdbId;
 
   /// The release date of the episode.
-  @JsonKey(name: 'release_date')
+  @JsonKey(name: 'release_date', fromJson: dateTimeFromString)
   final DateTime? releaseDate;
 
   /// The plot of the episode.
