@@ -1,6 +1,6 @@
 name: xtream_code_client
 description: A WebClient to access a XTream Code API. It provides easy and efficient access to the API, with features like automatic retries and error handling.
-version: 1.3.2
+version: 1.3.3
 homepage: https://github.com/pauli2406/xtream_code_client
 repository: https://github.com/pauli2406/xtream_code_client.git
 issue_tracker: https://github.com/pauli2406/xtream_code_client/issues
@@ -36,7 +36,4 @@ platforms:
   macos:
   web:
   windows:
-
-flutter:
-  assets:
-    - assets/iptv_test_epg.xml
+  
