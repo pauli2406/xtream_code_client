@@ -34,9 +34,7 @@ Map<String, dynamic> _$XTremeCodeSeriesInfoToJson(
 XTremeCodeSeason _$XTremeCodeSeasonFromJson(Map<String, dynamic> json) =>
     XTremeCodeSeason(
       id: dynamicToIntConverter(json['id']),
-      airDate: json['air_date'] == null
-          ? null
-          : DateTime.parse(json['air_date'] as String),
+      airDate: dateTimeFromString(json['air_date'] as String?),
       episodeCount: dynamicToIntConverter(json['episode_count']),
       name: json['name'] as String?,
       overview: json['overview'] as String?,
@@ -69,9 +67,7 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       cast: json['cast'] as String?,
       director: json['director'] as String?,
       genre: json['genre'] as String?,
-      releaseDate: json['releaseDate'] == null
-          ? null
-          : DateTime.parse(json['releaseDate'] as String),
+      releaseDate: dateTimeFromString(json['releaseDate'] as String?),
       lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
@@ -144,9 +140,7 @@ XTremeCodeEpisodeInfo _$XTremeCodeEpisodeInfoFromJson(
         Map<String, dynamic> json) =>
     XTremeCodeEpisodeInfo(
       tmdbId: dynamicToIntConverter(json['tmdb_id']),
-      releaseDate: json['release_date'] == null
-          ? null
-          : DateTime.parse(json['release_date'] as String),
+      releaseDate: dateTimeFromString(json['release_date'] as String?),
       plot: json['plot'] as String?,
       durationSecs: dynamicToIntConverter(json['duration_secs']),
       duration: json['duration'] as String?,

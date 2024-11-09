@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.3 
+
+Fix issue with assets
+
+## 1.3.2
+
+Minor stability changes for parsing JSON
+
 ## 1.3.0
 
 Integrate the option to download the complete EPG by using the XMLTV endpoint.
