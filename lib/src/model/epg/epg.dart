@@ -15,9 +15,11 @@ import 'package:xml/xml.dart';
 /// the structure defined in the XMLTV DTD, allowing for comprehensive
 /// representation of TV guide data.
 class EPG {
-
   EPG({
-    required this.channels, required this.programmes, /// The date of the EPG.
+    required this.channels,
+    required this.programmes,
+
+    /// The date of the EPG.
     this.date,
     this.sourceInfoUrl,
     this.sourceInfoName,
@@ -35,7 +37,9 @@ class EPG {
   /// [Channel] and [Programme] objects from the corresponding XML elements.
   factory EPG.fromXmlElement(XmlElement element) {
     DateTime? parseDateTime(String? value) {
-      return value != null && value.isNotEmpty ? DateTime.tryParse(value) : null;
+      return value != null && value.isNotEmpty
+          ? DateTime.tryParse(value)
+          : null;
     }
 
     return EPG(
@@ -71,7 +75,6 @@ class EPG {
 /// It contains information about a specific TV channel, including its
 /// unique identifier, display names, icons, and URLs.
 class Channel {
-
   Channel({
     required this.id,
     required this.displayNames,
@@ -83,7 +86,10 @@ class Channel {
   factory Channel.fromXmlElement(XmlElement element) {
     return Channel(
       id: element.getAttribute('id') ?? '',
-      displayNames: element.findElements('display-name').map(DisplayName.fromXmlElement).toList(),
+      displayNames: element
+          .findElements('display-name')
+          .map(DisplayName.fromXmlElement)
+          .toList(),
       icons: element.findElements('icon').map(Icon.fromXmlElement).toList(),
       urls: element.findElements('url').map(Url.fromXmlElement).toList(),
     );
@@ -99,7 +105,6 @@ class Channel {
 /// This class corresponds to the 'display-name' element in the XMLTV DTD.
 /// It can include a language attribute to specify the name in different languages.
 class DisplayName {
-
   DisplayName({required this.value, this.lang});
 
   factory DisplayName.fromXmlElement(XmlElement element) {
@@ -117,7 +122,6 @@ class DisplayName {
 /// This class corresponds to the 'icon' element in the XMLTV DTD.
 /// It includes the source URL of the icon and optional width and height attributes.
 class Icon {
-
   Icon({required this.src, this.width, this.height});
 
   factory Icon.fromXmlElement(XmlElement element) {
@@ -137,12 +141,11 @@ class Icon {
 /// This class corresponds to the 'url' element in the XMLTV DTD.
 /// It can include a system attribute to specify the type or purpose of the URL.
 class Url {
-
   Url({required this.value, this.system});
 
   factory Url.fromXmlElement(XmlElement element) {
     return Url(
-      value: element.text ,
+      value: element.text,
       system: element.getAttribute('system'),
     );
   }
@@ -156,10 +159,26 @@ class Url {
 /// It contains comprehensive information about a specific TV show or event,
 /// including timing, titles, descriptions, categories, and various metadata.
 class Programme {
-
   Programme({
     required this.start,
-    required this.channel, required this.clumpidx, required this.titles, required this.subTitles, required this.descs, required this.categories, required this.keywords, required this.icons, required this.urls, required this.countries, required this.episodeNums, required this.isNew, required this.subtitles, required this.ratings, required this.starRatings, required this.reviews, required this.images, this.stop,
+    required this.channel,
+    required this.clumpidx,
+    required this.titles,
+    required this.subTitles,
+    required this.descs,
+    required this.categories,
+    required this.keywords,
+    required this.icons,
+    required this.urls,
+    required this.countries,
+    required this.episodeNums,
+    required this.isNew,
+    required this.subtitles,
+    required this.ratings,
+    required this.starRatings,
+    required this.reviews,
+    required this.images,
+    this.stop,
     this.pdcStart,
     this.vpsStart,
     this.showview,
@@ -191,7 +210,8 @@ class Programme {
         // Parse YYYYMMDDHHMMSS +HHMM format
         final date = value.substring(0, 14);
         final offset = value.substring(15);
-        return DateTime.parse('${date.substring(0, 8)}T${date.substring(8)}$offset');
+        return DateTime.parse(
+            '${date.substring(0, 8)}T${date.substring(8)}$offset');
       } catch (e) {
         debugPrint('Error parsing date: $value');
         return null;
@@ -199,7 +219,8 @@ class Programme {
     }
 
     return Programme(
-      start: parseDateTimeWithOffset(element.getAttribute('start')) ?? DateTime.now(),
+      start: parseDateTimeWithOffset(element.getAttribute('start')) ??
+          DateTime.now(),
       stop: parseDateTimeWithOffset(element.getAttribute('stop')),
       pdcStart: parseDateTime(element.getAttribute('pdc-start')),
       vpsStart: parseDateTime(element.getAttribute('vps-start')),
@@ -208,29 +229,67 @@ class Programme {
       channel: element.getAttribute('channel') ?? '',
       clumpidx: element.getAttribute('clumpidx') ?? '0/1',
       titles: element.findElements('title').map(Title.fromXmlElement).toList(),
-      subTitles: element.findElements('sub-title').map(SubTitle.fromXmlElement).toList(),
+      subTitles: element
+          .findElements('sub-title')
+          .map(SubTitle.fromXmlElement)
+          .toList(),
       descs: element.findElements('desc').map(Desc.fromXmlElement).toList(),
-      credits: element.getElement('credits') != null ? Credits.fromXmlElement(element.getElement('credits')!) : null,
+      credits: element.getElement('credits') != null
+          ? Credits.fromXmlElement(element.getElement('credits')!)
+          : null,
       date: element.getElement('date')?.text,
-      categories: element.findElements('category').map(Category.fromXmlElement).toList(),
-      keywords: element.findElements('keyword').map(Keyword.fromXmlElement).toList(),
-      language: element.getElement('language') != null ? Language.fromXmlElement(element.getElement('language')!) : null,
-      origLanguage: element.getElement('orig-language') != null ? OrigLanguage.fromXmlElement(element.getElement('orig-language')!) : null,
-      length: element.getElement('length') != null ? Length.fromXmlElement(element.getElement('length')!) : null,
+      categories: element
+          .findElements('category')
+          .map(Category.fromXmlElement)
+          .toList(),
+      keywords:
+          element.findElements('keyword').map(Keyword.fromXmlElement).toList(),
+      language: element.getElement('language') != null
+          ? Language.fromXmlElement(element.getElement('language')!)
+          : null,
+      origLanguage: element.getElement('orig-language') != null
+          ? OrigLanguage.fromXmlElement(element.getElement('orig-language')!)
+          : null,
+      length: element.getElement('length') != null
+          ? Length.fromXmlElement(element.getElement('length')!)
+          : null,
       icons: element.findElements('icon').map(Icon.fromXmlElement).toList(),
       urls: element.findElements('url').map(Url.fromXmlElement).toList(),
-      countries: element.findElements('country').map(Country.fromXmlElement).toList(),
-      episodeNums: element.findElements('episode-num').map(EpisodeNum.fromXmlElement).toList(),
-      video: element.getElement('video') != null ? Video.fromXmlElement(element.getElement('video')!) : null,
-      audio: element.getElement('audio') != null ? Audio.fromXmlElement(element.getElement('audio')!) : null,
-      previouslyShown: element.getElement('previously-shown') != null ? PreviouslyShown.fromXmlElement(element.getElement('previously-shown')!) : null,
-      premiere: element.getElement('premiere') != null ? Premiere.fromXmlElement(element.getElement('premiere')!) : null,
-      lastChance: element.getElement('last-chance') != null ? LastChance.fromXmlElement(element.getElement('last-chance')!) : null,
+      countries:
+          element.findElements('country').map(Country.fromXmlElement).toList(),
+      episodeNums: element
+          .findElements('episode-num')
+          .map(EpisodeNum.fromXmlElement)
+          .toList(),
+      video: element.getElement('video') != null
+          ? Video.fromXmlElement(element.getElement('video')!)
+          : null,
+      audio: element.getElement('audio') != null
+          ? Audio.fromXmlElement(element.getElement('audio')!)
+          : null,
+      previouslyShown: element.getElement('previously-shown') != null
+          ? PreviouslyShown.fromXmlElement(
+              element.getElement('previously-shown')!)
+          : null,
+      premiere: element.getElement('premiere') != null
+          ? Premiere.fromXmlElement(element.getElement('premiere')!)
+          : null,
+      lastChance: element.getElement('last-chance') != null
+          ? LastChance.fromXmlElement(element.getElement('last-chance')!)
+          : null,
       isNew: element.getElement('new') != null,
-      subtitles: element.findElements('subtitles').map(Subtitles.fromXmlElement).toList(),
-      ratings: element.findElements('rating').map(Rating.fromXmlElement).toList(),
-      starRatings: element.findElements('star-rating').map(StarRating.fromXmlElement).toList(),
-      reviews: element.findElements('review').map(Review.fromXmlElement).toList(),
+      subtitles: element
+          .findElements('subtitles')
+          .map(Subtitles.fromXmlElement)
+          .toList(),
+      ratings:
+          element.findElements('rating').map(Rating.fromXmlElement).toList(),
+      starRatings: element
+          .findElements('star-rating')
+          .map(StarRating.fromXmlElement)
+          .toList(),
+      reviews:
+          element.findElements('review').map(Review.fromXmlElement).toList(),
       images: element.findElements('image').map(Image.fromXmlElement).toList(),
     );
   }
@@ -274,12 +333,11 @@ class Programme {
 /// This class corresponds to the 'title' element in the XMLTV DTD.
 /// It can include a language attribute to specify the title in different languages.
 class Title {
-
   Title({required this.value, this.lang});
 
   factory Title.fromXmlElement(XmlElement element) {
     return Title(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -292,12 +350,11 @@ class Title {
 /// This class corresponds to the 'sub-title' element in the XMLTV DTD.
 /// It can include a language attribute to specify the subtitle in different languages.
 class SubTitle {
-
   SubTitle({required this.value, this.lang});
 
   factory SubTitle.fromXmlElement(XmlElement element) {
     return SubTitle(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -310,12 +367,11 @@ class SubTitle {
 /// This class corresponds to the 'desc' element in the XMLTV DTD.
 /// It can include a language attribute to specify the description in different languages.
 class Desc {
-
   Desc({required this.value, this.lang});
 
   factory Desc.fromXmlElement(XmlElement element) {
     return Desc(
-      value: element.text  ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -328,7 +384,6 @@ class Desc {
 /// This class corresponds to the 'credits' element in the XMLTV DTD.
 /// It includes various credit roles such as directors, actors, writers, producers, etc.
 class Credits {
-
   Credits({
     required this.directors,
     required this.actors,
@@ -344,16 +399,17 @@ class Credits {
 
   factory Credits.fromXmlElement(XmlElement element) {
     return Credits(
-      directors: element.findElements('director').map((e) => e.text  ).toList(),
+      directors: element.findElements('director').map((e) => e.text).toList(),
       actors: element.findElements('actor').map(Actor.fromXmlElement).toList(),
-      writers: element.findElements('writer').map((e) => e.text  ).toList(),
-      adapters: element.findElements('adapter').map((e) => e.text  ).toList(),
-      producers: element.findElements('producer').map((e) => e.text  ).toList(),
-      composers: element.findElements('composer').map((e) => e.text ).toList(),
-      editors: element.findElements('editor').map((e) => e.text ).toList(),
-      presenters: element.findElements('presenter').map((e) => e.text ).toList(),
-      commentators: element.findElements('commentator').map((e) => e.text ).toList(),
-      guests: element.findElements('guest').map((e) => e.text ).toList(),
+      writers: element.findElements('writer').map((e) => e.text).toList(),
+      adapters: element.findElements('adapter').map((e) => e.text).toList(),
+      producers: element.findElements('producer').map((e) => e.text).toList(),
+      composers: element.findElements('composer').map((e) => e.text).toList(),
+      editors: element.findElements('editor').map((e) => e.text).toList(),
+      presenters: element.findElements('presenter').map((e) => e.text).toList(),
+      commentators:
+          element.findElements('commentator').map((e) => e.text).toList(),
+      guests: element.findElements('guest').map((e) => e.text).toList(),
     );
   }
   final List<String> directors;
@@ -373,15 +429,17 @@ class Credits {
 /// This class corresponds to the 'actor' element in the XMLTV DTD.
 /// It includes the actor's name, role, guest status, and associated images and URLs.
 class Actor {
-
   Actor({
     required this.name,
-    required this.guest, required this.images, required this.urls, this.role,
+    required this.guest,
+    required this.images,
+    required this.urls,
+    this.role,
   });
 
   factory Actor.fromXmlElement(XmlElement element) {
     return Actor(
-      name: element.text  ,
+      name: element.text,
       role: element.getAttribute('role'),
       guest: element.getAttribute('guest') == 'yes',
       images: element.findElements('image').map(Image.fromXmlElement).toList(),
@@ -400,12 +458,11 @@ class Actor {
 /// This class corresponds to the 'category' element in the XMLTV DTD.
 /// It can include a language attribute to specify the category in different languages.
 class Category {
-
   Category({required this.value, this.lang});
 
   factory Category.fromXmlElement(XmlElement element) {
     return Category(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -418,12 +475,11 @@ class Category {
 /// This class corresponds to the 'keyword' element in the XMLTV DTD.
 /// It can include a language attribute to specify the keyword in different languages.
 class Keyword {
-
   Keyword({required this.value, this.lang});
 
   factory Keyword.fromXmlElement(XmlElement element) {
     return Keyword(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -436,12 +492,11 @@ class Keyword {
 /// This class corresponds to the 'language' element in the XMLTV DTD.
 /// It can include a language attribute to specify the language in different languages.
 class Language {
-
   Language({required this.value, this.lang});
 
   factory Language.fromXmlElement(XmlElement element) {
     return Language(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -454,12 +509,11 @@ class Language {
 /// This class corresponds to the 'orig-language' element in the XMLTV DTD.
 /// It can include a language attribute to specify the original language in different languages.
 class OrigLanguage {
-
   OrigLanguage({required this.value, this.lang});
 
   factory OrigLanguage.fromXmlElement(XmlElement element) {
     return OrigLanguage(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -472,12 +526,11 @@ class OrigLanguage {
 /// This class corresponds to the 'length' element in the XMLTV DTD.
 /// It includes the length value and the units of measurement.
 class Length {
-
   Length({required this.value, required this.units});
 
   factory Length.fromXmlElement(XmlElement element) {
     return Length(
-      value: int.parse(element.text ),
+      value: int.parse(element.text),
       units: element.getAttribute('units') ?? '',
     );
   }
@@ -490,12 +543,11 @@ class Length {
 /// This class corresponds to the 'country' element in the XMLTV DTD.
 /// It can include a language attribute to specify the country in different languages.
 class Country {
-
   Country({required this.value, this.lang});
 
   factory Country.fromXmlElement(XmlElement element) {
     return Country(
-      value: element.text ,
+      value: element.text,
       lang: element.getAttribute('lang'),
     );
   }
@@ -508,12 +560,11 @@ class Country {
 /// This class corresponds to the 'episode-num' element in the XMLTV DTD.
 /// It includes the episode number value and the system used for numbering.
 class EpisodeNum {
-
   EpisodeNum({required this.value, required this.system});
 
   factory EpisodeNum.fromXmlElement(XmlElement element) {
     return EpisodeNum(
-      value: element.text ,
+      value: element.text,
       system: element.getAttribute('system') ?? 'onscreen',
     );
   }
@@ -526,7 +577,6 @@ class EpisodeNum {
 /// This class corresponds to the 'video' element in the XMLTV DTD.
 /// It includes details such as presence, color, aspect ratio, and quality.
 class Video {
-
   Video({this.present, this.colour, this.aspect, this.quality});
 
   factory Video.fromXmlElement(XmlElement element) {
@@ -548,7 +598,6 @@ class Video {
 /// This class corresponds to the 'audio' element in the XMLTV DTD.
 /// It includes details such as presence and stereo information.
 class Audio {
-
   Audio({this.present, this.stereo});
 
   factory Audio.fromXmlElement(XmlElement element) {
@@ -566,7 +615,6 @@ class Audio {
 /// This class corresponds to the 'previously-shown' element in the XMLTV DTD.
 /// It includes the start time and the channel where the programme was previously shown.
 class PreviouslyShown {
-
   PreviouslyShown({this.start, this.channel});
 
   factory PreviouslyShown.fromXmlElement(XmlElement element) {
@@ -588,7 +636,6 @@ class PreviouslyShown {
 /// This class corresponds to the 'premiere' element in the XMLTV DTD.
 /// It can include a language attribute to specify the premiere information in different languages.
 class Premiere {
-
   Premiere({this.value, this.lang});
 
   factory Premiere.fromXmlElement(XmlElement element) {
@@ -606,7 +653,6 @@ class Premiere {
 /// This class corresponds to the 'last-chance' element in the XMLTV DTD.
 /// It can include a language attribute to specify the last chance information in different languages.
 class LastChance {
-
   LastChance({this.value, this.lang});
 
   factory LastChance.fromXmlElement(XmlElement element) {
@@ -624,13 +670,14 @@ class LastChance {
 /// This class corresponds to the 'subtitles' element in the XMLTV DTD.
 /// It includes the type of subtitles and the language they are in.
 class Subtitles {
-
   Subtitles({this.type, this.language});
 
   factory Subtitles.fromXmlElement(XmlElement element) {
     return Subtitles(
       type: element.getAttribute('type'),
-      language: element.getElement('language') != null ? Language.fromXmlElement(element.getElement('language')!) : null,
+      language: element.getElement('language') != null
+          ? Language.fromXmlElement(element.getElement('language')!)
+          : null,
     );
   }
   final String? type;
@@ -642,7 +689,6 @@ class Subtitles {
 /// This class corresponds to the 'rating' element in the XMLTV DTD.
 /// It includes the rating system, value, and associated icons.
 class Rating {
-
   Rating({required this.value, required this.icons, this.system});
 
   factory Rating.fromXmlElement(XmlElement element) {
@@ -662,7 +708,6 @@ class Rating {
 /// This class corresponds to the 'star-rating' element in the XMLTV DTD.
 /// It includes the rating system, value, and associated icons.
 class StarRating {
-
   StarRating({required this.value, required this.icons, this.system});
 
   factory StarRating.fromXmlElement(XmlElement element) {
@@ -682,8 +727,12 @@ class StarRating {
 /// This class corresponds to the 'review' element in the XMLTV DTD.
 /// It includes the type of review, source, reviewer, language, and the review text.
 class Review {
-
-  Review({required this.type, required this.value, this.source, this.reviewer, this.lang});
+  Review(
+      {required this.type,
+      required this.value,
+      this.source,
+      this.reviewer,
+      this.lang});
 
   factory Review.fromXmlElement(XmlElement element) {
     return Review(
@@ -691,7 +740,7 @@ class Review {
       source: element.getAttribute('source'),
       reviewer: element.getAttribute('reviewer'),
       lang: element.getAttribute('lang'),
-      value: element.text ,
+      value: element.text,
     );
   }
   final String type;
@@ -706,8 +755,12 @@ class Review {
 /// This class corresponds to the 'image' element in the XMLTV DTD.
 /// It includes the type of image, size, orientation, system, and the image URL.
 class Image {
-
-  Image({required this.type, required this.value, this.size, this.orient, this.system});
+  Image(
+      {required this.type,
+      required this.value,
+      this.size,
+      this.orient,
+      this.system});
 
   factory Image.fromXmlElement(XmlElement element) {
     return Image(
@@ -715,7 +768,7 @@ class Image {
       size: element.getAttribute('size'),
       orient: element.getAttribute('orient'),
       system: element.getAttribute('system'),
-      value: element.text ,
+      value: element.text,
     );
   }
   final String type;

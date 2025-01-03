@@ -35,7 +35,8 @@ class XTremeCodeSeriesInfo {
 class XTremeCodeSeason {
   /// Creates a new instance of [XTremeCodeSeason].
   XTremeCodeSeason({
-    required this.id, this.airDate,
+    required this.id,
+    this.airDate,
     this.episodeCount,
     this.name,
     this.overview,
@@ -72,7 +73,7 @@ class XTremeCodeSeason {
   final int? seasonNumber;
 
   /// The average vote of the season.
-  @JsonKey(name: 'vote_average',  fromJson: dynamicToDoubleConverter)
+  @JsonKey(name: 'vote_average', fromJson: dynamicToDoubleConverter)
   final double? voteAverage;
 
   /// The cover image of the season.

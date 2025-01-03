@@ -1,6 +1,18 @@
 # Changelog
 
-## 1.3.3 
+## 1.4.0
+
+Fix an issue with initializing a new session using _init
+
+## 1.3.6
+
+Bump dependencies to support latest versions
+
+## 1.3.5
+
+Fix an issue with correctly parsing VOD Info
+
+## 1.3.3
 
 Fix issue with assets
 
