@@ -89,9 +89,9 @@ Map<String, dynamic> _$XTremeCodeInfoVodToJson(XTremeCodeInfoVod instance) =>
 XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
     XTremeCodeMovieData(
       streamId: dynamicToIntConverter(json['stream_id']),
-      name: json['name'] as String,
-      title: json['title'] as String,
-      year: json['year'] as String,
+      name: json['name'] as String?,
+      title: json['title'] as String?,
+      year: json['year'] as String?,
       added: dateTimeFromEpochSeconds(json['added']),
       categoryId: dynamicToIntConverter(json['category_id']),
       categoryIds: (json['category_ids'] as List<dynamic>?)
@@ -99,7 +99,7 @@ XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
           .toList(),
       containerExtension: json['container_extension'] as String,
       customSid: json['custom_sid'] as String?,
-      directSource: json['direct_source'] as String,
+      directSource: json['direct_source'] as String?,
     );
 
 Map<String, dynamic> _$XTremeCodeMovieDataToJson(

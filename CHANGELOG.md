@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+Fix an issue with parsing vod items that are incomplete
+
 ## 1.4.0
 
 Fix an issue with initializing a new session using _init

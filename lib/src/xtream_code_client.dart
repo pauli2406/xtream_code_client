@@ -92,11 +92,12 @@ class XtreamCode {
   /// Throws an error if [XtreamCode.initialize] was not called.
   late XtreamCodeClient client;
 
-  late Client _httpClient;
+  late Client? _httpClient;
 
   /// Dispose the instance to free up resources.
   Future<void> dispose() async {
-    _httpClient.close();
+    _httpClient?.close();
+    _httpClient = null;
     _initialized = false;
   }
 
@@ -113,7 +114,7 @@ class XtreamCode {
       _createStreamUrl(url, port, username, password),
       _createMovieUrl(url, port, username, password),
       _createSeriesUrl(url, port, username, password),
-      _httpClient,
+      _httpClient!,
     );
     _initialized = true;
   }

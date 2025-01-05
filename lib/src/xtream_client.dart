@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:xtream_code_client/xtream_code_client.dart';
 
