@@ -186,13 +186,13 @@ class XTremeCodeMovieData {
   final int? streamId;
 
   /// The name of the movie.
-  final String name;
+  final String? name;
 
   /// The title of the movie.
-  final String title;
+  final String? title;
 
   /// The year the movie was released.
-  final String year;
+  final String? year;
 
   /// The date the movie was added.
   @JsonKey(fromJson: dateTimeFromEpochSeconds)
@@ -216,7 +216,7 @@ class XTremeCodeMovieData {
 
   /// The direct source of the movie.
   @JsonKey(name: 'direct_source')
-  final String directSource;
+  final String? directSource;
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeMovieDataToJson(this);
