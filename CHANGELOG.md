@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+Bump dependencies
+
 ## 1.4.0
 
 Fix an issue with parsing vod items that are incomplete
