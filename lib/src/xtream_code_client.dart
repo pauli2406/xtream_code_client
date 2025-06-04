@@ -28,14 +28,14 @@ class XtreamCode {
 
   /// Gets the current XtreamCode instance.
   ///
-  /// An [AssertionError] is thrown if supabase isn't initialized yet.
+  /// An [AssertionError] is thrown if XtreamCode isn't initialized yet.
   /// Call [XtreamCode.initialize] to initialize it.
   static XtreamCode get instance {
     assert(
       _instance._initialized,
       '''
-      You must initialize the supabase instance before calling 
-      Supabase.instance
+      You must initialize the XtreamCode instance before calling
+      XtreamCode.instance
       ''',
     );
     return _instance;
@@ -46,7 +46,7 @@ class XtreamCode {
   /// This must be called only once. If called more than once, an
   /// [AssertionError] is thrown
   ///
-  /// [url] and [port] can be found on your Supabase dashboard.
+  /// [url] and [port] can be found on your Xtream Codes server.
   ///
   /// [username] and [password]
   ///
@@ -87,7 +87,7 @@ class XtreamCode {
   bool _initialized = false;
   bool _debugEnable = false;
 
-  /// The supabase client for this instance
+  /// The XtreamCode client for this instance
   ///
   /// Throws an error if [XtreamCode.initialize] was not called.
   late XtreamCodeClient client;
