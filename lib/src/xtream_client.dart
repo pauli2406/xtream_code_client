@@ -19,19 +19,19 @@ class XtreamCodeClient {
   /// The _http client for making requests to the server.
   final Client _http;
 
-  /// The base URL for streaming an channel.
+  /// Base URL for streaming a movie.
   final String _movieUrl;
 
-  /// The base URL for streaming an channel.
+  /// Base URL for streaming a series.
   final String _seriesUrl;
 
-  /// The base URL for streaming an channel.
+  /// Base URL for streaming a channel.
   final String _streamUrl;
 
-  /// The base URL getterof the Xtream Code server.
+  /// The base URL getter of the Xtream Code server.
   String get baseUrl => _baseUrl;
 
-  /// The base URL getter for streaming an channel.
+  /// The base URL getter for streaming a channel.
   String streamUrl(int id, List<String> allowedInputFormat) =>
       '$_streamUrl/$id.${allowedInputFormat.firstWhere((format) => format == 'ts', orElse: () => allowedInputFormat.first)}';
 
