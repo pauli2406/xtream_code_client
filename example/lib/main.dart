@@ -1,3 +1,4 @@
+import 'package:example/demo/demo.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -66,6 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    demo();
   }
 
   @override
