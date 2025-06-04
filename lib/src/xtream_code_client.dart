@@ -108,7 +108,7 @@ class XtreamCode {
     String password,
     Client? httpClient,
   ) {
-    _httpClient = http_factory.httpClient();
+    _httpClient = httpClient ?? http_factory.httpClient();
     client = XtreamCodeClient(
       _createBaseUrl(url, port, username, password),
       _createStreamUrl(url, port, username, password),
