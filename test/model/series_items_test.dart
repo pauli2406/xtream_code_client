@@ -77,5 +77,17 @@ void main() {
       expect(item.episodeRunTime, 42);
       expect(item.categoryId, 141);
     });
+
+    test('lists can contain nulls', () {
+      final jsonWithNull = {
+        ...mockJsonString,
+        'backdrop_path': ['https://someurl.com/backdrop.jpg', null],
+        'category_ids': [141, null],
+      };
+
+      final item = XTremeCodeSeriesItem.fromJson(jsonWithNull);
+      expect(item.backdropPath, ['https://someurl.com/backdrop.jpg']);
+      expect(item.categoryIds, [141]);
+    });
   });
 }

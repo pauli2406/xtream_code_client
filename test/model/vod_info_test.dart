@@ -131,5 +131,23 @@ void main() {
       expect(item.movieData.added, dateTimeFromEpochSeconds(1705050604));
       expect(item.movieData.categoryId, 295);
     });
+
+    test('lists can contain nulls', () {
+      final jsonWithNull = {
+        ...mockJsonString,
+        'info': {
+          ...?mockJsonString['info'],
+          'backdrop_path': ['https://someurl.com', null],
+        },
+        'movie_data': {
+          ...?mockJsonString['movie_data'],
+          'category_ids': [295, null],
+        },
+      };
+
+      final item = XTremeCodeVodInfo.fromJson(jsonWithNull);
+      expect(item.info.backdropPath, ['https://someurl.com']);
+      expect(item.movieData.categoryIds, [295]);
+    });
   });
 }

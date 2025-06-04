@@ -43,9 +43,7 @@ XTremeCodeInfoVod _$XTremeCodeInfoVodFromJson(Map<String, dynamic> json) =>
           dynamicToIntConverter(json['rating_count_kinopoisk']),
       country: json['country'] as String?,
       genre: json['genre'] as String?,
-      backdropPath: (json['backdrop_path'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      backdropPath: stringListFromJson(json['backdrop_path']),
       durationSecs: dynamicToIntConverter(json['duration_secs']),
       duration: json['duration'] as String?,
       bitrate: dynamicToIntConverter(json['bitrate']),
@@ -94,9 +92,7 @@ XTremeCodeMovieData _$XTremeCodeMovieDataFromJson(Map<String, dynamic> json) =>
       year: json['year'] as String?,
       added: dateTimeFromEpochSeconds(json['added']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds: (json['category_ids'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
+      categoryIds: intListFromJson(json['category_ids']),
       containerExtension: json['container_extension'] as String,
       customSid: json['custom_sid'] as String?,
       directSource: json['direct_source'] as String?,

@@ -57,5 +57,15 @@ void main() {
       expect(item.tvArchiveDuration, 0);
       expect(item.categoryId, 1);
     });
+
+    test('list can contain nulls', () {
+      final jsonWithNull = {
+        ...mockJsonString,
+        'category_ids': [1, null],
+      };
+
+      final item = XTremeCodeLiveStreamItem.fromJson(jsonWithNull);
+      expect(item.categoryIds, [1]);
+    });
   });
 }
