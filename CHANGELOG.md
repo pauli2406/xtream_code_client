@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+Improve stability in parsing lists
+Improve Documentation
+
 ## 1.4.1
 
 Bump dependencies
