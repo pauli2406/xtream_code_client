@@ -79,6 +79,7 @@ void main() {
     });
 
     test('list can contain nulls', () {
+      final mockJsonString = createMockJsonString();
       mockJsonString['allowed_output_formats'] = ['m3u8', null, 'ts'];
 
       final item = XTremeCodeUserInfo.fromJson(mockJsonString);
