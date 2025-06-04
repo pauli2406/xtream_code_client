@@ -7,7 +7,7 @@ Edit `demo.dart` and provide your server URL, port, username and password,
 then run:
 
 ```bash
-dart run main.dart
+dart run demo/demo.dart
 ```
 
 The script prints category counts, retrieves items and details, and demonstrates

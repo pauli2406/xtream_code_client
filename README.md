@@ -26,7 +26,12 @@ dart pub add xtream_code_client
 
 ## Usage
 
-Instantiate the XtreamCodeClient:
+### Initialization
+
+Before issuing any request you **must** initialise the library. The
+`XtreamCode` class follows the singleton pattern and exposes a single instance
+through `XtreamCode.instance`. Calling `XtreamCode.initialize` prepares this
+instance and configures the underlying HTTP client.
 
 ```dart
 import 'package:xtream_code_client/xtream_code_client.dart';
@@ -35,7 +40,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await XtreamCode.initialize(
-    baseUrl: 'https://your-xtream-codes-api-url',
+    url: 'https://your-server-url',
+    port: '8080',
     username: 'your-username',
     password: 'your-password',
   );
@@ -43,55 +49,89 @@ void main() async {
   runApp(MyApp());
 }
 
-// It's handy to then extract the XtreamCode http client in a variable for later uses
-final client = XtreamCode.instance.client;
+// Access the configured client anywhere in your code
+final XtreamCodeClient client = XtreamCode.instance.client;
 ```
 
-Now you can use the client to interact with the Xtream Codes API.
+Calling `XtreamCode.instance` without initialising first will throw an
+assertion error. When the application is shut down you can optionally call
+`XtreamCode.instance.dispose()` to close the underlying HTTP client.
 
-### Functionality
+### Basic workflow
+
+Once the client is initialised you can request categories and items from the
+server. The typical order of operations is:
+
+1. **Fetch server and user information** via `serverInformation()`.
+2. **Load all categories** for live streams, VOD and series.
+3. **Fetch all streams/VOD/series items** or limit them to a specific
+   category.
+4. **Retrieve extra details** like VOD or series info.
+5. **Generate playback URLs** using the helper methods.
+6. **Access EPG data** for live streams.
 
 ```dart
-// Instantiate the XtreamCodeClient
-var client = XtreamCodeClient(baseUrl, streamUrl, http);
+// obtain general server info and user details
+final info = await client.serverInformation();
 
-// Call serverInformation
-var serverInfo = await client.serverInformation();
+// fetch available categories
+final liveCategories = await client.liveStreamCategories();
+final vodCategories = await client.vodCategories();
+final seriesCategories = await client.seriesCategories();
 
-// Call liveStreamCategories
-var liveStreamCategories = await client.liveStreamCategories();
+// load items for the first category of each type
+final liveStreams = await client.livestreamItems(
+  category: liveCategories.first,
+);
+final vodItems = await client.vodItems(
+  category: vodCategories.first,
+);
+final seriesItems = await client.seriesItems(
+  category: seriesCategories.first,
+);
 
-// Call vodCategories
-var vodCategories = await client.vodCategories();
+// retrieve additional details
+final vodInfo = await client.vodInfo(vodItems.first);
+final seriesInfo = await client.seriesInfo(seriesItems.first);
 
-// Call seriesCategories
-var seriesCategories = await client.seriesCategories();
+// playback URLs can be created via the helper methods
+final firstStreamUrl = client.streamUrl(liveStreams.first.streamId!, ['ts']);
 
-// Call livestreamItems with a category
-var liveStreamItems = await client.livestreamItems(category: liveStreamCategories.first);
-
-// Call vodItems with a category
-var vodItems = await client.vodItems(category: vodCategories.first);
-
-// Call vodInfo with a VOD item
-var vodInfo = await client.vodInfo(vodItems.first);
-
-// Call seriesItems with a category
-var seriesItems = await client.seriesItems(category: seriesCategories.first);
-
-// Call seriesInfo with a series item
-var seriesInfo = await client.seriesInfo(seriesItems.first);
-
-// Load the complete EPG table in the format of XMLTV. 
-// This is much faster than the other 2 following options that only load it for a single channel
-var epgTable = await client.epg();
-
-// Call channelEpg with a live stream item and a limit
-var channelEpg = await client.channelEpg(liveStreamItems.first, 10);
-
-// Call channelEpgTable with a live stream item
-var channelEpgTable = await client.channelEpgTable(liveStreamItems.first);
+// Electronic Program Guide (EPG)
+final epgTable = await client.epg();
+final channelEpg = await client.channelEpg(liveStreams.first, 10);
+final channelTable = await client.channelEpgTable(liveStreams.first);
 ```
+
+### Playback URLs
+
+Use the URL helpers to construct playable links for live streams,
+movies and series episodes. You can pass your preferred container
+extension. If the item defines one, it will usually work best.
+
+```dart
+final streamUrl = client.streamUrl(liveStreams.first.streamId!, ['ts']);
+final movieUrl = client.movieUrl(
+  vodItems.first.streamId!,
+  vodItems.first.containerExtension ?? 'mp4',
+);
+final episode = seriesInfo.episodes?.values.first.first;
+final seriesUrl = episode != null
+    ? client.seriesUrl(episode.id!, episode.containerExtension ?? 'ts')
+    : null;
+```
+
+## Demo
+
+A minimal command line example is available in the [demo](demo/) directory.
+It shows how to initialise the library, fetch categories and list the first
+stream URL. Run it with:
+
+```bash
+dart run demo/demo.dart
+```
+
+Feel free to adapt it for your own experiments.
 
 ## Legal Disclaimer
 
