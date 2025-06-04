@@ -4,8 +4,8 @@ import 'package:xtream_code_client/xtream_code_client.dart';
 
 void main() {
   group('XTremeCodeUserInfo', () {
-    // Mock JSON with string values
-    final mockJsonString = {
+    // Base JSON map used for creating fresh maps per test
+    Map<String, dynamic> createMockJsonString() => {
       'username': 'user',
       'password': 'password',
       'message': 'Panel',
@@ -19,6 +19,7 @@ void main() {
       'allowed_output_formats': ['m3u8', 'ts', 'rtmp'],
     };
     test('some values are strings', () {
+      final mockJsonString = createMockJsonString();
       final item = XTremeCodeUserInfo.fromJson(mockJsonString);
       expect(item, isNotNull);
       expect(item.username, 'user');
@@ -35,6 +36,7 @@ void main() {
     });
 
     test('some values are numbers', () {
+      final mockJsonString = createMockJsonString();
       mockJsonString['exp_date'] = 1736803988;
       mockJsonString['is_trial'] = 0;
       mockJsonString['active_cons'] = 0;
@@ -57,6 +59,7 @@ void main() {
     });
 
     test('some values are boolean', () {
+      final mockJsonString = createMockJsonString();
       mockJsonString['is_trial'] = false;
       mockJsonString['auth'] = true;
 
