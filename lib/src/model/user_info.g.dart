@@ -18,8 +18,7 @@ XTremeCodeUserInfo _$XTremeCodeUserInfoFromJson(Map<String, dynamic> json) =>
       activeCons: dynamicToIntConverter(json['active_cons']),
       createdAt: dateTimeFromEpochSeconds(json['created_at']),
       maxConnections: dynamicToIntConverter(json['max_connections']),
-      allowedOutputFormats:
-          stringListFromJson(json['allowed_output_formats']),
+      allowedOutputFormats: stringListFromJson(json['allowed_output_formats']),
     );
 
 Map<String, dynamic> _$XTremeCodeUserInfoToJson(XTremeCodeUserInfo instance) =>

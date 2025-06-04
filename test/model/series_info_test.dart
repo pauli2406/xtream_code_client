@@ -199,16 +199,17 @@ void main() {
 
     test('lists can contain nulls', () {
       final jsonWithNull = {
-        ...mockJsonString,
+        ...mockJsonString as Map<String, dynamic>,
         'info': {
-          ...?mockJsonString['info'],
+          ...(mockJsonString['info']! as Map<String, dynamic>),
           'backdrop_path': ['https://someurl.com/backdrop.jpg', null],
           'category_ids': [26, null],
         },
         'episodes': {
           '1': [
             {
-              ...mockJsonString['episodes']!['1']![0],
+              ...((mockJsonString['episodes']! as Map<String, dynamic>)['1']!
+                  as List)[0] as Map<String, dynamic>,
               'subtitles': ['English', null],
             },
           ],

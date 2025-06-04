@@ -71,13 +71,15 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
-      backdropPath:
-              stringListFromJson(json['backdrop_path']) ?? const [],
+      backdropPath: json['backdrop_path'] == null
+          ? const []
+          : stringListFromJson(json['backdrop_path']),
       youtubeTrailer: json['youtube_trailer'] as String?,
       episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds:
-              intListFromJson(json['category_ids']) ?? const [],
+      categoryIds: json['category_ids'] == null
+          ? const []
+          : intListFromJson(json['category_ids']),
     );
 
 Map<String, dynamic> _$XTremeCodeInfoToJson(XTremeCodeInfo instance) =>
