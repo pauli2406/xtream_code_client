@@ -62,7 +62,7 @@ class XTremeCodeUserInfo {
   int? maxConnections;
 
   /// The output formats allowed for the user.
-  @JsonKey(name: 'allowed_output_formats')
+  @JsonKey(name: 'allowed_output_formats', fromJson: stringListFromJson)
   List<String>? allowedOutputFormats;
 
   /// Converts this instance into a JSON object.

@@ -74,5 +74,12 @@ void main() {
       expect(item.maxConnections, 1);
       expect(item.allowedOutputFormats, ['m3u8', 'ts', 'rtmp']);
     });
+
+    test('list can contain nulls', () {
+      mockJsonString['allowed_output_formats'] = ['m3u8', null, 'ts'];
+
+      final item = XTremeCodeUserInfo.fromJson(mockJsonString);
+      expect(item.allowedOutputFormats, ['m3u8', 'ts']);
+    });
   });
 }

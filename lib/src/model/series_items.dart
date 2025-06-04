@@ -96,7 +96,7 @@ class XTremeCodeSeriesItem {
   final double? rating5based;
 
   /// The backdrop image paths of the series item.
-  @JsonKey(name: 'backdrop_path')
+  @JsonKey(name: 'backdrop_path', fromJson: stringListFromJson)
   final List<String>? backdropPath;
 
   /// The YouTube trailer URL of the series item.
@@ -112,7 +112,7 @@ class XTremeCodeSeriesItem {
   final int? categoryId;
 
   /// The category IDs of the series item.
-  @JsonKey(name: 'category_ids')
+  @JsonKey(name: 'category_ids', fromJson: intListFromJson)
   final List<int>? categoryIds;
 
   /// Converts this [XTremeCodeSeriesItem] instance to a JSON map.

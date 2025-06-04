@@ -196,5 +196,31 @@ void main() {
       expect(episode.added, dateTimeFromEpochSeconds(1678845306));
       expect(episode.season, 1);
     });
+
+    test('lists can contain nulls', () {
+      final jsonWithNull = {
+        ...mockJsonString as Map<String, dynamic>,
+        'info': {
+          ...(mockJsonString['info']! as Map<String, dynamic>),
+          'backdrop_path': ['https://someurl.com/backdrop.jpg', null],
+          'category_ids': [26, null],
+        },
+        'episodes': {
+          '1': [
+            {
+              ...((mockJsonString['episodes']! as Map<String, dynamic>)['1']!
+                  as List)[0] as Map<String, dynamic>,
+              'subtitles': ['English', null],
+            },
+          ],
+        },
+      };
+
+      final item = XTremeCodeSeriesInfo.fromJson(jsonWithNull);
+      expect(item.info.backdropPath, ['https://someurl.com/backdrop.jpg']);
+      expect(item.info.categoryIds, [26]);
+      final episode = item.episodes?['1']?[0];
+      expect(episode?.subtitles, ['English']);
+    });
   });
 }

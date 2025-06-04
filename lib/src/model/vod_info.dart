@@ -132,7 +132,7 @@ class XTremeCodeInfoVod {
   final String? genre;
 
   /// The backdrop images of the movie.
-  @JsonKey(name: 'backdrop_path')
+  @JsonKey(name: 'backdrop_path', fromJson: stringListFromJson)
   final List<String>? backdropPath;
 
   /// The duration of the movie in seconds.
@@ -203,7 +203,7 @@ class XTremeCodeMovieData {
   final int? categoryId;
 
   /// The IDs of the categories the movie belongs to.
-  @JsonKey(name: 'category_ids')
+  @JsonKey(name: 'category_ids', fromJson: intListFromJson)
   final List<int>? categoryIds;
 
   /// The container extension of the movie.

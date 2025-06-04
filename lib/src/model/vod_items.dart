@@ -71,7 +71,7 @@ class XTremeCodeVodItem {
   final int? categoryId;
 
   /// The IDs of the categories the VOD item belongs to.
-  @JsonKey(name: 'category_ids')
+  @JsonKey(name: 'category_ids', fromJson: intListFromJson)
   final List<int>? categoryIds;
 
   /// The container extension of the VOD item.

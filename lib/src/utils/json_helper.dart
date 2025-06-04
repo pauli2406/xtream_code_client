@@ -72,3 +72,50 @@ double? dynamicToDoubleConverter(dynamic json) {
   }
   return null;
 }
+
+/// Converts a dynamic json value to a list of strings.
+///
+/// If [json] is `null`, `null` is returned. Any `null` items within the list
+/// are skipped. Non-string values are converted using `toString()`.
+List<String>? stringListFromJson(dynamic json) {
+  if (json == null) {
+    return null;
+  }
+
+  if (json is Iterable) {
+    final result = <String>[];
+    for (final dynamic item in json) {
+      if (item == null) {
+        continue;
+      }
+      result.add(item.toString());
+    }
+    return result;
+  }
+
+  return [json.toString()];
+}
+
+/// Converts a dynamic json value to a list of integers.
+///
+/// If [json] is `null`, `null` is returned. Any item that cannot be converted
+/// to an integer is skipped.
+List<int>? intListFromJson(dynamic json) {
+  if (json == null) {
+    return null;
+  }
+
+  if (json is Iterable) {
+    final result = <int>[];
+    for (final dynamic item in json) {
+      final value = dynamicToIntConverter(item);
+      if (value != null) {
+        result.add(value);
+      }
+    }
+    return result;
+  }
+
+  final singleValue = dynamicToIntConverter(json);
+  return singleValue == null ? null : <int>[singleValue];
+}

@@ -71,17 +71,15 @@ XTremeCodeInfo _$XTremeCodeInfoFromJson(Map<String, dynamic> json) =>
       lastModified: dateTimeFromEpochSeconds(json['last_modified']),
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
-      backdropPath: (json['backdrop_path'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      backdropPath: json['backdrop_path'] == null
+          ? const []
+          : stringListFromJson(json['backdrop_path']),
       youtubeTrailer: json['youtube_trailer'] as String?,
       episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
       categoryId: dynamicToIntConverter(json['category_id']),
-      categoryIds: (json['category_ids'] as List<dynamic>?)
-              ?.map((e) => (e as num).toInt())
-              .toList() ??
-          const [],
+      categoryIds: json['category_ids'] == null
+          ? const []
+          : intListFromJson(json['category_ids']),
     );
 
 Map<String, dynamic> _$XTremeCodeInfoToJson(XTremeCodeInfo instance) =>
@@ -113,9 +111,7 @@ XTremeCodeEpisode _$XTremeCodeEpisodeFromJson(Map<String, dynamic> json) =>
       containerExtension: json['container_extension'] as String?,
       info:
           XTremeCodeEpisodeInfo.fromJson(json['info'] as Map<String, dynamic>),
-      subtitles: (json['subtitles'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      subtitles: stringListFromJson(json['subtitles']),
       customSid: json['custom_sid'] as String?,
       added: dateTimeFromEpochSeconds(json['added']),
       season: dynamicToIntConverter(json['season']),

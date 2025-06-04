@@ -156,7 +156,7 @@ class XTremeCodeInfo {
   final double? rating5based;
 
   /// The backdrop path of the series.
-  @JsonKey(name: 'backdrop_path')
+  @JsonKey(name: 'backdrop_path', fromJson: stringListFromJson)
   final List<String>? backdropPath;
 
   /// The YouTube trailer of the series.
@@ -172,7 +172,7 @@ class XTremeCodeInfo {
   final int? categoryId;
 
   /// The IDs of the categories of the series.
-  @JsonKey(name: 'category_ids')
+  @JsonKey(name: 'category_ids', fromJson: intListFromJson)
   final List<int>? categoryIds;
 
   /// Converts this instance into a JSON object.
@@ -219,6 +219,7 @@ class XTremeCodeEpisode {
   final XTremeCodeEpisodeInfo info;
 
   /// The subtitles of the episode.
+  @JsonKey(fromJson: stringListFromJson)
   final List<String>? subtitles;
 
   /// The custom SID of the episode.

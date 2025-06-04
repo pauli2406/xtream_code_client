@@ -61,5 +61,15 @@ void main() {
       expect(item.added, dateTimeFromEpochSeconds(1705390203));
       expect(item.categoryId, 295);
     });
+
+    test('list can contain nulls', () {
+      final jsonWithNull = {
+        ...mockJsonString,
+        'category_ids': [295, null],
+      };
+
+      final item = XTremeCodeVodItem.fromJson(jsonWithNull);
+      expect(item.categoryIds, [295]);
+    });
   });
 }
