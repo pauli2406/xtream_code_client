@@ -11,10 +11,15 @@ class XtreamCodeClient {
     this._movieUrl,
     this._seriesUrl,
     this._http,
+    this._path,
   );
 
   /// The base URL of the Xtream Code server.
   final String _baseUrl;
+
+  /// The path to the Xtream Code API endpoint.
+  /// Defaults to 'player_api.php'.
+  final String _path;
 
   /// The _http client for making requests to the server.
   final Client _http;
@@ -254,7 +259,7 @@ class XtreamCodeClient {
   /// If useLocalFile is true, it reads from the local 'iptv.xml' file
   /// instead of making an API call.
   Future<EPG> epg() async {
-    final uri = Uri.parse(_baseUrl.replaceFirst('player_api.php', 'xmltv.php'));
+    final uri = Uri.parse(_baseUrl.replaceFirst(_path, 'xmltv.php'));
     final response = await _http.get(uri);
 
     if (response.statusCode == 200) {

@@ -60,6 +60,7 @@ class XtreamCode {
     required String port,
     required String username,
     required String password,
+    String path = 'player_api.php',
     Client? httpClient,
     bool? debug,
   }) async {
@@ -75,6 +76,7 @@ class XtreamCode {
         username,
         password,
         httpClient,
+        path,
       )
       .._debugEnable = debug ?? kDebugMode
       .._log('***** XtreamCode init completed $_instance');
@@ -107,14 +109,16 @@ class XtreamCode {
     String username,
     String password,
     Client? httpClient,
+    String path,
   ) {
     _httpClient = httpClient ?? http_factory.httpClient();
     client = XtreamCodeClient(
-      _createBaseUrl(url, port, username, password),
+      _createBaseUrl(url, path, port, username, password),
       _createStreamUrl(url, port, username, password),
       _createMovieUrl(url, port, username, password),
       _createSeriesUrl(url, port, username, password),
       _httpClient!,
+      path,
     );
     _initialized = true;
   }
@@ -130,12 +134,12 @@ class XtreamCode {
 
   String _createBaseUrl(
     String url,
+    String path,
     String port,
     String username,
     String password,
   ) {
-    final uri =
-        '$url:$port/player_api.php?username=$username&password=$password';
+    final uri = '$url:$port/$path?username=$username&password=$password';
     assert(
       Uri.parse(uri).isAbsolute,
       '''
