@@ -61,12 +61,19 @@ class XtreamCode {
     required String username,
     required String password,
     String path = 'player_api.php',
+    Map<String, String>? parameters,
     Client? httpClient,
     bool? debug,
   }) async {
     assert(
       !_instance._initialized,
       'This instance is already initialized',
+    );
+
+    assert(
+      path[0] != '/',
+      'The path must not start with a slash. '
+      'For example, use "player_api.php" instead of "/player_api.php"',
     );
 
     _instance
@@ -77,6 +84,7 @@ class XtreamCode {
         password,
         httpClient,
         path,
+        parameters,
       )
       .._debugEnable = debug ?? kDebugMode
       .._log('***** XtreamCode init completed $_instance');
@@ -110,10 +118,11 @@ class XtreamCode {
     String password,
     Client? httpClient,
     String path,
+    Map<String, String>? parameters,
   ) {
     _httpClient = httpClient ?? http_factory.httpClient();
     client = XtreamCodeClient(
-      _createBaseUrl(url, path, port, username, password),
+      _createBaseUrl(url, path, port, username, password, parameters),
       _createStreamUrl(url, port, username, password),
       _createMovieUrl(url, port, username, password),
       _createSeriesUrl(url, port, username, password),
@@ -138,8 +147,17 @@ class XtreamCode {
     String port,
     String username,
     String password,
+    Map<String, String>? parameters,
   ) {
-    final uri = '$url:$port/$path?username=$username&password=$password';
+    var uri = '$url:$port/$path?username=$username&password=$password';
+    if (parameters != null && parameters.isNotEmpty) {
+      final queryParameters = parameters.entries
+          .where((e) => e.key.isNotEmpty && e.value.isNotEmpty)
+          .where((e) => e.key != 'username' && e.key != 'password')
+          .map((e) => '${e.key}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+      uri += '&$queryParameters';
+    }
     assert(
       Uri.parse(uri).isAbsolute,
       '''
