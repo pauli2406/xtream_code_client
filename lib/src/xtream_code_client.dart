@@ -70,12 +70,6 @@ class XtreamCode {
       'This instance is already initialized',
     );
 
-    assert(
-      path[0] != '/',
-      'The path must not start with a slash. '
-      'For example, use "player_api.php" instead of "/player_api.php"',
-    );
-
     _instance
       .._init(
         url,
@@ -150,6 +144,7 @@ class XtreamCode {
     Map<String, String>? parameters,
   ) {
     var uri = '$url:$port/$path?username=$username&password=$password';
+    print('PARAMS: $parameters');
     if (parameters != null && parameters.isNotEmpty) {
       final queryParameters = parameters.entries
           .where((e) => e.key.isNotEmpty && e.value.isNotEmpty)

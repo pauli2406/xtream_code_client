@@ -143,7 +143,12 @@ class XtreamCodeClient {
 
   /// Retrieves information about a specific VOD item.
   Future<XTremeCodeVodInfo> vodInfo(XTremeCodeVodItem vod) async {
-    final action = 'get_vod_info&vod_id=${vod.streamId}';
+    return vodInfoByStreamId(vod.streamId?.toString() ?? '');
+  }
+
+  /// Retrieves information about a specific VOD item.
+  Future<XTremeCodeVodInfo> vodInfoByStreamId(String streamId) async {
+    final action = 'get_vod_info&vod_id=$streamId';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
@@ -187,7 +192,12 @@ class XtreamCodeClient {
 
   /// Retrieves information about a specific series item.
   Future<XTremeCodeSeriesInfo> seriesInfo(XTremeCodeSeriesItem series) async {
-    final action = 'get_series_info&series_id=${series.seriesId}';
+    return seriesInfoById(series.seriesId);
+  }
+
+  /// Retrieves information about a specific series item by its ID.
+  Future<XTremeCodeSeriesInfo> seriesInfoById(int? seriesId) async {
+    final action = 'get_series_info&series_id=$seriesId';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
