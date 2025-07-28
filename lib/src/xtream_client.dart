@@ -192,11 +192,11 @@ class XtreamCodeClient {
 
   /// Retrieves information about a specific series item.
   Future<XTremeCodeSeriesInfo> seriesInfo(XTremeCodeSeriesItem series) async {
-    return seriesInfoById(series.seriesId);
+    return seriesInfoById(series.seriesId.toString());
   }
 
   /// Retrieves information about a specific series item by its ID.
-  Future<XTremeCodeSeriesInfo> seriesInfoById(int? seriesId) async {
+  Future<XTremeCodeSeriesInfo> seriesInfoById(String seriesId) async {
     final action = 'get_series_info&series_id=$seriesId';
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
