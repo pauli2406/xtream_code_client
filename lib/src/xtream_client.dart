@@ -1,6 +1,50 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:xtream_code_client/xtream_code_client.dart';
+
+/// Top-level function for parsing EPG XML in an isolate
+/// Must be top-level or static to be used with compute()
+EPG _parseEpgXml(String xmlString) {
+  final parser = EpgParser();
+  return parser.parse(xmlString);
+}
+
+/// Top-level function for parsing categories JSON in an isolate
+List<XTremeCodeCategory> _parseCategories(String jsonString) {
+  final parsed = json.decode(jsonString);
+  return (parsed is List ? parsed : <dynamic>[])
+      .cast<Map<String, dynamic>>()
+      .map<XTremeCodeCategory>(XTremeCodeCategory.fromJson)
+      .toList();
+}
+
+/// Top-level function for parsing live streams JSON in an isolate
+List<XTremeCodeLiveStreamItem> _parseLiveStreams(String jsonString) {
+  final parsed = json.decode(jsonString);
+  return (parsed is List ? parsed : <dynamic>[])
+      .cast<Map<String, dynamic>>()
+      .map<XTremeCodeLiveStreamItem>(XTremeCodeLiveStreamItem.fromJson)
+      .toList();
+}
+
+/// Top-level function for parsing VOD items JSON in an isolate
+List<XTremeCodeVodItem> _parseVodItems(String jsonString) {
+  final parsed = json.decode(jsonString);
+  return (parsed is List ? parsed : <dynamic>[])
+      .cast<Map<String, dynamic>>()
+      .map<XTremeCodeVodItem>(XTremeCodeVodItem.fromJson)
+      .toList();
+}
+
+/// Top-level function for parsing series items JSON in an isolate
+List<XTremeCodeSeriesItem> _parseSeriesItems(String jsonString) {
+  final parsed = json.decode(jsonString);
+  return (parsed is List ? parsed : <dynamic>[])
+      .cast<Map<String, dynamic>>()
+      .map<XTremeCodeSeriesItem>(XTremeCodeSeriesItem.fromJson)
+      .toList();
+}
 
 /// A client for interacting with Xtream Code server.
 class XtreamCodeClient {
@@ -8,6 +52,7 @@ class XtreamCodeClient {
   XtreamCodeClient(
     this._baseUrl,
     this._streamUrl,
+    this._streamPlaylistM3uUrl,
     this._movieUrl,
     this._seriesUrl,
     this._http,
@@ -33,12 +78,20 @@ class XtreamCodeClient {
   /// Base URL for streaming a channel.
   final String _streamUrl;
 
+  /// Base URL for streaming a channel's M3U playlist.
+  final String _streamPlaylistM3uUrl;
+
   /// The base URL getter of the Xtream Code server.
   String get baseUrl => _baseUrl;
 
   /// The base URL getter for streaming a channel.
   String streamUrl(int id, List<String> allowedInputFormat) =>
       '$_streamUrl/$id.${allowedInputFormat.firstWhere((format) => format == 'ts', orElse: () => allowedInputFormat.first)}';
+
+  String liveStreamM3uPlaylistUrl(int id) {
+    var url = '$_streamPlaylistM3uUrl/$id.m3u8';
+    return url;
+  }
 
   /// The base URL getter for streaming a movie.
   String movieUrl(int id, String containerExtension) =>
@@ -88,6 +141,7 @@ class XtreamCodeClient {
   }
 
   /// Retrieves live stream items based on the optional category parameter.
+  /// Uses compute() to parse JSON in a background isolate for better performance.
   Future<List<XTremeCodeLiveStreamItem>> livestreamItems({
     XTremeCodeCategory? category,
   }) async {
@@ -98,12 +152,8 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
-      final parsed = json.decode(response.body);
-      return (parsed is List ? parsed : <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .cast<Map<String, dynamic>>()
-          .map<XTremeCodeLiveStreamItem>(XTremeCodeLiveStreamItem.fromJson)
-          .toList();
+      // Parse JSON in background isolate to prevent UI freezing
+      return await compute(_parseLiveStreams, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -115,6 +165,7 @@ class XtreamCodeClient {
   }
 
   /// Retrieves VOD items based on the optional category parameter.
+  /// Uses compute() to parse JSON in a background isolate for better performance.
   Future<List<XTremeCodeVodItem>> vodItems({
     XTremeCodeCategory? category,
   }) async {
@@ -125,12 +176,8 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
-      final parsed = json.decode(response.body);
-      return (parsed is List ? parsed : <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .cast<Map<String, dynamic>>()
-          .map<XTremeCodeVodItem>(XTremeCodeVodItem.fromJson)
-          .toList();
+      // Parse JSON in background isolate to prevent UI freezing
+      return await compute(_parseVodItems, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -165,6 +212,7 @@ class XtreamCodeClient {
   }
 
   /// Retrieves series items based on the optional category parameter.
+  /// Uses compute() to parse JSON in a background isolate for better performance.
   Future<List<XTremeCodeSeriesItem>> seriesItems({
     XTremeCodeCategory? category,
   }) async {
@@ -175,11 +223,8 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
-      final parsed = json.decode(response.body);
-      return (parsed is List ? parsed : <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .map<XTremeCodeSeriesItem>(XTremeCodeSeriesItem.fromJson)
-          .toList();
+      // Parse JSON in background isolate to prevent UI freezing
+      return await compute(_parseSeriesItems, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -268,14 +313,19 @@ class XtreamCodeClient {
   /// Retrieves the EPG (Electronic Program Guide) data in XMLTV format.
   /// If useLocalFile is true, it reads from the local 'iptv.xml' file
   /// instead of making an API call.
+  ///
+  /// Uses compute() to parse the XML in a background isolate to prevent UI freezing
+  /// when processing large EPG data (200k+ programmes).
   Future<EPG> epg() async {
     final uri = Uri.parse(_baseUrl.replaceFirst(_path, 'xmltv.php'));
     final response = await _http.get(uri);
 
     if (response.statusCode == 200) {
       final xmlString = response.body;
-      final parser = EpgParser();
-      return parser.parse(xmlString);
+
+      // Parse XML in background isolate to prevent UI freezing
+      // This is critical for large EPG files with 200k+ programmes
+      return await compute(_parseEpgXml, xmlString);
     } else {
       throw XTreamCodeClientException(
         'Failed to fetch XMLTV data. Server responded with status code ${response.statusCode}.',
@@ -284,16 +334,13 @@ class XtreamCodeClient {
   }
 
   /// Common method for retrieving categories based on the given action.
+  /// Uses compute() to parse JSON in a background isolate for better performance.
   Future<List<XTremeCodeCategory>> _categories(String action) async {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
-      final parsed = json.decode(response.body);
-      return (parsed is List ? parsed : <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .cast<Map<String, dynamic>>()
-          .map<XTremeCodeCategory>(XTremeCodeCategory.fromJson)
-          .toList();
+      // Parse JSON in background isolate to prevent UI freezing
+      return await compute(_parseCategories, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
