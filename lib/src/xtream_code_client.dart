@@ -118,6 +118,7 @@ class XtreamCode {
     client = XtreamCodeClient(
       _createBaseUrl(url, path, port, username, password, parameters),
       _createStreamUrl(url, port, username, password),
+      _createLiveStreamM3uUrl(url, port, username, password),
       _createMovieUrl(url, port, username, password),
       _createSeriesUrl(url, port, username, password),
       _httpClient!,
@@ -144,7 +145,7 @@ class XtreamCode {
     Map<String, String>? parameters,
   ) {
     var uri = '$url:$port/$path?username=$username&password=$password';
-    print('PARAMS: $parameters');
+
     if (parameters != null && parameters.isNotEmpty) {
       final queryParameters = parameters.entries
           .where((e) => e.key.isNotEmpty && e.value.isNotEmpty)
@@ -170,6 +171,23 @@ class XtreamCode {
     String password,
   ) {
     final uri = '$url:$port/$username/$password';
+    assert(
+      Uri.parse(uri).isAbsolute,
+      '''
+      The provided combination of url, port, username and password is not a 
+      valid uri
+      ''',
+    );
+    return uri;
+  }
+
+  String _createLiveStreamM3uUrl(
+    String url,
+    String port,
+    String username,
+    String password,
+  ) {
+    final uri = '$url:$port/live/$username/$password';
     assert(
       Uri.parse(uri).isAbsolute,
       '''
