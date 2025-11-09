@@ -81,6 +81,7 @@ class XTremeCodeEpgListing {
   final DateTime? stopTimestamp;
 
   /// The stop time of the EPG listing.
+  @JsonKey(fromJson: dateTimeFromString)
   final DateTime? stop;
 
   /// Converts this instance into a JSON object.

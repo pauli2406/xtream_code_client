@@ -45,5 +45,32 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- 
+		OPTION 1: Allow all HTTP connections (current setting)
+		This allows insecure HTTP connections for development/testing.
+		Note: In production, prefer HTTPS or use OPTION 2 below.
+		-->
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		
+		<!-- 
+		OPTION 2: Allow specific domains only (more secure)
+		Uncomment and configure this instead of NSAllowsArbitraryLoads
+		for production apps:
+		
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>your-server-domain.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+		-->
+	</dict>
 </dict>
 </plist>

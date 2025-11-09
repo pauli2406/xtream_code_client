@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:xtream_code_client/src/parser/parser_config.dart';
 import 'package:xtream_code_client/xtream_code_client.dart';
 
 /// A client for interacting with Xtream Code server.
@@ -11,7 +12,15 @@ class XtreamCodeClient {
     this._movieUrl,
     this._seriesUrl,
     this._http,
+    this._parserConfig,
   );
+
+  /// Parser configuration for this client.
+  final ParserConfig? _parserConfig;
+
+  /// Gets the parser configuration, using default if not provided.
+  ParserConfig get parserConfig =>
+      _parserConfig ?? ParserConfig.defaultConfig();
 
   /// The base URL of the Xtream Code server.
   final String _baseUrl;

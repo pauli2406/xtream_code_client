@@ -88,7 +88,7 @@ class XTremeCodeInfoVod {
   final String? movieImage;
 
   /// The release date of the movie.
-  @JsonKey(name: 'release_date')
+  @JsonKey(name: 'release_date', fromJson: dateTimeFromString)
   final DateTime? releaseDate;
 
   /// The runtime of the episode in minutes.
@@ -151,6 +151,7 @@ class XTremeCodeInfoVod {
   final double? rating;
 
   /// The release date of the movie.
+  @JsonKey(fromJson: dateTimeFromString)
   final DateTime? releasedate;
 
   /// The subtitles of the movie.

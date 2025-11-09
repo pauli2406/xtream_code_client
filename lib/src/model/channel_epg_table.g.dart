@@ -7,50 +7,49 @@ part of 'channel_epg_table.dart';
 // **************************************************************************
 
 XTremeCodeChannelEpgTable _$XTremeCodeChannelEpgTableFromJson(
-        Map<String, dynamic> json) =>
-    XTremeCodeChannelEpgTable(
-      epgListings: (json['epg_listings'] as List<dynamic>?)
-          ?.map((e) =>
-              XTremeCodeEpgListingTable.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => XTremeCodeChannelEpgTable(
+  epgListings: (json['epg_listings'] as List<dynamic>?)
+      ?.map(
+        (e) => XTremeCodeEpgListingTable.fromJson(e as Map<String, dynamic>),
+      )
+      .toList(),
+);
 
 Map<String, dynamic> _$XTremeCodeChannelEpgTableToJson(
-        XTremeCodeChannelEpgTable instance) =>
-    <String, dynamic>{
-      'epg_listings': instance.epgListings,
-    };
+  XTremeCodeChannelEpgTable instance,
+) => <String, dynamic>{'epg_listings': instance.epgListings};
 
 XTremeCodeEpgListingTable _$XTremeCodeEpgListingTableFromJson(
-        Map<String, dynamic> json) =>
-    XTremeCodeEpgListingTable(
-      id: dynamicToIntConverter(json['id']),
-      epgId: dynamicToIntConverter(json['epg_id']),
-      title: json['title'] as String?,
-      lang: json['lang'] as String?,
-      start: dateTimeFromString(json['start'] as String?),
-      end: dateTimeFromString(json['end'] as String?),
-      description: json['description'] as String?,
-      channelId: json['channel_id'] as String,
-      startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
-      stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
-      nowPlaying: dynamicToBool(json['now_playing']),
-      hasArchive: dynamicToBool(json['has_archive']),
-    );
+  Map<String, dynamic> json,
+) => XTremeCodeEpgListingTable(
+  id: dynamicToIntConverter(json['id']),
+  epgId: dynamicToIntConverter(json['epg_id']),
+  title: json['title'] as String?,
+  lang: json['lang'] as String?,
+  start: dateTimeFromString(json['start']),
+  end: dateTimeFromString(json['end']),
+  description: json['description'] as String?,
+  channelId: json['channel_id'] as String,
+  startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
+  stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
+  nowPlaying: dynamicToBool(json['now_playing']),
+  hasArchive: dynamicToBool(json['has_archive']),
+);
 
 Map<String, dynamic> _$XTremeCodeEpgListingTableToJson(
-        XTremeCodeEpgListingTable instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'epg_id': instance.epgId,
-      'title': instance.title,
-      'lang': instance.lang,
-      'start': instance.start?.toIso8601String(),
-      'end': instance.end?.toIso8601String(),
-      'description': instance.description,
-      'channel_id': instance.channelId,
-      'start_timestamp': instance.startTimestamp?.toIso8601String(),
-      'stop_timestamp': instance.stopTimestamp?.toIso8601String(),
-      'now_playing': instance.nowPlaying,
-      'has_archive': instance.hasArchive,
-    };
+  XTremeCodeEpgListingTable instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'epg_id': instance.epgId,
+  'title': instance.title,
+  'lang': instance.lang,
+  'start': instance.start?.toIso8601String(),
+  'end': instance.end?.toIso8601String(),
+  'description': instance.description,
+  'channel_id': instance.channelId,
+  'start_timestamp': instance.startTimestamp?.toIso8601String(),
+  'stop_timestamp': instance.stopTimestamp?.toIso8601String(),
+  'now_playing': instance.nowPlaying,
+  'has_archive': instance.hasArchive,
+};
