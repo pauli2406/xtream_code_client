@@ -1,8 +1,10 @@
 # Changelog
 
 ## 1.5.0
-Improve stability in parsing lists
-Improve Documentation
+
+- Add support for URLs without port number. The `port` parameter in `XtreamCode.initialize()` is now optional, allowing you to connect to Xtream Codes servers that don't require a port number in the URL. This is particularly useful for servers using standard HTTP/HTTPS ports (80/443) or when the port is already included in the base URL.
+- Improve stability in parsing lists
+- Improve Documentation
 
 ## 1.4.1
 
