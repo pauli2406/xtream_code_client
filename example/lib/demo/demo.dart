@@ -10,6 +10,8 @@ Future<void> demo() async {
     // 1. INITIALIZATION
     // =================================================================
     print('1. Initializing XtreamCode client...');
+
+    // Basic initialization (uses smart parsers by default)
     await XtreamCode.initialize(
       url: 'your-server-url',
       port: '8080',
@@ -19,7 +21,31 @@ Future<void> demo() async {
     );
 
     final client = XtreamCode.instance.client;
-    print('✓ Client initialized successfully\n');
+    print('✓ Client initialized successfully');
+    print('  - Using smart parser system (automatic format detection)');
+    print('  - Parser config: ${client.parserConfig.runtimeType}\n');
+
+    // Example: Advanced initialization with custom parser configuration
+    // Uncomment to use custom parsers for specific fields:
+    /*
+    final customConfig = ParserConfig.override(
+      dateFieldParsers: {
+        'end': DateParser.epochSeconds(), // Force epoch for 'end' field
+        'stop_timestamp': DateParser.iso8601(), // Force ISO for this
+      },
+    );
+    
+    await XtreamCode.instance.dispose(); // Dispose previous instance
+    await XtreamCode.initialize(
+      url: 'your-server-url',
+      port: '8080',
+      username: 'your-username',
+      password: 'your-password',
+      parserConfig: customConfig, // Use custom parser configuration
+      debug: true,
+    );
+    */
+    print('');
 
     // =================================================================
     // 2. SERVER INFORMATION
@@ -178,8 +204,12 @@ Future<void> demo() async {
       if (channelEpg.epgListings != null &&
           channelEpg.epgListings!.isNotEmpty) {
         final listing = channelEpg.epgListings!.first;
-        print(
-            '  - First program: ${listing.title} (${listing.start} - ${listing.stop})');
+        print('  - First program: ${listing.title}');
+        print('    Start: ${listing.start}');
+        print('    End: ${listing.end}');
+        print('    Stop: ${listing.stop}');
+        print('    Start timestamp: ${listing.startTimestamp}');
+        print('    Stop timestamp: ${listing.stopTimestamp}');
       }
 
       // Channel EPG (method 2 - using stream ID directly)
