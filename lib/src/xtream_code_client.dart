@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:xtream_code_client/src/http/http_client_factory.dart'
     if (dart.library.js_interop) 'package:xtream_code_client/src/http/http_client_factory_web.dart'
     as http_factory;
+import 'package:xtream_code_client/src/parser/parser_config.dart';
 import 'package:xtream_code_client/src/xtream_client.dart';
 
 /// {@template xtream_code_client}
@@ -63,6 +64,7 @@ class XtreamCode {
     required String password,
     Client? httpClient,
     bool? debug,
+    ParserConfig? parserConfig,
   }) async {
     assert(
       !_instance._initialized,
@@ -76,6 +78,7 @@ class XtreamCode {
         username,
         password,
         httpClient,
+        parserConfig,
       )
       .._debugEnable = debug ?? kDebugMode
       .._log('***** XtreamCode init completed $_instance');
@@ -108,6 +111,7 @@ class XtreamCode {
     String username,
     String password,
     Client? httpClient,
+    ParserConfig? parserConfig,
   ) {
     _httpClient = httpClient ?? http_factory.httpClient();
     client = XtreamCodeClient(
@@ -116,6 +120,7 @@ class XtreamCode {
       _createMovieUrl(url, port, username, password),
       _createSeriesUrl(url, port, username, password),
       _httpClient!,
+      parserConfig,
     );
     _initialized = true;
   }
