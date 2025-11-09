@@ -39,9 +39,17 @@ import 'package:xtream_code_client/xtream_code_client.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // With port number
   await XtreamCode.initialize(
     url: 'https://your-server-url',
     port: '8080',
+    username: 'your-username',
+    password: 'your-password',
+  );
+
+  // Or without port number (port is now optional)
+  await XtreamCode.initialize(
+    url: 'https://your-server-url',
     username: 'your-username',
     password: 'your-password',
   );
