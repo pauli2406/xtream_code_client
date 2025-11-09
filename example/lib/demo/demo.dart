@@ -10,83 +10,16 @@ Future<void> demo() async {
     // 1. INITIALIZATION
     // =================================================================
     print('1. Initializing XtreamCode client...');
-
-    // OPTION 1: Basic initialization (recommended for most cases)
-    // Smart parsers automatically handle different server formats
     await XtreamCode.initialize(
       url: 'your-server-url',
       port: '8080',
       username: 'your-username',
       password: 'your-password',
       debug: true, // Enable debug logging
-      // parserConfig is optional - smart auto-detection is used by default
     );
-
-    // OPTION 2: Custom parser configuration (if your server has specific formats)
-    // Uncomment the code below if you need to override specific field parsers:
-    /*
-    final customConfig = ParserConfig.override(
-      dateFieldParsers: {
-        // Force 'end' field to always parse as epoch seconds
-        'end': DateParser.epochSeconds(),
-        // Force 'stop_timestamp' to always parse as ISO 8601
-        'stop_timestamp': DateParser.iso8601(),
-      },
-    );
-    
-    await XtreamCode.initialize(
-      url: 'https://your-server-url',
-      port: '8080',
-      username: 'your-username',
-      password: 'your-password',
-      debug: true,
-      parserConfig: customConfig, // Use custom configuration
-    );
-    */
-
-    // OPTION 3: Custom parser for weird formats
-    // Uncomment if your server uses non-standard date formats:
-    /*
-    final weirdFormatConfig = ParserConfig.override(
-      dateFieldParsers: {
-        'end': DateParser.custom((value) {
-          // Handle custom format like "2024|04|09|01|35|00"
-          if (value is String && value.contains('|')) {
-            final parts = value.split('|');
-            if (parts.length == 6) {
-              try {
-                return DateTime(
-                  int.parse(parts[0]),
-                  int.parse(parts[1]),
-                  int.parse(parts[2]),
-                  int.parse(parts[3]),
-                  int.parse(parts[4]),
-                  int.parse(parts[5]),
-                );
-              } catch (e) {
-                return null;
-              }
-            }
-          }
-          // Fall back to smart parser for other formats
-          return const SmartDateParser().parse(value);
-        }),
-      },
-    );
-    
-    await XtreamCode.initialize(
-      url: 'https://your-server-url',
-      port: '8080',
-      username: 'your-username',
-      password: 'your-password',
-      debug: true,
-      parserConfig: weirdFormatConfig,
-    );
-    */
 
     final client = XtreamCode.instance.client;
-    print('✓ Client initialized successfully');
-    print('  Using parser config: ${client.parserConfig.runtimeType}\n');
+    print('✓ Client initialized successfully\n');
 
     // =================================================================
     // 2. SERVER INFORMATION
@@ -100,16 +33,10 @@ Future<void> demo() async {
     print('  - Active connections: ${info.userInfo.activeCons}');
     print('  - Max connections: ${info.userInfo.maxConnections}');
     print('  - Expiry date: ${info.userInfo.expDate}');
-    print('  - Created at: ${info.userInfo.createdAt}');
     print('  - Server URL: ${info.serverInfo.url}');
     print('  - Server port: ${info.serverInfo.port}');
     print('  - Server timezone: ${info.serverInfo.timezone}');
-    print('  - Server time (now): ${info.serverInfo.timeNow}');
-    print('  - Server timestamp (now): ${info.serverInfo.timestampNow}');
-    print('  - Base URL: ${client.baseUrl}');
-    print('');
-    print('  Note: Date fields are automatically parsed using smart parsers');
-    print('  that handle ISO 8601, epoch seconds, and other formats.\n');
+    print('  - Base URL: ${client.baseUrl}\n');
 
     // =================================================================
     // 3. CATEGORIES
@@ -251,15 +178,8 @@ Future<void> demo() async {
       if (channelEpg.epgListings != null &&
           channelEpg.epgListings!.isNotEmpty) {
         final listing = channelEpg.epgListings!.first;
-        print('  - First program: ${listing.title}');
-        print('    Start: ${listing.start}');
-        print('    End: ${listing.end}');
-        print('    Stop: ${listing.stop}');
-        print('    Start timestamp: ${listing.startTimestamp}');
-        print('    Stop timestamp: ${listing.stopTimestamp}');
-        print('');
-        print('  Note: The "end" field inconsistency between different EPG');
-        print('  endpoints is automatically handled by smart parsers.\n');
+        print(
+            '  - First program: ${listing.title} (${listing.start} - ${listing.stop})');
       }
 
       // Channel EPG (method 2 - using stream ID directly)
