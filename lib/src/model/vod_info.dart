@@ -38,7 +38,6 @@ class XTremeCodeInfoVod {
     required this.oName,
     required this.coverBig,
     required this.movieImage,
-    required this.releaseDate,
     required this.episodeRunTime,
     required this.youtubeTrailer,
     required this.director,
@@ -56,8 +55,9 @@ class XTremeCodeInfoVod {
     required this.duration,
     required this.bitrate,
     required this.rating,
-    required this.releasedate,
     required this.subtitles,
+    this.releaseDate,
+    this.releasedate,
   });
 
   /// Creates a new instance of [XTremeCodeInfoVod] from a JSON object.
@@ -88,7 +88,7 @@ class XTremeCodeInfoVod {
   final String? movieImage;
 
   /// The release date of the movie.
-  @JsonKey(name: 'release_date')
+  @JsonKey(name: 'release_date', fromJson: dateTimeFromString)
   final DateTime? releaseDate;
 
   /// The runtime of the episode in minutes.
@@ -151,6 +151,7 @@ class XTremeCodeInfoVod {
   final double? rating;
 
   /// The release date of the movie.
+  @JsonKey(fromJson: dateTimeFromString)
   final DateTime? releasedate;
 
   /// The subtitles of the movie.

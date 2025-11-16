@@ -33,8 +33,7 @@ XTremeCodeEpgListing _$XTremeCodeEpgListingFromJson(
       channelId: json['channel_id'] as String?,
       startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
       stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
-      stop:
-          json['stop'] == null ? null : DateTime.parse(json['stop'] as String),
+      stop: dateTimeFromString(json['stop'] as String?),
     );
 
 Map<String, dynamic> _$XTremeCodeEpgListingToJson(

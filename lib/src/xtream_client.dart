@@ -89,7 +89,7 @@ class XtreamCodeClient {
       '$_streamUrl/$id.${allowedInputFormat.firstWhere((format) => format == 'ts', orElse: () => allowedInputFormat.first)}';
 
   String liveStreamM3uPlaylistUrl(int id) {
-    var url = '$_streamPlaylistM3uUrl/$id.m3u8';
+    final url = '$_streamPlaylistM3uUrl/$id.m3u8';
     return url;
   }
 
@@ -153,7 +153,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       // Parse JSON in background isolate to prevent UI freezing
-      return await compute(_parseLiveStreams, response.body);
+      return compute(_parseLiveStreams, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -177,7 +177,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       // Parse JSON in background isolate to prevent UI freezing
-      return await compute(_parseVodItems, response.body);
+      return compute(_parseVodItems, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -224,7 +224,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       // Parse JSON in background isolate to prevent UI freezing
-      return await compute(_parseSeriesItems, response.body);
+      return compute(_parseSeriesItems, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
@@ -325,7 +325,7 @@ class XtreamCodeClient {
 
       // Parse XML in background isolate to prevent UI freezing
       // This is critical for large EPG files with 200k+ programmes
-      return await compute(_parseEpgXml, xmlString);
+      return compute(_parseEpgXml, xmlString);
     } else {
       throw XTreamCodeClientException(
         'Failed to fetch XMLTV data. Server responded with status code ${response.statusCode}.',
@@ -340,7 +340,7 @@ class XtreamCodeClient {
 
     if (response.statusCode == 200) {
       // Parse JSON in background isolate to prevent UI freezing
-      return await compute(_parseCategories, response.body);
+      return compute(_parseCategories, response.body);
     } else {
       throw XTreamCodeClientException(
         '''
