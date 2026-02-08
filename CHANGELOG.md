@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0
+
+- Add a new canonical `XtreamClient` v2 API that returns `ApiResult<T>`.
+- Add resilient parsing core with warnings, strict/lenient parser modes, and alias-aware field resolution.
+- Normalize date parsing to UTC and support mixed server date/number/boolean formats.
+- Add endpoint response normalizers and dedicated v2 mappers.
+- Add compatibility wrappers for legacy entrypoints (`XtreamCode`, `XtreamCodeClient`) and legacy model adapters.
+- Move package core to pure Dart runtime dependencies.
+- Add comprehensive v2 test coverage for parsers, mappers, normalizers, and compatibility wrappers.
+
 ## 1.5.0
 
 - Add support for URLs without port number. The `port` parameter in `XtreamCode.initialize()` is now optional, allowing you to connect to Xtream Codes servers that don't require a port number in the URL. This is particularly useful for servers using standard HTTP/HTTPS ports (80/443) or when the port is already included in the base URL.

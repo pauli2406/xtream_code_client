@@ -6,7 +6,7 @@ This Dart package, named xtream_code_client, provides a client for interacting w
 
 The xtream_code_client package provides easy and efficient access to the Xtream Codes API, with features like automatic retries and error handling. It includes a variety of models for different data structures, such as categories, channel EPGs, general information, live stream items, series info, and more.
 
-This package is designed to work with the Flutter SDK, and it intelligently selects the most suitable HTTP client implementation based on the platform in use, ensuring optimal functionality and performance.
+The package core is pure Dart. Flutter apps can use it directly without any extra bridge layer.
 
 ## What are Xtream Codes?
 
@@ -14,9 +14,7 @@ Xtream Codes is an IPTV panel used by providers to manage their IPTV service. It
 
 ## Installation 💻
 
-**❗ In order to start using Xtream Code Client you must have the Flutter SDK installed on your machine.**
-
-Install via `flutter pub add`:
+Install via `dart pub add`:
 
 ```sh
 dart pub add xtream_code_client
@@ -26,7 +24,50 @@ dart pub add xtream_code_client
 
 ## Usage
 
-### Initialization
+### v2 (recommended)
+
+Version `2.x` introduces a resilient parser and a new `XtreamClient` API.
+All endpoint methods return `ApiResult<T>` with:
+
+- `data`: parsed domain value
+- `warnings`: non-fatal parse diagnostics (lenient mode)
+- `meta`: request metadata (status, URI, headers, duration)
+
+```dart
+import 'package:xtream_code_client/xtream_code_client.dart';
+
+Future<void> main() async {
+  final client = XtreamClient(
+    url: 'https://your-server-url',
+    username: 'your-username',
+    password: 'your-password',
+  );
+
+  final result = await client.liveStreamItems();
+  print('items: ${result.data.length}');
+  print('warnings: ${result.warnings.length}');
+}
+```
+
+Strict parsing is opt-in:
+
+```dart
+final client = XtreamClient(
+  url: 'https://your-server-url',
+  username: 'your-username',
+  password: 'your-password',
+  parserOptions: const ParserOptions.strict(),
+);
+```
+
+### Migration guide (v1 -> v2)
+
+- Prefer `XtreamClient` over `XtreamCode` singleton.
+- Prefer `result.data` for values and inspect `result.warnings` for data quality.
+- New canonical model names live under `src/v2/model/*`.
+- Legacy APIs (`XtreamCode`, `XtreamCodeClient`, `XTremeCode*`) are still available but deprecated for migration compatibility.
+
+### Legacy initialization (deprecated)
 
 Before issuing any request you **must** initialise the library. The
 `XtreamCode` class follows the singleton pattern and exposes a single instance
