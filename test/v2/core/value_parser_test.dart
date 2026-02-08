@@ -74,6 +74,16 @@ void main() {
       expect(context.warnings, isEmpty);
     });
 
+    test('parses yyyy-MM-dd date-only value as UTC midnight', () {
+      final context = ParseContext();
+
+      final dateOnly =
+          ValueParser.asDateTimeUtc('2024-04-16', context, r'$.dateOnly');
+
+      expect(dateOnly, DateTime.utc(2024, 4, 16));
+      expect(context.warnings, isEmpty);
+    });
+
     test('returns null and warning for invalid value in lenient mode', () {
       final context = ParseContext();
 
@@ -92,6 +102,29 @@ void main() {
         () => ValueParser.asDateTimeUtc('not-a-date', context, r'$.invalid'),
         throwsA(isA<ParseException>()),
       );
+    });
+  });
+
+  group('ValueParser.read* map helpers', () {
+    test('readers parse map field values and preserve warning paths', () {
+      final context = ParseContext();
+      final json = <String, dynamic>{
+        'intValue': '42',
+        'boolValue': 'true',
+        'badDouble': 'not-a-double',
+      };
+
+      expect(ValueParser.readInt(json, 'intValue', context, r'$.root'), 42);
+      expect(
+          ValueParser.readBool(json, 'boolValue', context, r'$.root'), isTrue);
+      expect(
+        ValueParser.readDouble(json, 'badDouble', context, r'$.root'),
+        isNull,
+      );
+
+      expect(context.warnings.length, 1);
+      expect(context.warnings.single.code, 'invalid_double');
+      expect(context.warnings.single.jsonPath, r'$.root.badDouble');
     });
   });
 }

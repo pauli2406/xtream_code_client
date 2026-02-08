@@ -67,26 +67,60 @@ class EpgMapper {
     );
 
     return EpgListing(
-      id: ValueParser.asInt(json['id'], context, '$jsonPath.id'),
-      epgId: ValueParser.asInt(json['epg_id'], context, '$jsonPath.epg_id'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      lang: ValueParser.asString(json['lang'], context, '$jsonPath.lang'),
-      start:
-          ValueParser.asDateTimeUtc(json['start'], context, '$jsonPath.start'),
-      end: ValueParser.asDateTimeUtc(endRaw, context, '$jsonPath.end'),
-      description: ValueParser.asString(
-          json['description'], context, '$jsonPath.description'),
-      channelId: ValueParser.asString(
-          json['channel_id'], context, '$jsonPath.channel_id'),
-      startTimestamp: ValueParser.asDateTimeUtc(
-        json['start_timestamp'],
+      id: ValueParser.readInt(
+        json,
+        'id',
         context,
-        '$jsonPath.start_timestamp',
+        jsonPath,
       ),
-      stopTimestamp: ValueParser.asDateTimeUtc(
-        json['stop_timestamp'],
+      epgId: ValueParser.readInt(
+        json,
+        'epg_id',
         context,
-        '$jsonPath.stop_timestamp',
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      lang: ValueParser.readString(
+        json,
+        'lang',
+        context,
+        jsonPath,
+      ),
+      start: ValueParser.readDateTimeUtc(
+        json,
+        'start',
+        context,
+        jsonPath,
+      ),
+      end: ValueParser.asDateTimeUtc(endRaw, context, '$jsonPath.end'),
+      description: ValueParser.readString(
+        json,
+        'description',
+        context,
+        jsonPath,
+      ),
+      channelId: ValueParser.readString(
+        json,
+        'channel_id',
+        context,
+        jsonPath,
+      ),
+      startTimestamp: ValueParser.readDateTimeUtc(
+        json,
+        'start_timestamp',
+        context,
+        jsonPath,
+      ),
+      stopTimestamp: ValueParser.readDateTimeUtc(
+        json,
+        'stop_timestamp',
+        context,
+        jsonPath,
       ),
       stop: ValueParser.asDateTimeUtc(stopRaw, context, '$jsonPath.stop'),
     );
@@ -105,31 +139,73 @@ class EpgMapper {
     );
 
     return EpgTableListing(
-      id: ValueParser.asInt(json['id'], context, '$jsonPath.id'),
-      epgId: ValueParser.asInt(json['epg_id'], context, '$jsonPath.epg_id'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      lang: ValueParser.asString(json['lang'], context, '$jsonPath.lang'),
-      start:
-          ValueParser.asDateTimeUtc(json['start'], context, '$jsonPath.start'),
+      id: ValueParser.readInt(
+        json,
+        'id',
+        context,
+        jsonPath,
+      ),
+      epgId: ValueParser.readInt(
+        json,
+        'epg_id',
+        context,
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      lang: ValueParser.readString(
+        json,
+        'lang',
+        context,
+        jsonPath,
+      ),
+      start: ValueParser.readDateTimeUtc(
+        json,
+        'start',
+        context,
+        jsonPath,
+      ),
       end: ValueParser.asDateTimeUtc(endRaw, context, '$jsonPath.end'),
-      description: ValueParser.asString(
-          json['description'], context, '$jsonPath.description'),
-      channelId: ValueParser.asString(
-          json['channel_id'], context, '$jsonPath.channel_id'),
-      startTimestamp: ValueParser.asDateTimeUtc(
-        json['start_timestamp'],
+      description: ValueParser.readString(
+        json,
+        'description',
         context,
-        '$jsonPath.start_timestamp',
+        jsonPath,
       ),
-      stopTimestamp: ValueParser.asDateTimeUtc(
-        json['stop_timestamp'],
+      channelId: ValueParser.readString(
+        json,
+        'channel_id',
         context,
-        '$jsonPath.stop_timestamp',
+        jsonPath,
       ),
-      nowPlaying: ValueParser.asBool(
-          json['now_playing'], context, '$jsonPath.now_playing'),
-      hasArchive: ValueParser.asBool(
-          json['has_archive'], context, '$jsonPath.has_archive'),
+      startTimestamp: ValueParser.readDateTimeUtc(
+        json,
+        'start_timestamp',
+        context,
+        jsonPath,
+      ),
+      stopTimestamp: ValueParser.readDateTimeUtc(
+        json,
+        'stop_timestamp',
+        context,
+        jsonPath,
+      ),
+      nowPlaying: ValueParser.readBool(
+        json,
+        'now_playing',
+        context,
+        jsonPath,
+      ),
+      hasArchive: ValueParser.readBool(
+        json,
+        'has_archive',
+        context,
+        jsonPath,
+      ),
     );
   }
 }

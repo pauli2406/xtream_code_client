@@ -19,52 +19,122 @@ class SeriesMapper {
     );
 
     return SeriesItem(
-      num: ValueParser.asInt(json['num'], context, '$jsonPath.num'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      year: ValueParser.asString(json['year'], context, '$jsonPath.year'),
-      streamType: ValueParser.asString(
-          json['stream_type'], context, '$jsonPath.stream_type'),
-      seriesId:
-          ValueParser.asInt(json['series_id'], context, '$jsonPath.series_id'),
-      cover: ValueParser.asString(json['cover'], context, '$jsonPath.cover'),
-      plot: ValueParser.asString(json['plot'], context, '$jsonPath.plot'),
-      cast: ValueParser.asString(json['cast'], context, '$jsonPath.cast'),
-      director:
-          ValueParser.asString(json['director'], context, '$jsonPath.director'),
-      genre: ValueParser.asString(json['genre'], context, '$jsonPath.genre'),
+      num: ValueParser.readInt(
+        json,
+        'num',
+        context,
+        jsonPath,
+      ),
+      name: ValueParser.readString(
+        json,
+        'name',
+        context,
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      year: ValueParser.readString(
+        json,
+        'year',
+        context,
+        jsonPath,
+      ),
+      streamType: ValueParser.readString(
+        json,
+        'stream_type',
+        context,
+        jsonPath,
+      ),
+      seriesId: ValueParser.readInt(
+        json,
+        'series_id',
+        context,
+        jsonPath,
+      ),
+      cover: ValueParser.readString(
+        json,
+        'cover',
+        context,
+        jsonPath,
+      ),
+      plot: ValueParser.readString(
+        json,
+        'plot',
+        context,
+        jsonPath,
+      ),
+      cast: ValueParser.readString(
+        json,
+        'cast',
+        context,
+        jsonPath,
+      ),
+      director: ValueParser.readString(
+        json,
+        'director',
+        context,
+        jsonPath,
+      ),
+      genre: ValueParser.readString(
+        json,
+        'genre',
+        context,
+        jsonPath,
+      ),
       releaseDate: ValueParser.asDateTimeUtc(
           releaseDateRaw, context, '$jsonPath.releaseDate'),
-      lastModified: ValueParser.asDateTimeUtc(
-        json['last_modified'],
+      lastModified: ValueParser.readDateTimeUtc(
+        json,
+        'last_modified',
         context,
-        '$jsonPath.last_modified',
+        jsonPath,
       ),
-      rating: ValueParser.asDouble(json['rating'], context, '$jsonPath.rating'),
-      rating5based: ValueParser.asDouble(
-        json['rating_5based'],
+      rating: ValueParser.readDouble(
+        json,
+        'rating',
         context,
-        '$jsonPath.rating_5based',
+        jsonPath,
       ),
-      backdropPath: ValueParser.asStringList(
-        json['backdrop_path'],
+      rating5based: ValueParser.readDouble(
+        json,
+        'rating_5based',
         context,
-        '$jsonPath.backdrop_path',
+        jsonPath,
       ),
-      youtubeTrailer: ValueParser.asString(
-        json['youtube_trailer'],
+      backdropPath: ValueParser.readStringList(
+        json,
+        'backdrop_path',
         context,
-        '$jsonPath.youtube_trailer',
+        jsonPath,
       ),
-      episodeRunTime: ValueParser.asInt(
-        json['episode_run_time'],
+      youtubeTrailer: ValueParser.readString(
+        json,
+        'youtube_trailer',
         context,
-        '$jsonPath.episode_run_time',
+        jsonPath,
       ),
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryIds: ValueParser.asIntList(
-          json['category_ids'], context, '$jsonPath.category_ids'),
+      episodeRunTime: ValueParser.readInt(
+        json,
+        'episode_run_time',
+        context,
+        jsonPath,
+      ),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryIds: ValueParser.readIntList(
+        json,
+        'category_ids',
+        context,
+        jsonPath,
+      ),
     );
   }
 
@@ -140,21 +210,60 @@ class SeriesMapper {
     String jsonPath,
   ) {
     return Season(
-      airDate: ValueParser.asDateTimeUtc(
-          json['air_date'], context, '$jsonPath.air_date'),
-      episodeCount: ValueParser.asInt(
-          json['episode_count'], context, '$jsonPath.episode_count'),
-      id: ValueParser.asInt(json['id'], context, '$jsonPath.id'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      overview:
-          ValueParser.asString(json['overview'], context, '$jsonPath.overview'),
-      seasonNumber: ValueParser.asInt(
-          json['season_number'], context, '$jsonPath.season_number'),
-      voteAverage: ValueParser.asDouble(
-          json['vote_average'], context, '$jsonPath.vote_average'),
-      cover: ValueParser.asString(json['cover'], context, '$jsonPath.cover'),
-      coverBig: ValueParser.asString(
-          json['cover_big'], context, '$jsonPath.cover_big'),
+      airDate: ValueParser.readDateTimeUtc(
+        json,
+        'air_date',
+        context,
+        jsonPath,
+      ),
+      episodeCount: ValueParser.readInt(
+        json,
+        'episode_count',
+        context,
+        jsonPath,
+      ),
+      id: ValueParser.readInt(
+        json,
+        'id',
+        context,
+        jsonPath,
+      ),
+      name: ValueParser.readString(
+        json,
+        'name',
+        context,
+        jsonPath,
+      ),
+      overview: ValueParser.readString(
+        json,
+        'overview',
+        context,
+        jsonPath,
+      ),
+      seasonNumber: ValueParser.readInt(
+        json,
+        'season_number',
+        context,
+        jsonPath,
+      ),
+      voteAverage: ValueParser.readDouble(
+        json,
+        'vote_average',
+        context,
+        jsonPath,
+      ),
+      cover: ValueParser.readString(
+        json,
+        'cover',
+        context,
+        jsonPath,
+      ),
+      coverBig: ValueParser.readString(
+        json,
+        'cover_big',
+        context,
+        jsonPath,
+      ),
     );
   }
 
@@ -171,47 +280,104 @@ class SeriesMapper {
     );
 
     return SeriesDetails(
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      year: ValueParser.asString(json['year'], context, '$jsonPath.year'),
-      cover: ValueParser.asString(json['cover'], context, '$jsonPath.cover'),
-      plot: ValueParser.asString(json['plot'], context, '$jsonPath.plot'),
-      cast: ValueParser.asString(json['cast'], context, '$jsonPath.cast'),
-      director:
-          ValueParser.asString(json['director'], context, '$jsonPath.director'),
-      genre: ValueParser.asString(json['genre'], context, '$jsonPath.genre'),
+      name: ValueParser.readString(
+        json,
+        'name',
+        context,
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      year: ValueParser.readString(
+        json,
+        'year',
+        context,
+        jsonPath,
+      ),
+      cover: ValueParser.readString(
+        json,
+        'cover',
+        context,
+        jsonPath,
+      ),
+      plot: ValueParser.readString(
+        json,
+        'plot',
+        context,
+        jsonPath,
+      ),
+      cast: ValueParser.readString(
+        json,
+        'cast',
+        context,
+        jsonPath,
+      ),
+      director: ValueParser.readString(
+        json,
+        'director',
+        context,
+        jsonPath,
+      ),
+      genre: ValueParser.readString(
+        json,
+        'genre',
+        context,
+        jsonPath,
+      ),
       releaseDate: ValueParser.asDateTimeUtc(
           releaseDateRaw, context, '$jsonPath.releaseDate'),
-      lastModified: ValueParser.asDateTimeUtc(
-        json['last_modified'],
+      lastModified: ValueParser.readDateTimeUtc(
+        json,
+        'last_modified',
         context,
-        '$jsonPath.last_modified',
+        jsonPath,
       ),
-      rating: ValueParser.asDouble(json['rating'], context, '$jsonPath.rating'),
-      rating5based: ValueParser.asDouble(
-        json['rating_5based'],
+      rating: ValueParser.readDouble(
+        json,
+        'rating',
         context,
-        '$jsonPath.rating_5based',
+        jsonPath,
       ),
-      backdropPath: ValueParser.asStringList(
-        json['backdrop_path'],
+      rating5based: ValueParser.readDouble(
+        json,
+        'rating_5based',
         context,
-        '$jsonPath.backdrop_path',
+        jsonPath,
       ),
-      youtubeTrailer: ValueParser.asString(
-        json['youtube_trailer'],
+      backdropPath: ValueParser.readStringList(
+        json,
+        'backdrop_path',
         context,
-        '$jsonPath.youtube_trailer',
+        jsonPath,
       ),
-      episodeRunTime: ValueParser.asInt(
-        json['episode_run_time'],
+      youtubeTrailer: ValueParser.readString(
+        json,
+        'youtube_trailer',
         context,
-        '$jsonPath.episode_run_time',
+        jsonPath,
       ),
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryIds: ValueParser.asIntList(
-          json['category_ids'], context, '$jsonPath.category_ids'),
+      episodeRunTime: ValueParser.readInt(
+        json,
+        'episode_run_time',
+        context,
+        jsonPath,
+      ),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryIds: ValueParser.readIntList(
+        json,
+        'category_ids',
+        context,
+        jsonPath,
+      ),
     );
   }
 
@@ -225,25 +391,61 @@ class SeriesMapper {
             <String, dynamic>{};
 
     return Episode(
-      id: ValueParser.asInt(json['id'], context, '$jsonPath.id'),
-      episodeNum: ValueParser.asInt(
-          json['episode_num'], context, '$jsonPath.episode_num'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      containerExtension: ValueParser.asString(
-        json['container_extension'],
+      id: ValueParser.readInt(
+        json,
+        'id',
         context,
-        '$jsonPath.container_extension',
+        jsonPath,
+      ),
+      episodeNum: ValueParser.readInt(
+        json,
+        'episode_num',
+        context,
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      containerExtension: ValueParser.readString(
+        json,
+        'container_extension',
+        context,
+        jsonPath,
       ),
       info: _episodeInfo(infoMap, context, '$jsonPath.info'),
-      subtitles: ValueParser.asStringList(
-          json['subtitles'], context, '$jsonPath.subtitles'),
-      customSid: ValueParser.asString(
-          json['custom_sid'], context, '$jsonPath.custom_sid'),
-      added:
-          ValueParser.asDateTimeUtc(json['added'], context, '$jsonPath.added'),
-      season: ValueParser.asInt(json['season'], context, '$jsonPath.season'),
-      directSource: ValueParser.asString(
-          json['direct_source'], context, '$jsonPath.direct_source'),
+      subtitles: ValueParser.readStringList(
+        json,
+        'subtitles',
+        context,
+        jsonPath,
+      ),
+      customSid: ValueParser.readString(
+        json,
+        'custom_sid',
+        context,
+        jsonPath,
+      ),
+      added: ValueParser.readDateTimeUtc(
+        json,
+        'added',
+        context,
+        jsonPath,
+      ),
+      season: ValueParser.readInt(
+        json,
+        'season',
+        context,
+        jsonPath,
+      ),
+      directSource: ValueParser.readString(
+        json,
+        'direct_source',
+        context,
+        jsonPath,
+      ),
     );
   }
 
@@ -253,24 +455,66 @@ class SeriesMapper {
     String jsonPath,
   ) {
     return EpisodeInfo(
-      tmdbId: ValueParser.asInt(json['tmdb_id'], context, '$jsonPath.tmdb_id'),
-      releaseDate: ValueParser.asDateTimeUtc(
-        json['release_date'],
+      tmdbId: ValueParser.readInt(
+        json,
+        'tmdb_id',
         context,
-        '$jsonPath.release_date',
+        jsonPath,
       ),
-      plot: ValueParser.asString(json['plot'], context, '$jsonPath.plot'),
-      durationSecs: ValueParser.asInt(
-          json['duration_secs'], context, '$jsonPath.duration_secs'),
-      duration:
-          ValueParser.asString(json['duration'], context, '$jsonPath.duration'),
-      movieImage: ValueParser.asString(
-          json['movie_image'], context, '$jsonPath.movie_image'),
-      bitrate: ValueParser.asInt(json['bitrate'], context, '$jsonPath.bitrate'),
-      rating: ValueParser.asDouble(json['rating'], context, '$jsonPath.rating'),
-      season: ValueParser.asInt(json['season'], context, '$jsonPath.season'),
-      coverBig: ValueParser.asString(
-          json['cover_big'], context, '$jsonPath.cover_big'),
+      releaseDate: ValueParser.readDateTimeUtc(
+        json,
+        'release_date',
+        context,
+        jsonPath,
+      ),
+      plot: ValueParser.readString(
+        json,
+        'plot',
+        context,
+        jsonPath,
+      ),
+      durationSecs: ValueParser.readInt(
+        json,
+        'duration_secs',
+        context,
+        jsonPath,
+      ),
+      duration: ValueParser.readString(
+        json,
+        'duration',
+        context,
+        jsonPath,
+      ),
+      movieImage: ValueParser.readString(
+        json,
+        'movie_image',
+        context,
+        jsonPath,
+      ),
+      bitrate: ValueParser.readInt(
+        json,
+        'bitrate',
+        context,
+        jsonPath,
+      ),
+      rating: ValueParser.readDouble(
+        json,
+        'rating',
+        context,
+        jsonPath,
+      ),
+      season: ValueParser.readInt(
+        json,
+        'season',
+        context,
+        jsonPath,
+      ),
+      coverBig: ValueParser.readString(
+        json,
+        'cover_big',
+        context,
+        jsonPath,
+      ),
     );
   }
 }

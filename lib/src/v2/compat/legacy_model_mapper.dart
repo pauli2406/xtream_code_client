@@ -100,7 +100,11 @@ class LegacyModelMapper {
   static List<legacy.XTremeCodeCategory> toLegacyCategoryList(
     List<v2.Category> categories,
   ) {
-    return categories.map(toLegacyCategory).toList();
+    final result = <legacy.XTremeCodeCategory>[];
+    for (var index = 0; index < categories.length; index++) {
+      result.add(toLegacyCategory(categories[index]));
+    }
+    return result;
   }
 
   static legacy.XTremeCodeLiveStreamItem toLegacyLiveStreamItem(
@@ -126,7 +130,11 @@ class LegacyModelMapper {
   static List<legacy.XTremeCodeLiveStreamItem> toLegacyLiveStreamItemList(
     List<v2.LiveStreamItem> items,
   ) {
-    return items.map(toLegacyLiveStreamItem).toList();
+    final result = <legacy.XTremeCodeLiveStreamItem>[];
+    for (var index = 0; index < items.length; index++) {
+      result.add(toLegacyLiveStreamItem(items[index]));
+    }
+    return result;
   }
 
   static legacy.XTremeCodeVodItem toLegacyVodItem(v2.VodItem item) {
@@ -151,7 +159,11 @@ class LegacyModelMapper {
 
   static List<legacy.XTremeCodeVodItem> toLegacyVodItemList(
       List<v2.VodItem> items) {
-    return items.map(toLegacyVodItem).toList();
+    final result = <legacy.XTremeCodeVodItem>[];
+    for (var index = 0; index < items.length; index++) {
+      result.add(toLegacyVodItem(items[index]));
+    }
+    return result;
   }
 
   static legacy.XTremeCodeSeriesItem toLegacySeriesItem(v2.SeriesItem item) {
@@ -182,7 +194,11 @@ class LegacyModelMapper {
   static List<legacy.XTremeCodeSeriesItem> toLegacySeriesItemList(
     List<v2.SeriesItem> items,
   ) {
-    return items.map(toLegacySeriesItem).toList();
+    final result = <legacy.XTremeCodeSeriesItem>[];
+    for (var index = 0; index < items.length; index++) {
+      result.add(toLegacySeriesItem(items[index]));
+    }
+    return result;
   }
 
   static legacy.XTremeCodeGeneralInformation toLegacyGeneralInformation(

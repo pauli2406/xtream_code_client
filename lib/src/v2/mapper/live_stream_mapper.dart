@@ -9,41 +9,90 @@ class LiveStreamMapper {
     String jsonPath,
   ) {
     return LiveStreamItem(
-      num: ValueParser.asInt(json['num'], context, '$jsonPath.num'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      streamType: ValueParser.asString(
-          json['stream_type'], context, '$jsonPath.stream_type'),
-      streamId:
-          ValueParser.asInt(json['stream_id'], context, '$jsonPath.stream_id'),
-      streamIcon: ValueParser.asString(
-          json['stream_icon'], context, '$jsonPath.stream_icon'),
-      epgChannelId: ValueParser.asString(
-        json['epg_channel_id'],
+      num: ValueParser.readInt(
+        json,
+        'num',
         context,
-        '$jsonPath.epg_channel_id',
+        jsonPath,
       ),
-      added:
-          ValueParser.asDateTimeUtc(json['added'], context, '$jsonPath.added'),
-      customSid: ValueParser.asInt(
-          json['custom_sid'], context, '$jsonPath.custom_sid'),
-      tvArchive: ValueParser.asInt(
-          json['tv_archive'], context, '$jsonPath.tv_archive'),
-      directSource: ValueParser.asString(
-        json['direct_source'],
+      name: ValueParser.readString(
+        json,
+        'name',
         context,
-        '$jsonPath.direct_source',
+        jsonPath,
       ),
-      tvArchiveDuration: ValueParser.asInt(
-        json['tv_archive_duration'],
+      streamType: ValueParser.readString(
+        json,
+        'stream_type',
         context,
-        '$jsonPath.tv_archive_duration',
+        jsonPath,
       ),
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryIds: ValueParser.asIntList(
-          json['category_ids'], context, '$jsonPath.category_ids'),
-      thumbnail: ValueParser.asString(
-          json['thumbnail'], context, '$jsonPath.thumbnail'),
+      streamId: ValueParser.readInt(
+        json,
+        'stream_id',
+        context,
+        jsonPath,
+      ),
+      streamIcon: ValueParser.readString(
+        json,
+        'stream_icon',
+        context,
+        jsonPath,
+      ),
+      epgChannelId: ValueParser.readString(
+        json,
+        'epg_channel_id',
+        context,
+        jsonPath,
+      ),
+      added: ValueParser.readDateTimeUtc(
+        json,
+        'added',
+        context,
+        jsonPath,
+      ),
+      customSid: ValueParser.readInt(
+        json,
+        'custom_sid',
+        context,
+        jsonPath,
+      ),
+      tvArchive: ValueParser.readInt(
+        json,
+        'tv_archive',
+        context,
+        jsonPath,
+      ),
+      directSource: ValueParser.readString(
+        json,
+        'direct_source',
+        context,
+        jsonPath,
+      ),
+      tvArchiveDuration: ValueParser.readInt(
+        json,
+        'tv_archive_duration',
+        context,
+        jsonPath,
+      ),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryIds: ValueParser.readIntList(
+        json,
+        'category_ids',
+        context,
+        jsonPath,
+      ),
+      thumbnail: ValueParser.readString(
+        json,
+        'thumbnail',
+        context,
+        jsonPath,
+      ),
     );
   }
 

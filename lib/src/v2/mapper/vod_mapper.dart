@@ -12,39 +12,95 @@ class VodMapper {
     String jsonPath,
   ) {
     return VodItem(
-      streamId:
-          ValueParser.asInt(json['stream_id'], context, '$jsonPath.stream_id'),
-      num: ValueParser.asInt(json['num'], context, '$jsonPath.num'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      year: ValueParser.asString(json['year'], context, '$jsonPath.year'),
-      streamType: ValueParser.asString(
-          json['stream_type'], context, '$jsonPath.stream_type'),
-      streamIcon: ValueParser.asString(
-          json['stream_icon'], context, '$jsonPath.stream_icon'),
-      rating: ValueParser.asDouble(json['rating'], context, '$jsonPath.rating'),
-      rating5based: ValueParser.asDouble(
-        json['rating_5based'],
+      streamId: ValueParser.readInt(
+        json,
+        'stream_id',
         context,
-        '$jsonPath.rating_5based',
+        jsonPath,
       ),
-      added:
-          ValueParser.asDateTimeUtc(json['added'], context, '$jsonPath.added'),
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryIds: ValueParser.asIntList(
-          json['category_ids'], context, '$jsonPath.category_ids'),
-      containerExtension: ValueParser.asString(
-        json['container_extension'],
+      num: ValueParser.readInt(
+        json,
+        'num',
         context,
-        '$jsonPath.container_extension',
+        jsonPath,
       ),
-      customSid: ValueParser.asString(
-          json['custom_sid'], context, '$jsonPath.custom_sid'),
-      directSource: ValueParser.asString(
-        json['direct_source'],
+      name: ValueParser.readString(
+        json,
+        'name',
         context,
-        '$jsonPath.direct_source',
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      year: ValueParser.readString(
+        json,
+        'year',
+        context,
+        jsonPath,
+      ),
+      streamType: ValueParser.readString(
+        json,
+        'stream_type',
+        context,
+        jsonPath,
+      ),
+      streamIcon: ValueParser.readString(
+        json,
+        'stream_icon',
+        context,
+        jsonPath,
+      ),
+      rating: ValueParser.readDouble(
+        json,
+        'rating',
+        context,
+        jsonPath,
+      ),
+      rating5based: ValueParser.readDouble(
+        json,
+        'rating_5based',
+        context,
+        jsonPath,
+      ),
+      added: ValueParser.readDateTimeUtc(
+        json,
+        'added',
+        context,
+        jsonPath,
+      ),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryIds: ValueParser.readIntList(
+        json,
+        'category_ids',
+        context,
+        jsonPath,
+      ),
+      containerExtension: ValueParser.readString(
+        json,
+        'container_extension',
+        context,
+        jsonPath,
+      ),
+      customSid: ValueParser.readString(
+        json,
+        'custom_sid',
+        context,
+        jsonPath,
+      ),
+      directSource: ValueParser.readString(
+        json,
+        'direct_source',
+        context,
+        jsonPath,
       ),
     );
   }
@@ -94,67 +150,152 @@ class VodMapper {
     );
 
     return VodDetails(
-      kinopoiskUrl: ValueParser.asString(
-        json['kinopoisk_url'],
+      kinopoiskUrl: ValueParser.readString(
+        json,
+        'kinopoisk_url',
         context,
-        '$jsonPath.kinopoisk_url',
+        jsonPath,
       ),
-      tmdbId: ValueParser.asInt(json['tmdb_id'], context, '$jsonPath.tmdb_id'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      oName: ValueParser.asString(json['o_name'], context, '$jsonPath.o_name'),
-      coverBig: ValueParser.asString(
-          json['cover_big'], context, '$jsonPath.cover_big'),
-      movieImage: ValueParser.asString(
-          json['movie_image'], context, '$jsonPath.movie_image'),
+      tmdbId: ValueParser.readInt(
+        json,
+        'tmdb_id',
+        context,
+        jsonPath,
+      ),
+      name: ValueParser.readString(
+        json,
+        'name',
+        context,
+        jsonPath,
+      ),
+      oName: ValueParser.readString(
+        json,
+        'o_name',
+        context,
+        jsonPath,
+      ),
+      coverBig: ValueParser.readString(
+        json,
+        'cover_big',
+        context,
+        jsonPath,
+      ),
+      movieImage: ValueParser.readString(
+        json,
+        'movie_image',
+        context,
+        jsonPath,
+      ),
       releaseDate: ValueParser.asDateTimeUtc(
           releaseDateRaw, context, '$jsonPath.releaseDate'),
-      episodeRunTime: ValueParser.asInt(
-        json['episode_run_time'],
+      episodeRunTime: ValueParser.readInt(
+        json,
+        'episode_run_time',
         context,
-        '$jsonPath.episode_run_time',
+        jsonPath,
       ),
-      youtubeTrailer: ValueParser.asString(
-        json['youtube_trailer'],
+      youtubeTrailer: ValueParser.readString(
+        json,
+        'youtube_trailer',
         context,
-        '$jsonPath.youtube_trailer',
+        jsonPath,
       ),
-      director:
-          ValueParser.asString(json['director'], context, '$jsonPath.director'),
-      actors: ValueParser.asString(json['actors'], context, '$jsonPath.actors'),
-      cast: ValueParser.asString(json['cast'], context, '$jsonPath.cast'),
-      description: ValueParser.asString(
-        json['description'],
+      director: ValueParser.readString(
+        json,
+        'director',
         context,
-        '$jsonPath.description',
+        jsonPath,
       ),
-      plot: ValueParser.asString(json['plot'], context, '$jsonPath.plot'),
-      age: ValueParser.asString(json['age'], context, '$jsonPath.age'),
-      mpaaRating: ValueParser.asString(
-        json['mpaa_rating'],
+      actors: ValueParser.readString(
+        json,
+        'actors',
         context,
-        '$jsonPath.mpaa_rating',
+        jsonPath,
       ),
-      ratingCountKinopoisk: ValueParser.asInt(
-        json['rating_count_kinopoisk'],
+      cast: ValueParser.readString(
+        json,
+        'cast',
         context,
-        '$jsonPath.rating_count_kinopoisk',
+        jsonPath,
       ),
-      country:
-          ValueParser.asString(json['country'], context, '$jsonPath.country'),
-      genre: ValueParser.asString(json['genre'], context, '$jsonPath.genre'),
-      backdropPath: ValueParser.asStringList(
-        json['backdrop_path'],
+      description: ValueParser.readString(
+        json,
+        'description',
         context,
-        '$jsonPath.backdrop_path',
+        jsonPath,
       ),
-      durationSecs: ValueParser.asInt(
-          json['duration_secs'], context, '$jsonPath.duration_secs'),
-      duration:
-          ValueParser.asString(json['duration'], context, '$jsonPath.duration'),
-      bitrate: ValueParser.asInt(json['bitrate'], context, '$jsonPath.bitrate'),
-      rating: ValueParser.asDouble(json['rating'], context, '$jsonPath.rating'),
-      subtitles: ValueParser.asStringList(
-          json['subtitles'], context, '$jsonPath.subtitles'),
+      plot: ValueParser.readString(
+        json,
+        'plot',
+        context,
+        jsonPath,
+      ),
+      age: ValueParser.readString(
+        json,
+        'age',
+        context,
+        jsonPath,
+      ),
+      mpaaRating: ValueParser.readString(
+        json,
+        'mpaa_rating',
+        context,
+        jsonPath,
+      ),
+      ratingCountKinopoisk: ValueParser.readInt(
+        json,
+        'rating_count_kinopoisk',
+        context,
+        jsonPath,
+      ),
+      country: ValueParser.readString(
+        json,
+        'country',
+        context,
+        jsonPath,
+      ),
+      genre: ValueParser.readString(
+        json,
+        'genre',
+        context,
+        jsonPath,
+      ),
+      backdropPath: ValueParser.readStringList(
+        json,
+        'backdrop_path',
+        context,
+        jsonPath,
+      ),
+      durationSecs: ValueParser.readInt(
+        json,
+        'duration_secs',
+        context,
+        jsonPath,
+      ),
+      duration: ValueParser.readString(
+        json,
+        'duration',
+        context,
+        jsonPath,
+      ),
+      bitrate: ValueParser.readInt(
+        json,
+        'bitrate',
+        context,
+        jsonPath,
+      ),
+      rating: ValueParser.readDouble(
+        json,
+        'rating',
+        context,
+        jsonPath,
+      ),
+      subtitles: ValueParser.readStringList(
+        json,
+        'subtitles',
+        context,
+        jsonPath,
+      ),
     );
   }
 
@@ -164,28 +305,65 @@ class VodMapper {
     String jsonPath,
   ) {
     return MovieData(
-      streamId:
-          ValueParser.asInt(json['stream_id'], context, '$jsonPath.stream_id'),
-      name: ValueParser.asString(json['name'], context, '$jsonPath.name'),
-      title: ValueParser.asString(json['title'], context, '$jsonPath.title'),
-      year: ValueParser.asString(json['year'], context, '$jsonPath.year'),
-      added:
-          ValueParser.asDateTimeUtc(json['added'], context, '$jsonPath.added'),
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryIds: ValueParser.asIntList(
-          json['category_ids'], context, '$jsonPath.category_ids'),
-      containerExtension: ValueParser.asString(
-        json['container_extension'],
+      streamId: ValueParser.readInt(
+        json,
+        'stream_id',
         context,
-        '$jsonPath.container_extension',
+        jsonPath,
       ),
-      customSid: ValueParser.asString(
-          json['custom_sid'], context, '$jsonPath.custom_sid'),
-      directSource: ValueParser.asString(
-        json['direct_source'],
+      name: ValueParser.readString(
+        json,
+        'name',
         context,
-        '$jsonPath.direct_source',
+        jsonPath,
+      ),
+      title: ValueParser.readString(
+        json,
+        'title',
+        context,
+        jsonPath,
+      ),
+      year: ValueParser.readString(
+        json,
+        'year',
+        context,
+        jsonPath,
+      ),
+      added: ValueParser.readDateTimeUtc(
+        json,
+        'added',
+        context,
+        jsonPath,
+      ),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryIds: ValueParser.readIntList(
+        json,
+        'category_ids',
+        context,
+        jsonPath,
+      ),
+      containerExtension: ValueParser.readString(
+        json,
+        'container_extension',
+        context,
+        jsonPath,
+      ),
+      customSid: ValueParser.readString(
+        json,
+        'custom_sid',
+        context,
+        jsonPath,
+      ),
+      directSource: ValueParser.readString(
+        json,
+        'direct_source',
+        context,
+        jsonPath,
       ),
     );
   }

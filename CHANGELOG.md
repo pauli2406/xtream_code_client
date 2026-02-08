@@ -9,6 +9,7 @@
 - Add compatibility wrappers for legacy entrypoints (`XtreamCode`, `XtreamCodeClient`) and legacy model adapters.
 - Move package core to pure Dart runtime dependencies.
 - Add comprehensive v2 test coverage for parsers, mappers, normalizers, and compatibility wrappers.
+- Rewrite package documentation with a v2-first README, full `docs/` guides, migration map, performance tuning presets, and expanded API dartdoc coverage.
 
 ## 1.5.0
 

@@ -8,6 +8,9 @@ import 'package:xtream_code_client/src/xtream_client.dart';
 class XtreamCode {
   XtreamCode._();
 
+  /// Returns the initialized singleton instance.
+  ///
+  /// Call [initialize] first.
   static XtreamCode get instance {
     assert(
       _instance._initialized,
@@ -19,6 +22,10 @@ class XtreamCode {
     return _instance;
   }
 
+  /// Initializes the legacy singleton and creates [client].
+  ///
+  /// Deprecated migration path:
+  /// prefer constructing `XtreamClient` directly.
   static Future<XtreamCode> initialize({
     required String url,
     String? port,
@@ -51,10 +58,12 @@ class XtreamCode {
   bool _initialized = false;
   bool _debugEnable = false;
 
+  /// The legacy client delegate.
   late XtreamCodeClient client;
 
   late Client? _httpClient;
 
+  /// Disposes the underlying HTTP client and resets singleton state.
   Future<void> dispose() async {
     _httpClient?.close();
     _httpClient = null;

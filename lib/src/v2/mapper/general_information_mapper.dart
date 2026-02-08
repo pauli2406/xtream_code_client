@@ -32,31 +32,71 @@ class GeneralInformationMapper {
     String jsonPath,
   ) {
     return UserInfo(
-      username:
-          ValueParser.asString(json['username'], context, '$jsonPath.username'),
-      password:
-          ValueParser.asString(json['password'], context, '$jsonPath.password'),
-      message:
-          ValueParser.asString(json['message'], context, '$jsonPath.message'),
-      auth: ValueParser.asBool(json['auth'], context, '$jsonPath.auth'),
-      status: ValueParser.asString(json['status'], context, '$jsonPath.status'),
-      expDate: ValueParser.asDateTimeUtc(
-          json['exp_date'], context, '$jsonPath.exp_date'),
-      isTrial:
-          ValueParser.asBool(json['is_trial'], context, '$jsonPath.is_trial'),
-      activeCons: ValueParser.asInt(
-          json['active_cons'], context, '$jsonPath.active_cons'),
-      createdAt: ValueParser.asDateTimeUtc(
-          json['created_at'], context, '$jsonPath.created_at'),
-      maxConnections: ValueParser.asInt(
-        json['max_connections'],
+      username: ValueParser.readString(
+        json,
+        'username',
         context,
-        '$jsonPath.max_connections',
+        jsonPath,
       ),
-      allowedOutputFormats: ValueParser.asStringList(
-        json['allowed_output_formats'],
+      password: ValueParser.readString(
+        json,
+        'password',
         context,
-        '$jsonPath.allowed_output_formats',
+        jsonPath,
+      ),
+      message: ValueParser.readString(
+        json,
+        'message',
+        context,
+        jsonPath,
+      ),
+      auth: ValueParser.readBool(
+        json,
+        'auth',
+        context,
+        jsonPath,
+      ),
+      status: ValueParser.readString(
+        json,
+        'status',
+        context,
+        jsonPath,
+      ),
+      expDate: ValueParser.readDateTimeUtc(
+        json,
+        'exp_date',
+        context,
+        jsonPath,
+      ),
+      isTrial: ValueParser.readBool(
+        json,
+        'is_trial',
+        context,
+        jsonPath,
+      ),
+      activeCons: ValueParser.readInt(
+        json,
+        'active_cons',
+        context,
+        jsonPath,
+      ),
+      createdAt: ValueParser.readDateTimeUtc(
+        json,
+        'created_at',
+        context,
+        jsonPath,
+      ),
+      maxConnections: ValueParser.readInt(
+        json,
+        'max_connections',
+        context,
+        jsonPath,
+      ),
+      allowedOutputFormats: ValueParser.readStringList(
+        json,
+        'allowed_output_formats',
+        context,
+        jsonPath,
       ),
     );
   }
@@ -67,31 +107,72 @@ class GeneralInformationMapper {
     String jsonPath,
   ) {
     return ServerInfo(
-      xui: ValueParser.asBool(json['xui'], context, '$jsonPath.xui'),
-      version:
-          ValueParser.asString(json['version'], context, '$jsonPath.version'),
-      revision:
-          ValueParser.asInt(json['revision'], context, '$jsonPath.revision'),
-      url: ValueParser.asString(json['url'], context, '$jsonPath.url'),
-      port: ValueParser.asInt(json['port'], context, '$jsonPath.port'),
-      httpsPort: ValueParser.asInt(
-          json['https_port'], context, '$jsonPath.https_port'),
-      serverProtocol: ValueParser.asString(
-        json['server_protocol'],
+      xui: ValueParser.readBool(
+        json,
+        'xui',
         context,
-        '$jsonPath.server_protocol',
+        jsonPath,
       ),
-      rtmpPort:
-          ValueParser.asInt(json['rtmp_port'], context, '$jsonPath.rtmp_port'),
-      timestampNow: ValueParser.asDateTimeUtc(
-        json['timestamp_now'],
+      version: ValueParser.readString(
+        json,
+        'version',
         context,
-        '$jsonPath.timestamp_now',
+        jsonPath,
       ),
-      timeNow: ValueParser.asDateTimeUtc(
-          json['time_now'], context, '$jsonPath.time_now'),
-      timezone:
-          ValueParser.asString(json['timezone'], context, '$jsonPath.timezone'),
+      revision: ValueParser.readInt(
+        json,
+        'revision',
+        context,
+        jsonPath,
+      ),
+      url: ValueParser.readString(
+        json,
+        'url',
+        context,
+        jsonPath,
+      ),
+      port: ValueParser.readInt(
+        json,
+        'port',
+        context,
+        jsonPath,
+      ),
+      httpsPort: ValueParser.readInt(
+        json,
+        'https_port',
+        context,
+        jsonPath,
+      ),
+      serverProtocol: ValueParser.readString(
+        json,
+        'server_protocol',
+        context,
+        jsonPath,
+      ),
+      rtmpPort: ValueParser.readInt(
+        json,
+        'rtmp_port',
+        context,
+        jsonPath,
+      ),
+      timestampNow: ValueParser.readDateTimeUtc(
+        json,
+        'timestamp_now',
+        context,
+        jsonPath,
+      ),
+      timeNow: ValueParser.readDateTimeUtc(
+        json,
+        'time_now',
+        context,
+        jsonPath,
+      ),
+      timezone: ValueParser.readString(
+        json,
+        'timezone',
+        context,
+        jsonPath,
+      ),
     );
   }
 }

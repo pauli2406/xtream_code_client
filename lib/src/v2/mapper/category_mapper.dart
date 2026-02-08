@@ -9,12 +9,24 @@ class CategoryMapper {
     String jsonPath,
   ) {
     return Category(
-      categoryId: ValueParser.asInt(
-          json['category_id'], context, '$jsonPath.category_id'),
-      categoryName: ValueParser.asString(
-          json['category_name'], context, '$jsonPath.category_name'),
-      parentId:
-          ValueParser.asInt(json['parent_id'], context, '$jsonPath.parent_id'),
+      categoryId: ValueParser.readInt(
+        json,
+        'category_id',
+        context,
+        jsonPath,
+      ),
+      categoryName: ValueParser.readString(
+        json,
+        'category_name',
+        context,
+        jsonPath,
+      ),
+      parentId: ValueParser.readInt(
+        json,
+        'parent_id',
+        context,
+        jsonPath,
+      ),
     );
   }
 
