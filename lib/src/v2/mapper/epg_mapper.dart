@@ -59,12 +59,7 @@ class EpgMapper {
       context,
       '$jsonPath.end',
     );
-    final stopRaw = FieldAliases.resolve(
-      json,
-      <String>['stop', 'end', 'stop_timestamp'],
-      context,
-      '$jsonPath.stop',
-    );
+    final stopRaw = json['stop'] ?? json['end'] ?? json['stop_timestamp'];
 
     return EpgListing(
       id: ValueParser.readInt(

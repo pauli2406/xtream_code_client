@@ -48,7 +48,42 @@ void main() {
       expect(epg.epgListings?.first.stop, DateTime.utc(2024, 4, 17));
       expect(epg.epgListings?.last.end, DateTime.utc(2024, 4, 18));
       expect(epg.epgListings?.last.stop, DateTime.utc(2024, 4, 18));
-      expect(context.warnings.any((w) => w.code == 'alias_conflict'), isTrue);
+      expect(
+        context.warnings.where((w) => w.code == 'alias_conflict').length,
+        2,
+      );
+      expect(
+        context.warnings
+            .where((w) => w.code == 'alias_conflict')
+            .any((w) => w.jsonPath.contains('.stop.end')),
+        isFalse,
+      );
+    });
+
+    test('epg end/stop conflict emits one warning per listing', () {
+      final context = ParseContext();
+      final root = <String, dynamic>{
+        'epg_listings': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'id': '1',
+            'end': '1713304800',
+            'stop': '2024-04-17 00:00:00',
+            'stop_timestamp': '1713304800',
+          },
+        ],
+      };
+
+      final epg = EpgMapper.channelEpgFromMap(root, context, r'$');
+
+      expect(
+        epg.epgListings?.single.end,
+        DateTime.fromMillisecondsSinceEpoch(1713304800 * 1000, isUtc: true),
+      );
+      expect(epg.epgListings?.single.stop, DateTime.utc(2024, 4, 17));
+      expect(
+        context.warnings.where((w) => w.code == 'alias_conflict').length,
+        1,
+      );
     });
   });
 }
