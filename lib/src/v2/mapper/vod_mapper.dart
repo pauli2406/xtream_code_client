@@ -146,7 +146,7 @@ class VodMapper {
       json,
       <String>['release_date', 'releaseDate', 'releasedate'],
       context,
-      '$jsonPath.releaseDate',
+      jsonPath,
     );
 
     return VodDetails(

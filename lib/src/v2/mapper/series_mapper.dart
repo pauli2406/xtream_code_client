@@ -15,7 +15,7 @@ class SeriesMapper {
       json,
       <String>['release_date', 'releaseDate', 'releasedate'],
       context,
-      '$jsonPath.releaseDate',
+      jsonPath,
     );
 
     return SeriesItem(
@@ -276,7 +276,7 @@ class SeriesMapper {
       json,
       <String>['release_date', 'releaseDate', 'releasedate'],
       context,
-      '$jsonPath.releaseDate',
+      jsonPath,
     );
 
     return SeriesDetails(

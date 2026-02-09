@@ -57,7 +57,7 @@ class EpgMapper {
       json,
       <String>['end', 'stop', 'stop_timestamp'],
       context,
-      '$jsonPath.end',
+      jsonPath,
     );
     final stopRaw = json['stop'] ?? json['end'] ?? json['stop_timestamp'];
 
@@ -130,7 +130,7 @@ class EpgMapper {
       json,
       <String>['end', 'stop', 'stop_timestamp'],
       context,
-      '$jsonPath.end',
+      jsonPath,
     );
 
     return EpgTableListing(

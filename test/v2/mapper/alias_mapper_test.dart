@@ -19,6 +19,12 @@ void main() {
       expect(item.releaseDate, DateTime.utc(2020, 1, 1));
       expect(
           context.warnings.where((w) => w.code == 'alias_conflict').length, 2);
+      expect(
+        context.warnings
+            .where((w) => w.code == 'alias_conflict')
+            .map((w) => w.jsonPath),
+        containsAll(<String>[r'$.series.releaseDate', r'$.series.releasedate']),
+      );
     });
 
     test('epg end/stop are harmonized with fallbacks', () {
@@ -51,6 +57,17 @@ void main() {
       expect(
         context.warnings.where((w) => w.code == 'alias_conflict').length,
         2,
+      );
+      expect(
+        context.warnings
+            .where((w) => w.code == 'alias_conflict')
+            .map((w) => w.jsonPath),
+        containsAll(
+          <String>[
+            r'$.epg_listings[0].stop',
+            r'$.epg_listings[1].stop_timestamp',
+          ],
+        ),
       );
       expect(
         context.warnings
