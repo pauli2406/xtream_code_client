@@ -235,12 +235,20 @@ class XtreamClient {
   }
 
   /// Loads full VOD info for a VOD item.
+  ///
+  /// Throws [RequestException] when `vod.streamId` is null.
   Future<ApiResult<VodInfo>> vodInfo(VodItem vod) {
+    if (vod.streamId == null) {
+      throw const RequestException(
+        'streamId is required for vodInfo requests.',
+      );
+    }
+
     return _requestJson(
       uri: _actionUri(
         'get_vod_info',
         extraQuery: <String, String>{
-          'vod_id': vod.streamId.toString(),
+          'vod_id': vod.streamId!.toString(),
         },
       ),
       parser: parseVodInfo,
@@ -275,12 +283,20 @@ class XtreamClient {
   }
 
   /// Loads full series info for a series item.
+  ///
+  /// Throws [RequestException] when `series.seriesId` is null.
   Future<ApiResult<SeriesInfo>> seriesInfo(SeriesItem series) {
+    if (series.seriesId == null) {
+      throw const RequestException(
+        'seriesId is required for seriesInfo requests.',
+      );
+    }
+
     return _requestJson(
       uri: _actionUri(
         'get_series_info',
         extraQuery: <String, String>{
-          'series_id': series.seriesId.toString(),
+          'series_id': series.seriesId!.toString(),
         },
       ),
       parser: parseSeriesInfo,
