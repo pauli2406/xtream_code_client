@@ -583,12 +583,7 @@ class ValueParser {
         (value.length - digitStart == 10 || value.length - digitStart == 13)) {
       return int.tryParse(value);
     }
-
-    if (onlyDigits) {
-      return int.tryParse(value);
-    }
-
-    return num.tryParse(value);
+    return null;
   }
 
   static DateTime? _tryDateOnlyUtc(String value) {

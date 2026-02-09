@@ -95,6 +95,16 @@ void main() {
       expect(context.warnings.first.code, 'invalid_datetime');
     });
 
+    test('does not treat short numeric strings as epoch', () {
+      final context = ParseContext();
+
+      final value = ValueParser.asDateTimeUtc('2024', context, r'$.yearOnly');
+
+      expect(value, isNull);
+      expect(context.warnings.length, 1);
+      expect(context.warnings.first.code, 'invalid_datetime');
+    });
+
     test('throws in strict mode when parsing fails', () {
       final context = ParseContext(options: const ParserOptions.strict());
 
