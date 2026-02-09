@@ -471,8 +471,9 @@ class XtreamClient {
     );
 
     if (response.statusCode != 200) {
+      final safeUri = _redactedUriForError(uri);
       throw RequestException(
-        'Request to $uri failed with status code ${response.statusCode}.',
+        'Request to $safeUri failed with status code ${response.statusCode}.',
       );
     }
 
@@ -509,6 +510,49 @@ class XtreamClient {
       normalized = normalized.substring(1);
     }
     return normalized;
+  }
+
+  static Uri _redactedUriForError(Uri uri) {
+    final username = uri.queryParameters['username'];
+    final password = uri.queryParameters['password'];
+    final pathSegments = uri.pathSegments.map((segment) {
+      if (segment.isEmpty) {
+        return segment;
+      }
+      if ((username != null && segment == username) ||
+          (password != null && segment == password)) {
+        return '***';
+      }
+      return segment;
+    }).toList();
+
+    final redactedQuery = <String, String>{};
+    for (final entry in uri.queryParameters.entries) {
+      redactedQuery[entry.key] =
+          _isSensitiveQueryKey(entry.key) ? '***' : entry.value;
+    }
+
+    return uri.replace(
+      userInfo: uri.userInfo.isEmpty ? null : '***',
+      pathSegments: pathSegments,
+      queryParameters: uri.hasQuery ? redactedQuery : null,
+    );
+  }
+
+  static bool _isSensitiveQueryKey(String key) {
+    final normalized = key.toLowerCase();
+    return normalized == 'username' ||
+        normalized == 'user' ||
+        normalized == 'password' ||
+        normalized == 'pass' ||
+        normalized == 'pwd' ||
+        normalized == 'auth' ||
+        normalized == 'authorization' ||
+        normalized == 'apikey' ||
+        normalized == 'api_key' ||
+        normalized.contains('token') ||
+        normalized.contains('secret') ||
+        normalized.contains('password');
   }
 }
 

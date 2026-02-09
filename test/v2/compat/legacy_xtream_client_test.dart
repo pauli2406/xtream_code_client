@@ -141,5 +141,34 @@ void main() {
         throwsA(isA<XTreamCodeClientException>()),
       );
     });
+
+    test('legacy wrapper does not leak credentials in wrapped failures',
+        () async {
+      const baseUrl =
+          'https://example.com/player_api.php?username=legacy-user&password=legacy-pass';
+      final mock = MockClient((request) async {
+        return Response('server error', 500);
+      });
+
+      final legacyClient = XtreamCodeClient(
+        baseUrl,
+        'https://example.com/legacy-user/legacy-pass',
+        'https://example.com/movie/legacy-user/legacy-pass',
+        'https://example.com/series/legacy-user/legacy-pass',
+        mock,
+      );
+
+      try {
+        await legacyClient.serverInformation();
+        fail('Expected XTreamCodeClientException');
+      } catch (error) {
+        expect(error, isA<XTreamCodeClientException>());
+        final cause = (error as XTreamCodeClientException).cause;
+
+        expect(cause, contains('status code 500'));
+        expect(cause, isNot(contains('legacy-user')));
+        expect(cause, isNot(contains('legacy-pass')));
+      }
+    });
   });
 }
