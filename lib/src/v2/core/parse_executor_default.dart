@@ -14,6 +14,8 @@ class DefaultParseExecutor extends ParseExecutor {
   /// Creates a default parse executor.
   const DefaultParseExecutor();
 
+  static Future<bool>? _isolateRunAvailableProbe;
+
   @override
   Future<O> execute<I, O>({
     required I input,
@@ -26,12 +28,13 @@ class DefaultParseExecutor extends ParseExecutor {
       return job(input);
     }
 
-    try {
-      return await Isolate.run<O>(() => job(input));
-    } catch (_) {
-      // Web runtimes and some VM setups may reject isolate execution.
+    if (!await _isIsolateRunAvailable()) {
       return job(input);
     }
+
+    // Let parse job errors propagate as-is; only runtime support probing
+    // decides synchronous fallback.
+    return Isolate.run<O>(() => job(input));
   }
 
   bool _shouldOffload(
@@ -49,6 +52,29 @@ class DefaultParseExecutor extends ParseExecutor {
             ? options.jsonIsolateMinBytes
             : options.xmlIsolateMinBytes;
         return payloadBytes >= threshold;
+    }
+  }
+
+  Future<bool> _isIsolateRunAvailable() {
+    return _isolateRunAvailableProbe ??= _probeIsolateRunAvailability();
+  }
+
+  static Future<bool> _probeIsolateRunAvailability() async {
+    try {
+      await Isolate.run<bool>(() => true);
+      return true;
+    } on UnsupportedError {
+      return false;
+    } on UnimplementedError {
+      return false;
+    } on IsolateSpawnException catch (error) {
+      final lowered = error.toString().toLowerCase();
+      if (lowered.contains('not supported') ||
+          lowered.contains('unsupported') ||
+          lowered.contains('disabled')) {
+        return false;
+      }
+      rethrow;
     }
   }
 }
