@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:xtream_code_client/src/xtream_code_client.dart';
 
 void main() {
@@ -27,7 +27,8 @@ void main() {
 
       final client = XtreamCode.instance.client;
 
-      expect(client.baseUrl, '$url:$port/player_api.php?username=$username&password=$password');
+      expect(client.baseUrl,
+          '$url:$port/player_api.php?username=$username&password=$password');
     });
 
     test('should create URLs without port when port is null', () async {
@@ -44,7 +45,8 @@ void main() {
 
       final client = XtreamCode.instance.client;
 
-      expect(client.baseUrl, '$url/player_api.php?username=$username&password=$password');
+      expect(client.baseUrl,
+          '$url/player_api.php?username=$username&password=$password');
     });
 
     test('should create URLs without port when port is empty string', () async {
@@ -62,7 +64,8 @@ void main() {
 
       final client = XtreamCode.instance.client;
 
-      expect(client.baseUrl, '$url/player_api.php?username=$username&password=$password');
+      expect(client.baseUrl,
+          '$url/player_api.php?username=$username&password=$password');
     });
   });
 }

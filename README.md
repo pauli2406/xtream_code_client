@@ -1,148 +1,140 @@
-# XTream Code Client
+# Xtream Code Client
 
-## Description
+A Dart client for Xtream-compatible IPTV APIs.
 
-This Dart package, named xtream_code_client, provides a client for interacting with the Xtream Codes API. Xtream Codes is an IPTV panel that allows providers to manage their own IPTV service and its customers. It provides a simple and powerful API for managing users, subscriptions, and billing.
+Version `2.x` is the recommended API surface. It adds resilient parsing, structured parse warnings, adaptive background parsing, endpoint configurability, and compatibility wrappers for legacy v1-style APIs.
 
-The xtream_code_client package provides easy and efficient access to the Xtream Codes API, with features like automatic retries and error handling. It includes a variety of models for different data structures, such as categories, channel EPGs, general information, live stream items, series info, and more.
+## Documentation
 
-This package is designed to work with the Flutter SDK, and it intelligently selects the most suitable HTTP client implementation based on the platform in use, ensuring optimal functionality and performance.
+- [Docs index](docs/index.md)
+- [Getting started](docs/getting-started.md)
+- [Configuration](docs/configuration.md)
+- [Parsing modes](docs/parsing-modes.md)
+- [Performance tuning](docs/performance-tuning.md)
+- [Migration v1 to v2](docs/migration-v1-to-v2.md)
+- [Legacy APIs](docs/legacy-apis.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
-## What are Xtream Codes?
+## Installation
 
-Xtream Codes is an IPTV panel used by providers to manage their IPTV service. It provides a comprehensive API for managing users, subscriptions, and billing. With Xtream Codes, providers can create, manage, and distribute their IPTV channels and VOD content.
-
-## Installation 💻
-
-**❗ In order to start using Xtream Code Client you must have the Flutter SDK installed on your machine.**
-
-Install via `flutter pub add`:
-
-```sh
+```bash
 dart pub add xtream_code_client
 ```
 
----
-
-## Usage
-
-### Initialization
-
-Before issuing any request you **must** initialise the library. The
-`XtreamCode` class follows the singleton pattern and exposes a single instance
-through `XtreamCode.instance`. Calling `XtreamCode.initialize` prepares this
-instance and configures the underlying HTTP client.
+## Quick Start (v2)
 
 ```dart
 import 'package:xtream_code_client/xtream_code_client.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // With port number
-  await XtreamCode.initialize(
-    url: 'https://your-server-url',
-    port: '8080',
-    username: 'your-username',
-    password: 'your-password',
-  );
-
-  // Or without port number (port is now optional)
-  await XtreamCode.initialize(
+Future<void> main() async {
+  final client = XtreamClient(
     url: 'https://your-server-url',
     username: 'your-username',
     password: 'your-password',
   );
 
-  runApp(MyApp());
+  final categories = await client.liveStreamCategories();
+  final streams = await client.liveStreamItems(
+    category: categories.data.isEmpty ? null : categories.data.first,
+  );
+
+  print('streams: ${streams.data.length}');
+  print('warnings: ${streams.warnings.length}');
+
+  client.close();
 }
-
-// Access the configured client anywhere in your code
-final XtreamCodeClient client = XtreamCode.instance.client;
 ```
 
-Calling `XtreamCode.instance` without initialising first will throw an
-assertion error. When the application is shut down you can optionally call
-`XtreamCode.instance.dispose()` to close the underlying HTTP client.
+## `ApiResult<T>`
 
-### Basic workflow
+All v2 endpoint methods return `Future<ApiResult<T>>`:
 
-Once the client is initialised you can request categories and items from the
-server. The typical order of operations is:
+- `data`: parsed domain object(s)
+- `warnings`: non-fatal parse diagnostics from lenient mode
+- `meta`: request metadata (`requestUri`, `statusCode`, headers, duration)
 
-1. **Fetch server and user information** via `serverInformation()`.
-2. **Load all categories** for live streams, VOD and series.
-3. **Fetch all streams/VOD/series items** or limit them to a specific
-   category.
-4. **Retrieve extra details** like VOD or series info.
-5. **Generate playback URLs** using the helper methods.
-6. **Access EPG data** for live streams.
+Each endpoint also has a `*Data()` helper that returns only `T` (for example `liveStreamItemsData()`).
+
+## Parse Modes and Warnings
+
+- Default mode is `ParseMode.lenient`.
+- Lenient mode avoids crashes on malformed payload fields and records `ParseWarning` entries.
+- `ParseMode.strict` turns parse mismatches into parse exceptions.
 
 ```dart
-// obtain general server info and user details
-final info = await client.serverInformation();
-
-// fetch available categories
-final liveCategories = await client.liveStreamCategories();
-final vodCategories = await client.vodCategories();
-final seriesCategories = await client.seriesCategories();
-
-// load items for the first category of each type
-final liveStreams = await client.livestreamItems(
-  category: liveCategories.first,
+final client = XtreamClient(
+  url: 'https://your-server-url',
+  username: 'your-username',
+  password: 'your-password',
+  parserOptions: const ParserOptions.strict(),
 );
-final vodItems = await client.vodItems(
-  category: vodCategories.first,
-);
-final seriesItems = await client.seriesItems(
-  category: seriesCategories.first,
-);
-
-// retrieve additional details
-final vodInfo = await client.vodInfo(vodItems.first);
-final seriesInfo = await client.seriesInfo(seriesItems.first);
-
-// playback URLs can be created via the helper methods
-final firstStreamUrl = client.streamUrl(liveStreams.first.streamId!, ['ts']);
-
-// Electronic Program Guide (EPG)
-final epgTable = await client.epg();
-final channelEpg = await client.channelEpg(liveStreams.first, 10);
-final channelTable = await client.channelEpgTable(liveStreams.first);
 ```
 
-### Playback URLs
+See [parsing-modes.md](docs/parsing-modes.md) for behavior details and warning interpretation.
 
-Use the URL helpers to construct playable links for live streams,
-movies and series episodes. You can pass your preferred container
-extension. If the item defines one, it will usually work best.
+## EPG APIs
+
+- `epg()`: full XMLTV model (`EPG`) for complete metadata.
+- `epgLite()`: lightweight `EpgLite` model optimized for speed and lower memory.
+
+## Playlist URL Helpers
+
+Use v2 helpers to build playlist URLs safely:
 
 ```dart
-final streamUrl = client.streamUrl(liveStreams.first.streamId!, ['ts']);
-final movieUrl = client.movieUrl(
-  vodItems.first.streamId!,
-  vodItems.first.containerExtension ?? 'mp4',
+final uri = client.m3uPlaylistUri(
+  type: 'm3u_plus',
+  output: 'ts',
+  extraQuery: {'timezone': 'UTC'},
 );
-final episode = seriesInfo.episodes?.values.first.first;
-final seriesUrl = episode != null
-    ? client.seriesUrl(episode.id!, episode.containerExtension ?? 'ts')
-    : null;
+
+final url = client.m3uPlaylistUrl();
 ```
 
-## Demo
+## Choosing Isolate Thresholds
 
-A minimal command line example is available in the [demo](demo/) directory.
-It shows how to initialise the library, fetch categories and list the first
-stream URL. Run it with:
+In `BackgroundParsingMode.auto` (default), payloads are offloaded when they are at or above configured byte thresholds:
 
-```bash
-dart run demo/demo.dart
+- `jsonIsolateMinBytes = 131072` (128 KiB)
+- `xmlIsolateMinBytes = 98304` (96 KiB)
+
+Practical guidance:
+
+- Lower thresholds when UI jank appears while parsing.
+- Raise thresholds when isolate overhead dominates throughput.
+- Keep XML threshold lower than JSON because XML parsing is usually heavier.
+
+See [performance-tuning.md](docs/performance-tuning.md) for presets, benchmark workflow, and tuning strategy.
+
+## Endpoint Configuration
+
+You can customize API paths and apply shared query parameters via `EndpointConfig`.
+
+```dart
+final client = XtreamClient(
+  url: 'https://your-server-url',
+  username: 'your-username',
+  password: 'your-password',
+  endpointConfig: const EndpointConfig(
+    playerApiPath: 'player_api.php',
+    xmltvPath: 'xmltv.php',
+    playlistPath: 'get.php',
+    defaultQueryParameters: {'token': 'abc'},
+  ),
+);
 ```
 
-Feel free to adapt it for your own experiments.
+See [configuration.md](docs/configuration.md) for URL construction behavior and examples.
+
+## Legacy APIs
+
+Legacy classes (`XtreamCode`, `XtreamCodeClient`, and `XTremeCode*` models) are still exported for migration compatibility and are deprecated. For migration steps, see [migration-v1-to-v2.md](docs/migration-v1-to-v2.md).
+
+## Examples
+
+- Package example: [example/README.md](example/README.md)
+- Demo source: [example/lib/demo/demo.dart](example/lib/demo/demo.dart)
 
 ## Legal Disclaimer
 
-This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
-
-Please note that this package is intended for legal uses only. It is the user's responsibility to ensure that they have the necessary rights and permissions to use the Xtream Codes API and any data accessed through it. The authors of this package are not responsible for any illegal use
+This software is provided "as is", without warranty of any kind. You are responsible for ensuring that your use of any Xtream-compatible API and content is legal in your jurisdiction and authorized by the relevant rights holders.

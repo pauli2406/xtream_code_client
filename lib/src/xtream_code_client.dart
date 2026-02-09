@@ -1,35 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:xtream_code_client/src/http/http_client_factory.dart'
-    if (dart.library.js_interop) 'package:xtream_code_client/src/http/http_client_factory_web.dart'
     as http_factory;
 import 'package:xtream_code_client/src/xtream_client.dart';
 
-/// {@template xtream_code_client}
-/// A WebClient to access a XTream Code API
-///
-/// It must be initialized before used, otherwise an error is thrown.
-///
-/// ```dart
-/// await XtreamCode.initialize(...)
-/// ```
-///
-/// Use it:
-///
-/// ```dart
-/// final instance = XtreamCode.instance;
-/// ```
-///
-/// {@endtemplate}
+/// Legacy singleton wrapper. Prefer constructing `XtreamClient` directly.
+@Deprecated('Use XtreamClient from src/v2/client/xtream_client.dart')
 class XtreamCode {
-  /// {@macro xtream_code_client}
-
   XtreamCode._();
 
-  /// Gets the current XtreamCode instance.
+  /// Returns the initialized singleton instance.
   ///
-  /// An [AssertionError] is thrown if XtreamCode isn't initialized yet.
-  /// Call [XtreamCode.initialize] to initialize it.
+  /// Call [initialize] first.
   static XtreamCode get instance {
     assert(
       _instance._initialized,
@@ -41,21 +22,10 @@ class XtreamCode {
     return _instance;
   }
 
-  /// Initialize the current XtreamCode instance
+  /// Initializes the legacy singleton and creates [client].
   ///
-  /// This must be called only once. If called more than once, an
-  /// [AssertionError] is thrown
-  ///
-  /// [url] can be found on your Xtream Codes server.
-  /// [port] is optional. If not provided, no port will be appended to URLs.
-  ///
-  /// [username] and [password]
-  ///
-  /// By default the library will try to use the most efficient http client
-  /// implementation based on the current platform.
-  /// This behaviour can be overwritten by passing a Custom Http Client
-  /// [httpClient] implementation.
-  ///
+  /// Deprecated migration path:
+  /// prefer constructing `XtreamClient` directly.
   static Future<XtreamCode> initialize({
     required String url,
     String? port,
@@ -77,7 +47,7 @@ class XtreamCode {
         password,
         httpClient,
       )
-      .._debugEnable = debug ?? kDebugMode
+      .._debugEnable = debug ?? false
       .._log('***** XtreamCode init completed $_instance');
 
     return _instance;
@@ -88,14 +58,12 @@ class XtreamCode {
   bool _initialized = false;
   bool _debugEnable = false;
 
-  /// The XtreamCode client for this instance
-  ///
-  /// Throws an error if [XtreamCode.initialize] was not called.
+  /// The legacy client delegate.
   late XtreamCodeClient client;
 
   late Client? _httpClient;
 
-  /// Dispose the instance to free up resources.
+  /// Disposes the underlying HTTP client and resets singleton state.
   Future<void> dispose() async {
     _httpClient?.close();
     _httpClient = null;
@@ -122,9 +90,11 @@ class XtreamCode {
 
   void _log(String msg, [StackTrace? stackTrace]) {
     if (_debugEnable) {
-      debugPrint(msg);
+      // ignore: avoid_print
+      print(msg);
       if (stackTrace != null) {
-        debugPrintStack(stackTrace: stackTrace);
+        // ignore: avoid_print
+        print(stackTrace);
       }
     }
   }
@@ -141,7 +111,7 @@ class XtreamCode {
     assert(
       Uri.parse(uri).isAbsolute,
       '''
-      The provided combination of url, port, username and password is not a 
+      The provided combination of url, port, username and password is not a
       valid uri
       ''',
     );
@@ -159,7 +129,7 @@ class XtreamCode {
     assert(
       Uri.parse(uri).isAbsolute,
       '''
-      The provided combination of url, port, username and password is not a 
+      The provided combination of url, port, username and password is not a
       valid uri
       ''',
     );
@@ -177,7 +147,7 @@ class XtreamCode {
     assert(
       Uri.parse(uri).isAbsolute,
       '''
-      The provided combination of url, port, username and password is not a 
+      The provided combination of url, port, username and password is not a
       valid uri
       ''',
     );
@@ -195,7 +165,7 @@ class XtreamCode {
     assert(
       Uri.parse(uri).isAbsolute,
       '''
-      The provided combination of url, port, username and password is not a 
+      The provided combination of url, port, username and password is not a
       valid uri
       ''',
     );

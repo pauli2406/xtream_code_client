@@ -1,15 +1,26 @@
-# Demo
+# Demo Module
 
-This directory contains a command line example demonstrating a complete
-workflow with `xtream_code_client`.
+`demo.dart` contains a complete request flow that is invoked by the Flutter
+example app (`example/lib/main.dart`).
 
-Edit `demo.dart` and provide your server URL, port, username and password,
-then run:
+## What It Demonstrates
+
+- legacy singleton initialization
+- categories, streams, VOD, and series requests
+- EPG calls and URL helper generation
+- cleanup via `XtreamCode.instance.dispose()`
+
+## Run Path
+
+This file is not a standalone CLI entrypoint.
+Run the demo through the example app:
 
 ```bash
-dart run demo/demo.dart
+cd example
+flutter run
 ```
 
-The script prints category counts, retrieves items and details, and demonstrates
-how to build playback URLs for streams, movies and series episodes. It also
-loads the full EPG as well as channel-specific EPG data for a stream.
+## Migration Note
+
+This demo intentionally uses deprecated legacy APIs for migration comparison.
+For v2-first integration examples, see `../../docs/getting-started.md`.
