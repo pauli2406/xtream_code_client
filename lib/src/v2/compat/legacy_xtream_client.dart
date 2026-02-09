@@ -189,7 +189,7 @@ class LegacyXtreamCodeClient {
 
   Future<EPG> epg() async {
     try {
-      return _client.epgData();
+      return await _client.epgData();
     } catch (error) {
       throw XTreamCodeClientException(error.toString());
     }

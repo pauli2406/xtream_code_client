@@ -117,5 +117,29 @@ void main() {
       expect(vodInfo.info.releaseDate, DateTime.utc(2024, 1, 12));
       expect(vodInfo.info.releasedate, DateTime.utc(2024, 1, 12));
     });
+
+    test('epg wraps async failures in XTreamCodeClientException', () async {
+      const baseUrl =
+          'https://example.com/player_api.php?username=user&password=pass';
+      final mock = MockClient((request) async {
+        if (request.url.path.endsWith('xmltv.php')) {
+          return Response('server error', 500);
+        }
+        return Response('{}', 200);
+      });
+
+      final legacyClient = XtreamCodeClient(
+        baseUrl,
+        'https://example.com/user/pass',
+        'https://example.com/movie/user/pass',
+        'https://example.com/series/user/pass',
+        mock,
+      );
+
+      await expectLater(
+        legacyClient.epg(),
+        throwsA(isA<XTreamCodeClientException>()),
+      );
+    });
   });
 }
