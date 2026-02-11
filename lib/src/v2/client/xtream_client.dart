@@ -106,6 +106,55 @@ class XtreamClient {
     return _appendPath(_streamBaseUri, '$id.$format').toString();
   }
 
+  /// Builds a timeshift playback URL for a live stream [streamId].
+  ///
+  /// The duration is encoded as total minutes and the start is formatted as
+  /// `yyyy-MM-dd:HH-mm` in UTC to match common Xtream-compatible endpoints.
+  ///
+  /// Throws [RequestException] when credentials cannot be inferred from the
+  /// resolved stream URL.
+  String timeshiftUrl({
+    required int streamId,
+    required DateTime start,
+    required Duration duration,
+    String outputFormat = 'ts',
+  }) {
+    final credentials = _ResolvedUrls._pathCredentials(_streamBaseUri);
+    if (credentials == null) {
+      throw const RequestException(
+        'Unable to infer stream credentials for timeshift URL generation.',
+      );
+    }
+
+    final segments = _streamBaseUri.pathSegments
+        .where((segment) => segment.isNotEmpty)
+        .toList();
+    if (segments.length < 2) {
+      throw const RequestException(
+        'Unable to infer stream base path for timeshift URL generation.',
+      );
+    }
+    final rootPathSegments = segments.sublist(0, segments.length - 2);
+    final root = _streamBaseUri.replace(
+      pathSegments: rootPathSegments,
+      queryParameters: const <String, String>{},
+      fragment: '',
+    );
+
+    final minutes = duration.inMinutes <= 0 ? 1 : duration.inMinutes;
+    final utcStart = start.toUtc();
+    final formattedStart = '${utcStart.year.toString().padLeft(4, '0')}-'
+        '${utcStart.month.toString().padLeft(2, '0')}-'
+        '${utcStart.day.toString().padLeft(2, '0')}:'
+        '${utcStart.hour.toString().padLeft(2, '0')}-'
+        '${utcStart.minute.toString().padLeft(2, '0')}';
+
+    final path =
+        'timeshift/${credentials.username}/${credentials.password}/$minutes/'
+        '$formattedStart/$streamId.$outputFormat';
+    return _appendPath(root, path).toString();
+  }
+
   /// Builds a movie playback URL for VOD stream [id].
   String movieUrl(int id, String containerExtension) {
     return _appendPath(_movieBaseUri, '$id.$containerExtension').toString();
