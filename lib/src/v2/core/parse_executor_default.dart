@@ -63,9 +63,9 @@ class DefaultParseExecutor extends ParseExecutor {
     try {
       await Isolate.run<bool>(() => true);
       return true;
-    } on UnsupportedError {
-      return false;
     } on UnimplementedError {
+      return false;
+    } on UnsupportedError {
       return false;
     } on IsolateSpawnException catch (error) {
       final lowered = error.toString().toLowerCase();

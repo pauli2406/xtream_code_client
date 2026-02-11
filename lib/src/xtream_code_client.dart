@@ -28,9 +28,9 @@ class XtreamCode {
   /// prefer constructing `XtreamClient` directly.
   static Future<XtreamCode> initialize({
     required String url,
-    String? port,
     required String username,
     required String password,
+    String? port,
     Client? httpClient,
     bool? debug,
   }) async {

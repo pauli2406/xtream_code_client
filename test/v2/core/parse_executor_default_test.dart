@@ -37,7 +37,9 @@ void main() {
 
       await expectLater(run(), throwsA(isA<StateError>()));
 
-      final lines = markerFile.existsSync() ? markerFile.readAsLinesSync() : [];
+      final lines = markerFile.existsSync()
+          ? markerFile.readAsLinesSync()
+          : <String>[];
       expect(lines, hasLength(1));
     });
 
