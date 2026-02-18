@@ -1,6 +1,6 @@
 name: xtream_code_client
 description: A Dart client for Xtream-compatible IPTV APIs with resilient parsing, diagnostics, and v2 compatibility helpers.
-version: 2.0.0
+version: 2.0.1
 homepage: https://github.com/pauli2406/xtream_code_client
 repository: https://github.com/pauli2406/xtream_code_client.git
 issue_tracker: https://github.com/pauli2406/xtream_code_client/issues

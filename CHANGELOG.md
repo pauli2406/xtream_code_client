@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Bump dependencies
+
 ## 2.0.0
 
 - Add a new canonical `XtreamClient` v2 API that returns `ApiResult<T>`.
